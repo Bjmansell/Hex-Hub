@@ -2,17 +2,16 @@ game.StarterGui:SetCore("SendNotification",  {
 	Title = "Whitelist";
 	Text = "Checking Get.Workspace:WhitelistForhexhub";
 	Icon = "https://www.roblox.com/library/9378717496/image-2022-04-15-225800364";
-	Duration = 5;
+	Duration = 3;
 	Callback = NotificationBindable;
    })
-   
-   wait(5)
-   
-   game.StarterGui:SetCore("SendNotification",  {
+
+Wait(3)
+
+game.StarterGui:SetCore("SendNotification",  {
 	Title = "Whitelist";
 	Text = "Your user id is not registered on the whitelist. if you are using a alt account and have purchased hex hub, please register with your current user id";
-	Icon = https://www.roblox.com/library/9378717496/image-2022-04-15-225800364;
-	Duration = 15;
-	Button1 = ""
+	Icon = "https://www.roblox.com/library/9378717496/image-2022-04-15-225800364";
+	Duration = 3;
 	Callback = NotificationBindable;
    })
