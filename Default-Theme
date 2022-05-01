@@ -1,7 +1,7 @@
 game.StarterGui:SetCore("SendNotification",  {
 	Title = "Loading";
 	Text = "Please wait for hexhub to load there are alot of scripts so it may take a while";
-	Icon = "https://www.roblox.com/library/9378717496/image-2022-04-15-225800364";
+	Icon = "";
 	Duration = 3;
 	Callback = NotificationBindable;
    })
@@ -29,7 +29,7 @@ local StarterGui = game:GetService("StarterGui")
 
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Hex Hub by !!!Swax#2600", Colors)
+local Window = Library.CreateLib("Hex Hub", Colors)
 
 local noclip = false
 
@@ -48,7 +48,7 @@ local HomeSection = Home:NewSection("Home")
 
 HomeSection:NewLabel("Created by Swax_0/!!!Swax#2600")
 
-HomeSection:NewLabel("Version 0.3")
+HomeSection:NewLabel("Version 0.4")
 
 local Player = Window:NewTab("Main")
 local PlayerSection = Player:NewSection("Player")
