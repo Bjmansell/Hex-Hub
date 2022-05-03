@@ -69,7 +69,7 @@ PlayerSection:NewSlider("FOV", "Changes your FOV", 120, 20, function(v)
     game:GetService'Workspace'.Camera.FieldOfView = v
 end)
 
-PlayerSection:Newbutton("Walk on walls", "keybind for this is z(Not By Me)", function()
+PlayerSection:NewButton("Walk on walls", "keybind for this is z(Not By Me)", function()
 	--BROUGHT TO YOU BY RSCRIPTS.NET!--
 
 
