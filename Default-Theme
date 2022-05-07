@@ -6,7 +6,7 @@ game.StarterGui:SetCore("SendNotification",  {
 	Callback = NotificationBindable;
    })
 
-Wait(7)
+Wait(3)
 
 local StarterGui = game:GetService("StarterGui")
 	local Players = game:GetService("Players")
@@ -48,7 +48,7 @@ local HomeSection = Home:NewSection("Home")
 
 HomeSection:NewLabel("Created by Swax_0/!!!Swax#2600")
 
-HomeSection:NewLabel("Version 1.3")
+HomeSection:NewLabel("Version 1.4")
 
 local Player = Window:NewTab("Main")
 local PlayerSection = Player:NewSection("Player")
