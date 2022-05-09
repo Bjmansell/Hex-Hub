@@ -8,7 +8,5150 @@ game.StarterGui:SetCore("SendNotification",  {
 
 Wait(7)
 
+local StarterGui = game:GetService("StarterGui")game.StarterGui:SetCore("SendNotification",  {
+	Title = "Loading";
+	Text = "Please wait for hexhub to load there are alot of scripts so it may take a while";
+	Icon = "";
+	Duration = 3;
+	Callback = NotificationBindable;
+   })
+
+Wait(7)
+
 local StarterGui = game:GetService("StarterGui")
+	local Players = game:GetService("Players")
+	local Player = Players.LocalPlayer
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	        game.StarterGui:SetCore("ChatMakeSystemMessage", { 
+	            Text = ("The ui Has loaded. Welcome To HEX_HUB. Cheers!");
+	            olCor = Color3.new(0,221,255);
+                FontSize = Enum.FontSize.Size24;
+	        })
+
+			game.StarterGui:SetCore("SendNotification",  {
+				Title = "Hex Hub";
+				Text = "Press right shift to hide the ui, You can change this in credits";
+				Icon = "";
+				Duration = 10;
+				Callback = NotificationBindable;
+			   })
+
+
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Hex Hub", Colors)
+
+local noclip = false
+
+local infjumpenabled = false
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+	if infjumpenabled then
+		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState("Jumping")
+	end
+end)
+
+
+
+local Home = Window:NewTab("Home")
+local HomeSection = Home:NewSection("Home")
+
+HomeSection:NewLabel("Created by Swax_0/!!!Swax#2600")
+
+HomeSection:NewLabel("Version 0.3")
+
+local Player = Window:NewTab("Main")
+local PlayerSection = Player:NewSection("Player")
+
+PlayerSection:NewToggle("Infjump", "Enables flyjump", function(value)
+	infjumpenabled = value
+	end)
+
+PlayerSection:NewSlider("Walkspeed", "Changes the walkspeed", 250, 16, function(v)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+end)
+
+PlayerSection:NewSlider("Jumppower", "Changes the jumppower", 250, 50, function(v)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+end)
+	
+PlayerSection:NewSlider("FOV", "Changes your FOV", 120, 20, function(v)
+    game:GetService'Workspace'.Camera.FieldOfView = v
+end)
+
+
+
+PlayerSection:NewButton("Teleport to player", "Loads a teleport GUI", function()
+    loadstring(game:HttpGet("https://gist.githubusercontent.com/DagerFild/b4776075a0d26ef04394133ee6bd2081/raw/0ed51ac94057d2d9a9f00e1b037b9011c76ca54a/tpGUI", true))()
+end)
+
+PlayerSection:NewButton("God Mode", "Makes your character invinsible/Hard in most games", function()
+    local LocalPlayer = game:GetService("Players").LocalPlayer
+local function Invincibility()
+if LocalPlayer.Character then
+for i, v in pairs(LocalPlayer.Character:GetChildren()) do
+if v.Name == "hitbox" then
+v:Destroy()
+end
+end
+end
+end
+ 
+while wait(0.5) do
+Invincibility(LocalPlayer)
+end
+end)
+
+PlayerSection:NewButton("Sit", "What do u think it does huh", function()
+	game.Players['LocalPlayer'].Character.Humanoid.Sit = true
+	end)
+
+PlayerSection:NewButton("E to fly (Read Desc)", "There is not a way to turn this on once executed you will not be able to deactivate it", function()
+    repeat wait() 
+	until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid") 
+local mouse = game.Players.LocalPlayer:GetMouse() 
+repeat wait() until mouse
+local plr = game.Players.LocalPlayer 
+local torso = plr.Character.HumanoidRootPart 
+local flying = true
+local deb = true 
+local ctrl = {f = 0, b = 0, l = 0, r = 0} 
+local lastctrl = {f = 0, b = 0, l = 0, r = 0} 
+local maxspeed = 50 
+local speed = 0 
+
+function Fly() 
+local bg = Instance.new("BodyGyro", torso) 
+bg.P = 9e4 
+bg.maxTorque = Vector3.new(9e9, 9e9, 9e9) 
+bg.cframe = torso.CFrame 
+local bv = Instance.new("BodyVelocity", torso) 
+bv.velocity = Vector3.new(0,0.1,0) 
+bv.maxForce = Vector3.new(9e9, 9e9, 9e9) 
+repeat wait() 
+plr.Character.Humanoid.PlatformStand = true 
+if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then 
+speed = speed+.5+(speed/maxspeed) 
+if speed > maxspeed then 
+speed = maxspeed 
+end 
+elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then 
+speed = speed-1 
+if speed < 0 then 
+speed = 0 
+end 
+end 
+if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then 
+bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed 
+lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r} 
+elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then 
+bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed 
+else 
+bv.velocity = Vector3.new(0,0.1,0) 
+end 
+bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0) 
+until not flying 
+ctrl = {f = 0, b = 0, l = 0, r = 0} 
+lastctrl = {f = 0, b = 0, l = 0, r = 0} 
+speed = 0 
+bg:Destroy() 
+bv:Destroy() 
+plr.Character.Humanoid.PlatformStand = false 
+end 
+mouse.KeyDown:connect(function(key) 
+if key:lower() == "e" then 
+if flying then flying = false 
+else 
+flying = true 
+Fly() 
+end 
+elseif key:lower() == "w" then 
+ctrl.f = 1 
+elseif key:lower() == "s" then 
+ctrl.b = -1 
+elseif key:lower() == "a" then 
+ctrl.l = -1 
+elseif key:lower() == "d" then 
+ctrl.r = 1 
+end 
+end) 
+mouse.KeyUp:connect(function(key) 
+if key:lower() == "w" then 
+ctrl.f = 0 
+elseif key:lower() == "s" then 
+ctrl.b = 0 
+elseif key:lower() == "a" then 
+ctrl.l = 0 
+elseif key:lower() == "d" then 
+ctrl.r = 0 
+end 
+end)
+Fly()
+end)
+
+local OtherSection = Player:NewSection("Other")
+
+OtherSection:NewButton("Build Tools", "Gives you building tools", function()
+    for item = 1, 4 do
+        HopperBin = Instance.new("HopperBin", game.Players.LocalPlayer.Backpack)
+        HopperBin.BinType = item
+    end
+end)
+
+OtherSection:NewButton("Teleport tool", "Click anywhere with the tool to teleport to your mouse", function()
+mouse = game.Players.LocalPlayer:GetMouse()
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Equip to Click TP"
+tool.Activated:connect(function()
+local pos = mouse.Hit+Vector3.new(0,2.5,0)
+pos = CFrame.new(pos.X,pos.Y,pos.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+end)
+
+OtherSection:NewButton("Rejoin", "Rejoins the game", function()
+    local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+ 
+
+ts:Teleport(game.PlaceId, p)
+end)
+
+
+
+OtherSection:NewButton("Universal Aimbot (Beta)", "It is what it says on the tin", function()
+    --// Preventing Multiple Processes
+
+pcall(function()
+    getgenv().Aimbot.Functions:Exit()
+end)
+
+--// Environment
+
+getgenv().Aimbot = {}
+local Environment = getgenv().Aimbot
+
+--// Services
+
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
+local TweenService = game:GetService("TweenService")
+local StarterGui = game:GetService("StarterGui")
+local Players = game:GetService("Players")
+local Camera = game:GetService("Workspace").CurrentCamera
+
+--// Variables
+
+local LocalPlayer = Players.LocalPlayer
+local Title = "Exunys Developer"
+local FileNames = {"Aimbot", "Configuration.json", "Drawing.json"}
+local RequiredDistance = math.huge
+local Typing = false
+local Running = false
+local Animation = nil
+local ServiceConnections = {RenderSteppedConnection = nil, InputBeganConnection = nil, InputEndedConnection = nil, TypingStartedConnection = nil, TypingEndedConnection = nil}
+
+--// Script Settings
+
+Environment.Settings = {
+    SendNotifications = true,
+    SaveSettings = true, -- Re-execute upon changing
+    ReloadOnTeleport = true,
+    Enabled = true,
+    TeamCheck = false,
+    AliveCheck = true,
+    WallCheck = false, -- Laggy
+    Sensitivity = 0, -- Animation length (in seconds) before fully locking onto target
+    TriggerKey = "MouseButton2",
+    Toggle = false,
+    LockPart = "Head" -- Body part to lock on
+}
+
+Environment.FOVSettings = {
+    Enabled = true,
+    Visible = true,
+    Amount = 90,
+    Color = "255, 255, 255",
+    LockedColor = "255, 70, 70",
+    Transparency = 0.5,
+    Sides = 60,
+    Thickness = 1,
+    Filled = false
+}
+
+Environment.FOVCircle = Drawing.new("Circle")
+Environment.Locked = nil
+
+--// Core Functions
+
+local function Encode(Table)
+    if Table and type(Table) == "table" then
+        local EncodedTable = HttpService:JSONEncode(Table)
+
+        return EncodedTable
+    end
+end
+
+local function Decode(String)
+    if String and type(String) == "string" then
+        local DecodedTable = HttpService:JSONDecode(String)
+
+        return DecodedTable
+    end
+end
+
+local function GetColor(Color)
+    local R = tonumber(string.match(Color, "([%d]+)[%s]*,[%s]*[%d]+[%s]*,[%s]*[%d]+"))
+    local G = tonumber(string.match(Color, "[%d]+[%s]*,[%s]*([%d]+)[%s]*,[%s]*[%d]+"))
+    local B = tonumber(string.match(Color, "[%d]+[%s]*,[%s]*[%d]+[%s]*,[%s]*([%d]+)"))
+
+    return Color3.fromRGB(R, G, B)
+end
+
+local function SendNotification(TitleArg, DescriptionArg, DurationArg)
+    if Environment.Settings.SendNotifications then
+        StarterGui:SetCore("SendNotification", {
+            Title = TitleArg,
+            Text = DescriptionArg,
+            Duration = DurationArg
+        })
+    end
+end
+
+--// Functions
+
+local function SaveSettings()
+    if Environment.Settings.SaveSettings then
+        if isfile(Title.."/"..FileNames[1].."/"..FileNames[2]) then
+            writefile(Title.."/"..FileNames[1].."/"..FileNames[2], Encode(Environment.Settings))
+        end
+
+        if isfile(Title.."/"..FileNames[1].."/"..FileNames[3]) then
+            writefile(Title.."/"..FileNames[1].."/"..FileNames[3], Encode(Environment.FOVSettings))
+        end
+    end
+end
+
+local function GetClosestPlayer()
+    if Environment.Locked == nil then
+        if Environment.FOVSettings.Enabled then
+            RequiredDistance = Environment.FOVSettings.Amount
+        else
+            RequiredDistance = math.huge
+        end
+
+        for _, v in next, Players:GetPlayers() do
+            if v ~= LocalPlayer then
+                if v.Character[Environment.Settings.LockPart] then
+                    if Environment.Settings.TeamCheck and v.Team == LocalPlayer.Team then continue end
+                    if Environment.Settings.AliveCheck and v.Character.Humanoid.Health <= 0 then continue end
+                    if Environment.Settings.WallCheck and #(Camera:GetPartsObscuringTarget({v.Character[Environment.Settings.LockPart].Position}, v.Character:GetDescendants())) > 0 then continue end
+
+                    local Vector, OnScreen = Camera:WorldToViewportPoint(v.Character[Environment.Settings.LockPart].Position)
+                    local Distance = (Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y) - Vector2.new(Vector.X, Vector.Y)).Magnitude
+
+                    if Distance < RequiredDistance and OnScreen then
+                        RequiredDistance = Distance
+                        Environment.Locked = v
+                    end
+                end
+            end
+        end
+    elseif (Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y) - Vector2.new(Camera:WorldToViewportPoint(Environment.Locked.Character[Environment.Settings.LockPart].Position).X, Camera:WorldToViewportPoint(Environment.Locked.Character[Environment.Settings.LockPart].Position).Y)).Magnitude > RequiredDistance then
+        Environment.Locked = nil
+        Animation:Cancel()
+        Environment.FOVCircle.Color = GetColor(Environment.FOVSettings.Color)
+    end
+end
+
+--// Typing Check
+
+ServiceConnections.TypingStartedConnection = UserInputService.TextBoxFocused:Connect(function()
+    Typing = true
+end)
+
+ServiceConnections.TypingEndedConnection = UserInputService.TextBoxFocusReleased:Connect(function()
+    Typing = false
+end)
+
+--// Create, Save & Load Settings
+
+if Environment.Settings.SaveSettings then
+    if not isfolder(Title) then
+        makefolder(Title)
+    end
+
+    if not isfolder(Title.."/"..FileNames[1]) then
+        makefolder(Title.."/"..FileNames[1])
+    end
+
+    if not isfile(Title.."/"..FileNames[1].."/"..FileNames[2]) then
+        writefile(Title.."/"..FileNames[1].."/"..FileNames[2], Encode(Environment.Settings))
+    else
+        Environment.Settings = Decode(readfile(Title.."/"..FileNames[1].."/"..FileNames[2]))
+    end
+
+    if not isfile(Title.."/"..FileNames[1].."/"..FileNames[3]) then
+        writefile(Title.."/"..FileNames[1].."/"..FileNames[3], Encode(Environment.FOVSettings))
+    else
+        Environment.Visuals = Decode(readfile(Title.."/"..FileNames[1].."/"..FileNames[3]))
+    end
+
+    coroutine.wrap(function()
+        while wait(10) do
+            SaveSettings()
+        end
+    end)()
+else
+    if isfolder(Title) then
+        delfolder(Title)
+    end
+end
+
+local function Load()
+    ServiceConnections.RenderSteppedConnection = RunService.RenderStepped:Connect(function()
+        if Environment.FOVSettings.Enabled and Environment.Settings.Enabled then
+            Environment.FOVCircle.Radius = Environment.FOVSettings.Amount
+            Environment.FOVCircle.Thickness = Environment.FOVSettings.Thickness
+            Environment.FOVCircle.Filled = Environment.FOVSettings.Filled
+            Environment.FOVCircle.NumSides = Environment.FOVSettings.Sides
+            Environment.FOVCircle.Color = GetColor(Environment.FOVSettings.Color)
+            Environment.FOVCircle.Transparency = Environment.FOVSettings.Transparency
+            Environment.FOVCircle.Visible = Environment.FOVSettings.Visible
+            Environment.FOVCircle.Position = Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y)
+        else
+            Environment.FOVCircle.Visible = false
+        end
+
+        if Running and Environment.Settings.Enabled then
+            GetClosestPlayer()
+
+            if Environment.Settings.Sensitivity > 0 then
+                Animation = TweenService:Create(Camera, TweenInfo.new(Environment.Settings.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, Environment.Locked.Character[Environment.Settings.LockPart].Position)})
+                Animation:Play()
+            else
+                Camera.CFrame = CFrame.new(Camera.CFrame.Position, Environment.Locked.Character[Environment.Settings.LockPart].Position)
+            end
+
+            Environment.FOVCircle.Color = GetColor(Environment.FOVSettings.LockedColor)
+        end
+    end)
+
+    ServiceConnections.InputBeganConnection = UserInputService.InputBegan:Connect(function(Input)
+        if not Typing then
+            pcall(function()
+                if Input.KeyCode == Enum.KeyCode[Environment.Settings.TriggerKey] then
+                    if Environment.Settings.Toggle then
+                        Running = not Running
+
+                        if not Running then
+                            Environment.Locked = nil
+                            Animation:Cancel()
+                            Environment.FOVCircle.Color = GetColor(Environment.FOVSettings.Color)
+                        end
+                    else
+                        Running = true
+                    end
+                end
+            end)
+
+            pcall(function()
+                if Input.UserInputType == Enum.UserInputType[Environment.Settings.TriggerKey] then
+                    if Environment.Settings.Toggle then
+                        Running = not Running
+
+                        if not Running then
+                            Environment.Locked = nil
+                            Animation:Cancel()
+                            Environment.FOVCircle.Color = GetColor(Environment.FOVSettings.Color)
+                        end
+                    else
+                        Running = true
+                    end
+                end
+            end)
+        end
+    end)
+
+    ServiceConnections.InputEndedConnection = UserInputService.InputEnded:Connect(function(Input)
+        if not Typing then
+            pcall(function()
+                if Input.KeyCode == Enum.KeyCode[Environment.Settings.TriggerKey] then
+                    if not Environment.Settings.Toggle then
+                        Running = false
+                        Environment.Locked = nil
+                        Animation:Cancel()
+                        Environment.FOVCircle.Color = GetColor(Environment.FOVSettings.Color)
+                    end
+                end
+            end)
+
+            pcall(function()
+                if Input.UserInputType == Enum.UserInputType[Environment.Settings.TriggerKey] then
+                    if not Environment.Settings.Toggle then
+                        Running = false
+                        Environment.Locked = nil
+                        Animation:Cancel()
+                        Environment.FOVCircle.Color = GetColor(Environment.FOVSettings.Color)
+                    end
+                end
+            end)
+        end
+    end)
+end
+
+--// Functions
+
+Environment.Functions = {}
+
+function Environment.Functions:Exit()
+    SaveSettings()
+
+    for _, v in next, ServiceConnections do
+        v:Disconnect()
+    end
+
+    Environment.FOVCircle:Remove()
+
+    getgenv().Aimbot.Functions = nil
+    getgenv().Aimbot = nil
+end
+
+function Environment.Functions:Restart()
+    SaveSettings()
+
+    for _, v in next, ServiceConnections do
+        v:Disconnect()
+    end
+
+    Environment.FOVCircle:Remove()
+
+    Load()
+end
+
+function Environment.Functions:ResetSettings()
+    Environment.Settings = {
+        SendNotifications = true,
+        SaveSettings = true, -- Re-execute upon changing
+        ReloadOnTeleport = true,
+        Enabled = true,
+        TeamCheck = false,
+        AliveCheck = true,
+        WallCheck = false,
+        Sensitivity = 0, -- Animation length (in seconds) before fully locking onto target
+        TriggerKey = "MouseButton2",
+        Toggle = false,
+        LockPart = "Head" -- Body part to lock on
+    }
+
+    Environment.FOVSettings = {
+        Enabled = true,
+        Visible = true,
+        Amount = 90,
+        Color = "255, 255, 255",
+        LockedColor = "255, 70, 70",
+        Transparency = 0.5,
+        Sides = 60,
+        Thickness = 1,
+        Filled = false
+    }
+
+    SaveSettings()
+
+    for _, v in next, ServiceConnections do
+        v:Disconnect()
+    end
+
+    Load()
+end
+
+--// Support Check
+
+if not Drawing or not writefile or not makefolder then
+    SendNotification(Title, "Your exploit does not support this script", 3); return
+end
+
+--// Reload On Teleport
+
+if Environment.Settings.ReloadOnTeleport then
+    if syn.queue_on_teleport then
+        syn.queue_on_teleport(game:HttpGet("https://pastebin.com/raw/n8wG8BZq"))
+    else
+        SendNotification(Title, "Your exploit does not support \"syn.queue_on_teleport()\"")
+    end
+end
+
+--// Load
+
+Load(); SendNotification(Title, "Aimbot script successfully loaded! Check the GitHub page on how to configure the script.", 5)
+end)
+
+
+
+OtherSection:NewButton("LessLag", "Turns ur graphics down to potato level", function()
+    local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
+local g = game
+local w = g.Workspace
+local l = g.Lighting
+local t = w.Terrain
+t.WaterWaveSize = 0
+t.WaterWaveSpeed = 0
+t.WaterReflectance = 0
+t.WaterTransparency = 0
+l.GlobalShadows = false
+l.FogEnd = 9e9
+l.Brightness = 0
+settings().Rendering.QualityLevel = "Level01"
+for i, v in pairs(g:GetDescendants()) do
+    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+        v.Transparency = 1
+    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+        v.Lifetime = NumberRange.new(0)
+    elseif v:IsA("Explosion") then
+        v.BlastPressure = 1
+        v.BlastRadius = 1
+    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+        v.Enabled = false
+    elseif v:IsA("MeshPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+        v.TextureID = 10385902758728957
+    end
+end
+for i, e in pairs(l:GetChildren()) do
+    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+        e.Enabled = false
+    end
+end
+end)
+
+--ESP_____________
+
+local ESPEnabled = false
+local DistanceEnabled = true
+local TracersEnabled = true
+
+pcall(function()
+	
+	Camera = game:GetService("Workspace").CurrentCamera
+	RunService = game:GetService("RunService")
+	camera = workspace.CurrentCamera
+	Bottom = Vector2.new(camera.ViewportSize.X/2, camera.ViewportSize.Y)
+
+	function GetPoint(vector3)
+		local vector, onScreen = camera:WorldToScreenPoint(vector3)
+		return {Vector2.new(vector.X,vector.Y),onScreen,vector.Z}
+	end
+	
+	function MakeESP(model)
+		local CurrentParent = model.Parent
+	
+		local TopL = Drawing.new("Line")
+		local BottomL = Drawing.new("Line")
+		local LeftL = Drawing.new("Line")
+		local RightL = Drawing.new("Line")
+		local Tracer = Drawing.new("Line")
+		local Display = Drawing.new("Text")
+
+        coroutine.resume(coroutine.create(function()
+			while model.Parent == CurrentParent do
+				
+				local Distance = (Camera.CFrame.Position - model.HumanoidRootPart.Position).Magnitude
+                local GetP = GetPoint(model.Head.Position)
+                local headps = model.Head.CFrame
+                
+				if ESPEnabled and GetP[2] then
+					
+                    -- Calculate Cords
+                    local topright = headps * CFrame.new(3,0.5, 0)
+                    local topleft = headps * CFrame.new(-3,0.5, 0)
+                    local bottomleft = headps * CFrame.new(-3,-7,0)
+                    local bottomright = headps * CFrame.new(3,-7,0)
+					topright = GetPoint(topright.p)[1]
+					topleft = GetPoint(topleft.p)[1]
+					bottomleft = GetPoint(bottomleft.p)[1]
+					bottomright = GetPoint(bottomright.p)[1]
+
+                    local teamcolor = game:GetService("Players")[model.Name].TeamColor.Color or Color3.fromRGB(0,0,0)
+                    TopL.Color, BottomL.Color, RightL.Color, LeftL.Color = teamcolor, teamcolor, teamcolor, teamcolor
+                    TopL.From, BottomL.From, RightL.From, LeftL.From = topleft, bottomleft, topright, topleft
+                    TopL.To, BottomL.To, RightL.To, LeftL.To = topright, bottomright, bottomright, bottomleft
+					TopL.Visible, BottomL.Visible, RightL.Visible, LeftL.Visible = true, true, true, true
+				else
+					TopL.Visible, BottomL.Visible, RightL.Visible, LeftL.Visible = false, false, false, false
+                end
+                
+				if ESPEnabled and TracersEnabled and GetP[2] then
+					Tracer.Color = game:GetService("Players")[model.Name].TeamColor.Color or Color3.fromRGB(0,0,0)
+					Tracer.From = Bottom
+					Tracer.To = GetPoint(headps.p)[1]
+					Tracer.Thickness = 1.5
+					Tracer.Visible = true
+				else
+					Tracer.Visible = false
+                end
+                
+				if ESPEnabled and DistanceEnabled and GetP[2] then
+					Display.Visible = true
+					Display.Position = GetPoint(headps.p + Vector3.new(0,0.5,0))[1]
+					Display.Center = true
+					Display.Text = tostring(math.floor(Distance)).." studs"
+				else
+					Display.Visible = false
+                end
+                
+				RunService.RenderStepped:Wait()
+			end
+	
+			TopL:Remove()
+			BottomL:Remove()
+			RightL:Remove()
+			LeftL:Remove()
+			Tracer:Remove()
+			Display:Remove()
+        
+        end))
+    end
+    
+	for _, Player in next, game:GetService("Players"):GetChildren() do
+		if Player.Name ~= game.Players.LocalPlayer.Name then
+			MakeESP(Player.Character)
+			Player.CharacterAdded:Connect(function()
+				delay(0.5, function()
+					MakeESP(Player.Character)
+				end)
+			end)
+		end	
+	end
+	
+	game:GetService("Players").PlayerAdded:Connect(function(player)
+        player.CharacterAdded:Connect(function()
+            delay(0.5, function()
+                MakeESP(player.Character)
+            end)
+		end)
+	end)
+	
+end)
+
+local ESPSection = Player:NewSection("ESP")
+
+ESPSection:NewToggle("Xray", "Turns on Xray vision", function(t)
+    if t then
+        for i,v in pairs(workspace:GetDescendants()) do
+			if v:IsA("BasePart") and not v.Parent.Parent:FindFirstChild("Humanoid") then
+				v.Transparency = v.Transparency + 0.5
+			end
+		end
+    else
+        for i,v in pairs(workspace:GetDescendants()) do
+			if v:IsA("BasePart") and not v.Parent.Parent:FindFirstChild("Humanoid") then
+				v.Transparency = v.Transparency - 0.5
+			end
+		end
+    end
+end)
+
+ESPSection:NewToggle("Enabled", "Enables the ESP(Beta)", function(t)
+    ESPEnabled = t
+end)
+
+ESPSection:NewToggle("Tracers", "Activates tracers for the ESP Duh", function(t)
+    TracersEnabled = t
+end)
+
+ESPSection:NewToggle("Distance Display", "Shows the distance from u to the player", function(t)
+    DistanceEnabled = t
+end)
+
+ESPSection:NewButton("universal ESP", "Loads and ESP script", function()
+    assert(Drawing, 'exploit not supported')
+
+if not syn and not PROTOSMASHER_LOADED then print'Unnamed ESP only officially supports Synapse and Protosmasher! If you\'re an exploit developer and have added drawing API to your exploit, try setting syn as true then checking if that works, otherwise, DM me on discord @ cppbook.org#1968 or add an issue to the Unnamed ESP Github Repository and I\'ll see it through email!' end
+
+local UserInputService	= game:GetService'UserInputService';
+local HttpService	= game:GetService'HttpService';
+local GUIService	= game:GetService'GuiService';
+local TweenService	= game:GetService'TweenService';
+local RunService	= game:GetService'RunService';
+local Players		= game:GetService'Players';
+local LocalPlayer	= Players.LocalPlayer;
+local Camera		= workspace.CurrentCamera;
+local Mouse		= LocalPlayer:GetMouse();
+local V2New		= Vector2.new;
+local V3New		= Vector3.new;
+local WTVP		= Camera.WorldToViewportPoint;
+local WorldToViewport	= function(...) return WTVP(Camera, ...) end;
+local Menu		= {};
+local MouseHeld		= false;
+local LastRefresh	= 0;
+local OptionsFile	= 'IC3_ESP_SETTINGS.dat';
+local Binding		= false;
+local BindedKey		= nil;
+local OIndex		= 0;
+local LineBox		= {};
+local UIButtons		= {};
+local Sliders		= {};
+local ColorPicker	= { Loading = false; LastGenerated = 0 };
+local Dragging		= false;
+local DraggingUI	= false;
+local Rainbow		= false;
+local DragOffset	= V2New();
+local DraggingWhat	= nil;
+local OldData		= {};
+local IgnoreList	= {};
+local EnemyColor	= Color3.new(1, 0, 0);
+local TeamColor		= Color3.new(0, 1, 0);
+local MenuLoaded	= false;
+local ErrorLogging	= false;
+local TracerPosition	= V2New(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y - 135);
+local DragTracerPosition= false;
+local SubMenu 		= {};
+local IsSynapse 	= syn and not PROTOSMASHER_LOADED;
+local Connections 	= { Active = {} };
+local Signal 		= {}; Signal.__index = Signal;
+local GetCharacter;
+local CurrentColorPicker;
+local Spectating;
+
+local Executor = (identifyexecutor or (function() return '' end))()
+local SupportedExploits = { 'Synapse X', 'ScriptWare', 'Krnl', 'OxygenU', 'Temple' }
+local QUAD_SUPPORTED_EXPLOIT = table.find(SupportedExploits, Executor) ~= nil
+
+-- if not PROTOSMASHER_LOADED then Drawing.UseCompatTransparency = true; end -- For Elysian
+
+shared.MenuDrawingData	= shared.MenuDrawingData or { Instances = {} };
+shared.InstanceData	= shared.InstanceData or {};
+shared.RSName		= shared.RSName or ('UnnamedESP_by_ic3-' .. HttpService:GenerateGUID(false));
+
+local GetDataName	= shared.RSName .. '-GetData';
+local UpdateName	= shared.RSName .. '-Update';
+
+local Debounce		= setmetatable({}, {
+	__index = function(t, i)
+		return rawget(t, i) or false
+	end;
+});
+
+if shared.UESP_InputChangedCon then shared.UESP_InputChangedCon:Disconnect() end
+if shared.UESP_InputBeganCon then shared.UESP_InputBeganCon:Disconnect() end
+if shared.UESP_InputEndedCon then shared.UESP_InputEndedCon:Disconnect() end
+if shared.CurrentColorPicker then shared.CurrentColorPicker:Dispose() end
+
+local RealPrint, LastPrintTick = print, 0;
+local LatestPrints = setmetatable({}, { __index = function(t, i) return rawget(t, i) or 0 end });
+
+local function print(...)
+	local Content = unpack{...};
+	local print = RealPrint;
+
+	if tick() - LatestPrints[Content] > 5 then
+		LatestPrints[Content] = tick();
+		print(Content);
+	end
+end
+
+local function FromHex(HEX)
+	HEX = HEX:gsub('#', '');
+	
+	return Color3.fromRGB(tonumber('0x' .. HEX:sub(1, 2)), tonumber('0x' .. HEX:sub(3, 4)), tonumber('0x' .. HEX:sub(5, 6)));
+end
+
+local function IsStringEmpty(String)
+	if type(String) == 'string' then
+		return String:match'^%s+$' ~= nil or #String == 0 or String == '' or false;
+	end
+	
+	return false;
+end
+
+local function Set(t, i, v)
+	t[i] = v;
+end
+
+local Teams = {};
+local CustomTeams = { -- Games that don't use roblox's team system
+	[2563455047] = {
+		Initialize = function()
+			Teams.Sheriffs = {}; -- prevent big error
+			Teams.Bandits = {}; -- prevent big error
+			local Func = game:GetService'ReplicatedStorage':WaitForChild('RogueFunc', 1);
+			local Event = game:GetService'ReplicatedStorage':WaitForChild('RogueEvent', 1);
+			local S, B = Func:InvokeServer'AllTeamData';
+
+			Teams.Sheriffs = S;
+			Teams.Bandits = B;
+
+			Event.OnClientEvent:Connect(function(id, PlayerName, Team, Remove) -- stolen straight from decompiled src lul
+				if id == 'UpdateTeam' then
+					local TeamTable, NotTeamTable
+					if Team == 'Bandits' then
+						TeamTable = TDM.Bandits
+						NotTeamTable = TDM.Sheriffs
+					else
+						TeamTable = TDM.Sheriffs
+						NotTeamTable = TDM.Bandits
+					end
+					if Remove then
+						TeamTable[PlayerName] = nil
+					else
+						TeamTable[PlayerName] = true
+						NotTeamTable[PlayerName] = nil
+					end
+					if PlayerName == LocalPlayer.Name then
+						TDM.Friendlys = TeamTable
+						TDM.Enemies = NotTeamTable
+					end
+				end
+			end)
+		end;
+		CheckTeam = function(Player)
+			local LocalTeam = Teams.Sheriffs[LocalPlayer.Name] and Teams.Sheriffs or Teams.Bandits;
+			
+			return LocalTeam[Player.Name] and true or false;
+		end;
+	};
+	[5208655184] = {
+		CheckTeam = function(Player)
+			local LocalLastName = LocalPlayer:GetAttribute'LastName' if not LocalLastName or IsStringEmpty(LocalLastName) then return true end
+			local PlayerLastName = Player:GetAttribute'LastName' if not PlayerLastName then return false end
+
+			return PlayerLastName == LocalLastName
+		end
+	};
+	[3541987450] = {
+		CheckTeam = function(Player)
+			local LocalStats = LocalPlayer:FindFirstChild'leaderstats';
+			local LocalLastName = LocalStats and LocalStats:FindFirstChild'LastName'; if not LocalLastName or IsStringEmpty(LocalLastName.Value) then return true; end
+			local PlayerStats = Player:FindFirstChild'leaderstats';
+			local PlayerLastName = PlayerStats and PlayerStats:FindFirstChild'LastName'; if not PlayerLastName then return false; end
+
+			return PlayerLastName.Value == LocalLastName.Value;
+		end;
+	};
+    [6032399813] = {
+		CheckTeam = function(Player)
+			local LocalStats = LocalPlayer:FindFirstChild'leaderstats';
+			local LocalGuildName = LocalStats and LocalStats:FindFirstChild'Guild'; if not LocalGuildName or IsStringEmpty(LocalGuildName.Value) then return true; end
+			local PlayerStats = Player:FindFirstChild'leaderstats';
+			local PlayerGuildName = PlayerStats and PlayerStats:FindFirstChild'Guild'; if not PlayerGuildName then return false; end
+
+			return PlayerGuildName.Value == LocalGuildName.Value;
+		end;
+	};
+    [5735553160] = {
+		CheckTeam = function(Player)
+			local LocalStats = LocalPlayer:FindFirstChild'leaderstats';
+			local LocalGuildName = LocalStats and LocalStats:FindFirstChild'Guild'; if not LocalGuildName or IsStringEmpty(LocalGuildName.Value) then return true; end
+			local PlayerStats = Player:FindFirstChild'leaderstats';
+			local PlayerGuildName = PlayerStats and PlayerStats:FindFirstChild'Guild'; if not PlayerGuildName then return false; end
+
+			return PlayerGuildName.Value == LocalGuildName.Value;
+		end;
+	};
+};
+
+local RenderList = {Instances = {}};
+
+function RenderList:AddOrUpdateInstance(Instance, Obj2Draw, Text, Color)
+	RenderList.Instances[Instance] = { ParentInstance = Instance; Instance = Obj2Draw; Text = Text; Color = Color };
+	return RenderList.Instances[Instance];
+end
+
+local CustomPlayerTag;
+local CustomESP;
+local CustomCharacter;
+local GetHealth;
+local GetAliveState;
+local CustomRootPartName;
+
+local Modules = {
+	[292439477] = {
+		CustomESP = function()
+			if type(shared.PF_Replication) ~= 'table' then
+				local lastScan = shared.pfReplicationScan
+
+				if (tick() - (lastScan or 0)) > 0.01 then
+					shared.pfReplicationScan = tick()
+
+					local gc = getgc(true)
+					for i = 1, #gc do
+						local gcObject = gc[i];
+						if type(gcObject) == 'table' and type(rawget(gcObject, 'getbodyparts')) == 'function' then
+							shared.PF_Replication = gcObject;
+							break
+						end
+					end
+				end
+
+				return
+			end
+
+			for Index, Player in pairs(Players:GetPlayers()) do
+				if Player == LocalPlayer then continue end
+
+				local Body = shared.PF_Replication.getbodyparts(Player);
+
+				if type(Body) == 'table' and typeof(rawget(Body, 'torso')) == 'Instance' then
+					Player.Character = Body.torso.Parent
+					continue
+				end
+
+				Player.Character = nil;
+			end
+		end,
+
+		GetHealth = function(Player)
+			if type(shared.pfHud) ~= 'table' then
+				return false
+			end
+
+			return shared.pfHud:getplayerhealth(Player)
+		end,
+
+		GetAliveState = function(Player)
+			if type(shared.pfHud) ~= 'table' then
+				local lastScan = shared.pfHudScan
+
+				if (tick() - (lastScan or 0)) > 0.1 then
+					shared.pfHudScan = tick()
+
+					local gc = getgc(true)
+					for i = 1, #gc do
+						local gcObject = gc[i];
+						if type(gcObject) == 'table' and type(rawget(gcObject, 'getplayerhealth')) == 'function' then
+							shared.pfHud = gcObject;
+							break
+						end
+					end
+				end
+
+				return
+			end
+
+			return shared.pfHud:isplayeralive(Player)
+		end,
+
+		CustomRootPartName = 'Torso',
+	};
+	[2950983942] = {
+		CustomCharacter = function(Player)
+			if workspace:FindFirstChild'Players' then
+				return workspace.Players:FindFirstChild(Player.Name);
+			end
+		end
+	};
+	[2262441883] = {
+		CustomPlayerTag = function(Player)
+			return Player:FindFirstChild'Job' and (' [' .. Player.Job.Value .. ']') or '';
+		end;
+		CustomESP = function()
+			if workspace:FindFirstChild'MoneyPrinters' then
+				for i, v in pairs(workspace.MoneyPrinters:GetChildren()) do
+					local Main	= v:FindFirstChild'Main';
+					local Owner	= v:FindFirstChild'TrueOwner';
+					local Money	= v:FindFirstChild'Int' and v.Int:FindFirstChild'Money' or nil;
+					if Main and Owner and Money then
+						local O = tostring(Owner.Value);
+						local M = tostring(Money.Value);
+
+						pcall(RenderList.AddOrUpdateInstance, RenderList, v, Main, string.format('Money Printer\nOwned by %s\n[%s]', O, M), Color3.fromRGB(13, 255, 227));
+					end
+				end
+			end
+		end;
+	};
+	-- [4581966615] = {
+	-- 	CustomESP = function()
+	-- 		if workspace:FindFirstChild'Entities' then
+	-- 			for i, v in pairs(workspace.Entities:GetChildren()) do
+	-- 				if not v.Name:match'Printer' then continue end
+
+	-- 				local Properties = v:FindFirstChild'Properties' if not Properties then continue end
+	-- 				local Main	= v:FindFirstChild'hitbox';
+	-- 				local Owner	= Properties:FindFirstChild'Owner';
+	-- 				local Money	= Properties:FindFirstChild'CurrentPrinted'
+					
+	-- 				if Main and Owner and Money then
+	-- 					local O = Owner.Value and tostring(Owner.Value) or 'no one';
+	-- 					local M = tostring(Money.Value);
+
+	-- 					pcall(RenderList.AddOrUpdateInstance, RenderList, v, Main, string.format('Money Printer\nOwned by %s\n[%s]', O, M), Color3.fromRGB(13, 255, 227));
+	-- 				end
+	-- 			end
+	-- 		end
+	-- 	end;
+	-- };
+	[4801598506] = {
+		CustomESP = function()
+			if workspace:FindFirstChild'Mobs' and workspace.Mobs:FindFirstChild'Forest1' then
+				for i, v in pairs(workspace.Mobs.Forest1:GetChildren()) do
+					local Main	= v:FindFirstChild'Head';
+					local Hum	= v:FindFirstChild'Mob';
+
+					if Main and Hum then
+						pcall(RenderList.AddOrUpdateInstance, RenderList, v, Main, string.format('[%s] [%s/%s]', v.Name, Hum.Health, Hum.MaxHealth), Color3.fromRGB(13, 255, 227));
+					end
+				end
+			end
+		end;
+	};
+	[2555873122] = {
+		CustomESP = function()
+			if workspace:FindFirstChild'WoodPlanks' then
+				for i, v in pairs(workspace:GetChildren()) do
+					if v.Name == 'WoodPlanks' then
+						local Main = v:FindFirstChild'Wood';
+
+						if Main then
+							pcall(RenderList.AddOrUpdateInstance, RenderList, v, Main, 'Wood Planks', Color3.fromRGB(13, 255, 227));
+						end
+					end
+				end
+			end
+		end;
+	};
+	[5208655184] = {
+		CustomESP = function()
+			-- if workspace:FindFirstChild'Live' then
+			-- 	for i, v in pairs(workspace.Live:GetChildren()) do
+			-- 		if v.Name:sub(1, 1) == '.' then
+			-- 			local Main = v:FindFirstChild'Head';
+
+			-- 			if Main then
+			-- 				pcall(RenderList.AddOrUpdateInstance, RenderList, v, Main, v.Name:sub(2), Color3.fromRGB(250, 50, 40));
+			-- 			end
+			-- 		end
+			-- 	end
+			-- end
+		end;
+		CustomPlayerTag = function(Player)
+			if game.PlaceVersion < 457 then return '' end
+
+			local Name = '';
+			local FirstName = Player:GetAttribute'FirstName'
+
+			if typeof(FirstName) == 'string' and #FirstName > 0 then
+				local Prefix = '';
+				local Extra = {};
+				Name = Name .. '\n[';
+
+				if Player:GetAttribute'Prestige' > 0 then
+					Name = Name .. '#' .. tostring(Player:GetAttribute'Prestige') .. ' ';
+				end
+				if not IsStringEmpty(Player:GetAttribute'HouseRank') then
+					Prefix = Player:GetAttribute'HouseRank' == 'Owner' and (Player:GetAttribute'Gender' == 'Female' and 'Lady ' or 'Lord ') or '';
+				end
+				if not IsStringEmpty(FirstName) then
+					Name = Name .. '' .. Prefix .. FirstName;
+				end
+				if not IsStringEmpty(Player:GetAttribute'LastName') then
+					Name = Name .. ' ' .. Player:GetAttribute'LastName';
+				end
+
+				if not IsStringEmpty(Name) then Name = Name .. ']'; end
+
+				local Character = GetCharacter(Player);
+
+				if Character then
+					if Character and Character:FindFirstChild'Danger' then table.insert(Extra, 'D'); end
+					if Character:FindFirstChild'ManaAbilities' and Character.ManaAbilities:FindFirstChild'ManaSprint' then table.insert(Extra, 'D1'); end
+
+					if Character:FindFirstChild'Mana'	 		then table.insert(Extra, 'M' .. math.floor(Character.Mana.Value)); end
+					if Character:FindFirstChild'Vampirism' 		then table.insert(Extra, 'V'); end
+					if Character:FindFirstChild'Observe'		then table.insert(Extra, 'ILL'); end
+					if Character:FindFirstChild'Inferi'			then table.insert(Extra, 'NEC'); end
+					if Character:FindFirstChild'World\'s Pulse' then table.insert(Extra, 'DZIN'); end
+					if Character:FindFirstChild'Shift'		 	then table.insert(Extra, 'MAD'); end
+					if Character:FindFirstChild'Head' and Character.Head:FindFirstChild'FacialMarking' then
+						local FM = Character.Head:FindFirstChild'FacialMarking';
+						if FM.Texture == 'http://www.roblox.com/asset/?id=4072968006' then
+							table.insert(Extra, 'HEALER');
+						elseif FM.Texture == 'http://www.roblox.com/asset/?id=4072914434' then
+							table.insert(Extra, 'SEER');
+						elseif FM.Texture == 'http://www.roblox.com/asset/?id=4094417635' then
+							table.insert(Extra, 'JESTER');
+						elseif FM.Texture == 'http://www.roblox.com/asset/?id=4072968656' then
+							table.insert(Extra, 'BLADE');
+						end
+					end
+				end
+				if Player:FindFirstChild'Backpack' then
+					if Player.Backpack:FindFirstChild'Observe' 			then table.insert(Extra, 'ILL');  end
+					if Player.Backpack:FindFirstChild'Inferi'			then table.insert(Extra, 'NEC');  end
+					if Player.Backpack:FindFirstChild'World\'s Pulse' 	then table.insert(Extra, 'DZIN'); end
+					if Player.Backpack:FindFirstChild'Shift'		 	then table.insert(Extra, 'MAD'); end
+				end
+
+				if #Extra > 0 then Name = Name .. ' [' .. table.concat(Extra, '-') .. ']'; end
+			end
+
+			return Name;
+		end;
+	};
+	[3541987450] = {
+		CustomPlayerTag = function(Player)
+			local Name = '';
+
+			if Player:FindFirstChild'leaderstats' then
+				Name = Name .. '\n[';
+				local Prefix = '';
+				local Extra = {};
+				if Player.leaderstats:FindFirstChild'Prestige' and Player.leaderstats.Prestige.ClassName == 'IntValue' and Player.leaderstats.Prestige.Value > 0 then
+					Name = Name .. '#' .. tostring(Player.leaderstats.Prestige.Value) .. ' ';
+				end
+				if Player.leaderstats:FindFirstChild'HouseRank' and Player.leaderstats:FindFirstChild'Gender' and Player.leaderstats.HouseRank.ClassName == 'StringValue' and not IsStringEmpty(Player.leaderstats.HouseRank.Value) then
+					Prefix = Player.leaderstats.HouseRank.Value == 'Owner' and (Player.leaderstats.Gender.Value == 'Female' and 'Lady ' or 'Lord ') or '';
+				end
+				if Player.leaderstats:FindFirstChild'FirstName' and Player.leaderstats.FirstName.ClassName == 'StringValue' and not IsStringEmpty(Player.leaderstats.FirstName.Value) then
+					Name = Name .. '' .. Prefix .. Player.leaderstats.FirstName.Value;
+				end
+				if Player.leaderstats:FindFirstChild'LastName' and Player.leaderstats.LastName.ClassName == 'StringValue' and not IsStringEmpty(Player.leaderstats.LastName.Value) then
+					Name = Name .. ' ' .. Player.leaderstats.LastName.Value;
+				end
+				if Player.leaderstats:FindFirstChild'UberTitle' and Player.leaderstats.UberTitle.ClassName == 'StringValue' and not IsStringEmpty(Player.leaderstats.UberTitle.Value) then
+					Name = Name .. ', ' .. Player.leaderstats.UberTitle.Value;
+				end
+
+				if not IsStringEmpty(Name) then Name = Name .. ']'; end
+
+				local Character = GetCharacter(Player);
+
+				if Character then
+					if Character and Character:FindFirstChild'Danger' then table.insert(Extra, 'D'); end
+					if Character:FindFirstChild'ManaAbilities' and Character.ManaAbilities:FindFirstChild'ManaSprint' then table.insert(Extra, 'D1'); end
+
+					if Character:FindFirstChild'Mana'	 		then table.insert(Extra, 'M' .. math.floor(Character.Mana.Value)); end
+					if Character:FindFirstChild'Vampirism' 		then table.insert(Extra, 'V');    end
+					if Character:FindFirstChild'Observe'			then table.insert(Extra, 'ILL');  end
+					if Character:FindFirstChild'Inferi'			then table.insert(Extra, 'NEC');  end
+					
+					if Character:FindFirstChild'World\'s Pulse' 	then table.insert(Extra, 'DZIN'); end
+					if Character:FindFirstChild'Head' and Character.Head:FindFirstChild'FacialMarking' then
+						local FM = Character.Head:FindFirstChild'FacialMarking';
+						if FM.Texture == 'http://www.roblox.com/asset/?id=4072968006' then
+							table.insert(Extra, 'HEALER');
+						elseif FM.Texture == 'http://www.roblox.com/asset/?id=4072914434' then
+							table.insert(Extra, 'SEER');
+						elseif FM.Texture == 'http://www.roblox.com/asset/?id=4094417635' then
+							table.insert(Extra, 'JESTER');
+						end
+					end
+				end
+				if Player:FindFirstChild'Backpack' then
+					if Player.Backpack:FindFirstChild'Observe' 			then table.insert(Extra, 'ILL');  end
+					if Player.Backpack:FindFirstChild'Inferi'			then table.insert(Extra, 'NEC');  end
+					if Player.Backpack:FindFirstChild'World\'s Pulse' 	then table.insert(Extra, 'DZIN'); end
+				end
+
+				if #Extra > 0 then Name = Name .. ' [' .. table.concat(Extra, '-') .. ']'; end
+			end
+
+			return Name;
+		end;
+	};
+
+	[4691401390] = { -- Vast Realm
+		CustomCharacter = function(Player)
+			if workspace:FindFirstChild'Players' then
+				return workspace.Players:FindFirstChild(Player.Name);
+			end
+		end
+	};
+
+    [6032399813] = { -- Deepwoken [Etrean]
+		CustomPlayerTag = function(Player)
+			local Name = '';
+            CharacterName = Player:GetAttribute'CharacterName'; -- could use leaderstats but lazy
+
+            if not IsStringEmpty(CharacterName) then
+                Name = ('\n[%s]'):format(CharacterName);
+                local Character = GetCharacter(Player);
+                local Extra = {};
+
+                if Character then
+                    local Blood, Armor = Character:FindFirstChild('Blood'), Character:FindFirstChild('Armor');
+
+                    if Blood and Blood.ClassName == 'DoubleConstrainedValue' then
+                        table.insert(Extra, ('B%d'):format(Blood.Value));
+                    end
+
+                    if Armor and Armor.ClassName == 'DoubleConstrainedValue' then
+                        table.insert(Extra, ('A%d'):format(math.floor(Armor.Value / 10)));
+                    end
+                end
+
+                local BackpackChildren = Player.Backpack:GetChildren()
+
+                for index = 1, #BackpackChildren do
+                    local Oath = BackpackChildren[index]
+                    if Oath.ClassName == 'Folder' and Oath.Name:find('Talent:Oath') then
+                        local OathName = Oath.Name:gsub('Talent:Oath: ', '')
+                        table.insert(Extra, OathName);
+                    end
+                end
+
+                if #Extra > 0 then Name = Name .. ' [' .. table.concat(Extra, '-') .. ']'; end
+            end
+
+			return Name;
+		end;
+	};
+
+    [5735553160] = { -- Deepwoken [Depths]
+    CustomPlayerTag = function(Player)
+        local Name = '';
+        CharacterName = Player:GetAttribute'CharacterName'; -- could use leaderstats but lazy
+
+        if not IsStringEmpty(CharacterName) then
+            Name = ('\n[%s]'):format(CharacterName);
+            local Character = GetCharacter(Player);
+            local Extra = {};
+
+            if Character then
+                local Blood, Armor = Character:FindFirstChild('Blood'), Character:FindFirstChild('Armor');
+
+                if Blood and Blood.ClassName == 'DoubleConstrainedValue' then
+                    table.insert(Extra, ('B%d'):format(Blood.Value));
+                end
+
+                if Armor and Armor.ClassName == 'DoubleConstrainedValue' then
+                    table.insert(Extra, ('A%d'):format(math.floor(Armor.Value / 10)));
+                end
+            end
+
+            local BackpackChildren = Player.Backpack:GetChildren()
+
+            for index = 1, #BackpackChildren do
+                local Oath = BackpackChildren[index]
+                if Oath.ClassName == 'Folder' and Oath.Name:find('Talent:Oath') then
+                    local OathName = Oath.Name:gsub('Talent:Oath: ', '')
+                    table.insert(Extra, OathName);
+                end
+            end
+
+            if #Extra > 0 then Name = Name .. ' [' .. table.concat(Extra, '-') .. ']'; end
+        end
+
+        return Name;
+    end;
+};
+};
+
+if Modules[game.PlaceId] ~= nil then
+	local Module = Modules[game.PlaceId];
+	CustomPlayerTag = Module.CustomPlayerTag or nil;
+	CustomESP = Module.CustomESP or nil;
+	CustomCharacter = Module.CustomCharacter or nil;
+	GetHealth = Module.GetHealth or nil;
+	GetAliveState = Module.GetAliveState or nil;
+	CustomRootPartName = Module.CustomRootPartName or nil;
+end
+
+function GetCharacter(Player)
+	return Player.Character or (CustomCharacter and CustomCharacter(Player));
+end
+
+function GetMouseLocation()
+	return UserInputService:GetMouseLocation();
+end
+
+function MouseHoveringOver(Values)
+	local X1, Y1, X2, Y2 = Values[1], Values[2], Values[3], Values[4]
+	local MLocation = GetMouseLocation();
+	return (MLocation.x >= X1 and MLocation.x <= (X1 + (X2 - X1))) and (MLocation.y >= Y1 and MLocation.y <= (Y1 + (Y2 - Y1)));
+end
+
+function GetTableData(t) -- basically table.foreach i dont even know why i made this
+	if typeof(t) ~= 'table' then return end
+
+	return setmetatable(t, {
+		__call = function(t, func)
+			if typeof(func) ~= 'function' then return end;
+			for i, v in pairs(t) do
+				pcall(func, i, v);
+			end
+		end;
+	});
+end
+local function Format(format, ...)
+	return string.format(format, ...);
+end
+function CalculateValue(Min, Max, Percent)
+	return Min + math.floor(((Max - Min) * Percent) + .5);
+end
+
+function NewDrawing(InstanceName)
+	local Instance = Drawing.new(InstanceName);
+	-- pcall(Set, Instance, 'OutlineOpacity', 0.8)
+	return (function(Properties)
+		for i, v in pairs(Properties) do
+			pcall(Set, Instance, i, v);
+		end
+		return Instance;
+	end)
+end
+
+function Menu:AddMenuInstance(Name, DrawingType, Properties)
+	local Instance;
+
+	if shared.MenuDrawingData.Instances[Name] ~= nil then
+		Instance = shared.MenuDrawingData.Instances[Name];
+		for i, v in pairs(Properties) do
+			pcall(Set, Instance, i, v);
+		end
+	else
+		Instance = NewDrawing(DrawingType)(Properties);
+	end
+
+	shared.MenuDrawingData.Instances[Name] = Instance;
+
+	return Instance;
+end
+function Menu:UpdateMenuInstance(Name)
+	local Instance = shared.MenuDrawingData.Instances[Name];
+	if Instance ~= nil then
+		return (function(Properties)
+			for i, v in pairs(Properties) do
+				pcall(Set, Instance, i, v);
+			end
+			return Instance;
+		end)
+	end
+end
+function Menu:GetInstance(Name)
+	return shared.MenuDrawingData.Instances[Name];
+end
+
+local Options = setmetatable({}, {
+	__call = function(t, ...)
+		local Arguments = {...};
+		local Name = Arguments[1];
+		OIndex = OIndex + 1;
+		rawset(t, Name, setmetatable({
+			Name			= Arguments[1];
+			Text			= Arguments[2];
+			Value			= Arguments[3];
+			DefaultValue	= Arguments[3];
+			AllArgs			= Arguments;
+			Index			= OIndex;
+		}, {
+			__call = function(t, v, force)
+				local self = t;
+
+				if typeof(t.Value) == 'function' then
+					t.Value();
+				elseif typeof(t.Value) == 'EnumItem' then
+					local BT = Menu:GetInstance(Format('%s_BindText', t.Name));
+					if not force then
+						Binding = true;
+						local Val = 0
+						while Binding do
+							wait();
+							Val = (Val + 1) % 17;
+							BT.Text = Val <= 8 and '|' or '';
+						end
+					end
+					t.Value = force and v or BindedKey;
+					if BT and t.BasePosition and t.BaseSize then
+						BT.Text = tostring(t.Value):match'%w+%.%w+%.(.+)';
+						BT.Position = t.BasePosition + V2New(t.BaseSize.X - BT.TextBounds.X - 20, -10);
+					end
+				else
+					local NewValue = v;
+					if NewValue == nil then NewValue = not t.Value; end
+					rawset(t, 'Value', NewValue);
+
+					if Arguments[2] ~= nil and Menu:GetInstance'TopBar'.Visible then
+						if typeof(Arguments[3]) == 'number' then
+							local AMT = Menu:GetInstance(Format('%s_AmountText', t.Name));
+							if AMT then
+								AMT.Text = tostring(t.Value);
+							end
+						else
+							local Inner = Menu:GetInstance(Format('%s_InnerCircle', t.Name));
+							if Inner then Inner.Visible = t.Value; end
+						end
+					end
+				end
+			end;
+		}));
+	end;
+})
+
+function Load()
+	local _, Result = pcall(readfile, OptionsFile);
+	
+	if _ then -- extremely ugly code yea i know but i dont care p.s. i hate pcall
+		local _, Table = pcall(HttpService.JSONDecode, HttpService, Result);
+		if _ and typeof(Table) == 'table' then
+			for i, v in pairs(Table) do
+				if typeof(Options[i]) == 'table' and Options[i].Value ~= nil and (typeof(Options[i].Value) == 'boolean' or typeof(Options[i].Value) == 'number') then
+					Options[i].Value = v.Value;
+					pcall(Options[i], v.Value);
+				end
+			end
+
+			if Table.TeamColor then TeamColor = Color3.new(Table.TeamColor.R, Table.TeamColor.G, Table.TeamColor.B) end
+			if Table.EnemyColor then EnemyColor = Color3.new(Table.EnemyColor.R, Table.EnemyColor.G, Table.EnemyColor.B) end
+
+			if typeof(Table.MenuKey) == 'string' then Options.MenuKey(Enum.KeyCode[Table.MenuKey], true) end
+			if typeof(Table.ToggleKey) == 'string' then Options.ToggleKey(Enum.KeyCode[Table.ToggleKey], true) end
+		end
+	end
+end
+
+Options('Enabled', 'ESP Enabled', true);
+Options('ShowTeam', 'Show Team', true);
+Options('ShowTeamColor', 'Show Team Color', false);
+Options('ShowName', 'Show Names', true);
+Options('ShowDistance', 'Show Distance', true);
+Options('ShowHealth', 'Show Health', true);
+Options('ShowBoxes', 'Show Boxes', true);
+Options('ShowTracers', 'Show Tracers', true);
+Options('ShowDot', 'Show Head Dot', false);
+Options('VisCheck', 'Visibility Check', false);
+Options('Crosshair', 'Crosshair', false);
+Options('TextOutline', 'Text Outline', true);
+-- Options('Rainbow', 'Rainbow Mode', false);
+Options('TextSize', 'Text Size', syn and 18 or 14, 10, 24); -- cuz synapse fonts look weird???
+Options('MaxDistance', 'Max Distance', 2500, 100, 25000);
+Options('RefreshRate', 'Refresh Rate (ms)', 5, 1, 200);
+Options('YOffset', 'Y Offset', 0, -200, 200);
+Options('MenuKey', 'Menu Key', Enum.KeyCode.F4, 1);
+Options('ToggleKey', 'Toggle Key', Enum.KeyCode.F3, 1);
+Options('ChangeColors', SENTINEL_LOADED and 'Sentinel Unsupported' or 'Change Colors', function()
+	if SENTINEL_LOADED then return end
+
+	SubMenu:Show(GetMouseLocation(), 'Unnamed Colors', {
+		{
+			Type = 'Color'; Text = 'Team Color'; Color = TeamColor;
+
+			Function = function(Circ, Position)
+				if tick() - ColorPicker.LastGenerated < 1 then return; end
+
+				if shared.CurrentColorPicker then shared.CurrentColorPicker:Dispose() end
+				local ColorPicker = ColorPicker.new(Position - V2New(-10, 50));
+				CurrentColorPicker = ColorPicker;
+				shared.CurrentColorPicker = CurrentColorPicker;
+				ColorPicker.ColorChanged:Connect(function(Color) Circ.Color = Color TeamColor = Color Options.TeamColor = Color end);
+			end
+		};
+		{
+			Type = 'Color'; Text = 'Enemy Color'; Color = EnemyColor;
+
+			Function = function(Circ, Position)
+				if tick() - ColorPicker.LastGenerated < 1 then return; end
+
+				if shared.CurrentColorPicker then shared.CurrentColorPicker:Dispose() end
+				local ColorPicker = ColorPicker.new(Position - V2New(-10, 50));
+				CurrentColorPicker = ColorPicker;
+				shared.CurrentColorPicker = CurrentColorPicker;
+				ColorPicker.ColorChanged:Connect(function(Color) Circ.Color = Color EnemyColor = Color Options.EnemyColor = Color end);
+			end
+		};
+		{
+			Type = 'Button'; Text = 'Reset Colors';
+
+			Function = function()
+				EnemyColor = Color3.new(1, 0, 0);
+				TeamColor = Color3.new(0, 1, 0);
+
+				local C1 = Menu:GetInstance'Sub-ColorPreview.1'; if C1 then C1.Color = TeamColor end
+				local C2 = Menu:GetInstance'Sub-ColorPreview.2'; if C2 then C2.Color = EnemyColor end
+			end
+		};
+		{
+			Type = 'Button'; Text = 'Rainbow Mode';
+
+			Function = function()
+				Rainbow = not Rainbow;
+			end
+		};
+	});
+end, 2);
+Options('ResetSettings', 'Reset Settings', function()
+	for i, v in pairs(Options) do
+		if Options[i] ~= nil and Options[i].Value ~= nil and Options[i].Text ~= nil and (typeof(Options[i].Value) == 'boolean' or typeof(Options[i].Value) == 'number' or typeof(Options[i].Value) == 'EnumItem') then
+			Options[i](Options[i].DefaultValue, true);
+		end
+	end
+end, 5);
+Options('LoadSettings', 'Load Settings', Load, 4);
+Options('SaveSettings', 'Save Settings', function()
+	local COptions = {};
+
+	for i, v in pairs(Options) do
+		COptions[i] = v;
+	end
+	
+	if typeof(TeamColor) == 'Color3' then COptions.TeamColor = { R = TeamColor.R; G = TeamColor.G; B = TeamColor.B } end
+	if typeof(EnemyColor) == 'Color3' then COptions.EnemyColor = { R = EnemyColor.R; G = EnemyColor.G; B = EnemyColor.B } end
+	
+	if typeof(COptions.MenuKey.Value) == 'EnumItem' then COptions.MenuKey = COptions.MenuKey.Value.Name end
+	if typeof(COptions.ToggleKey.Value) == 'EnumItem' then COptions.ToggleKey = COptions.ToggleKey.Value.Name end
+
+	writefile(OptionsFile, HttpService:JSONEncode(COptions));
+end, 3);
+
+Load(1);
+
+Options('MenuOpen', nil, true);
+
+local function Combine(...)
+	local Output = {};
+	for i, v in pairs{...} do
+		if typeof(v) == 'table' then
+			table.foreach(v, function(i, v)
+				Output[i] = v;
+			end)
+		end
+	end
+	return Output
+end
+
+function LineBox:Create(Properties)
+	local Box = { Visible = true }; -- prevent errors not really though dont worry bout the Visible = true thing
+
+	local Properties = Combine({
+		Transparency	= 1;
+		Thickness		= 3;
+		Visible			= true;
+	}, Properties);
+
+	if shared.am_ic3 then -- sory just my preference, dynamic boxes will be optional in unnamed esp v2
+		Box['OutlineSquare']= NewDrawing'Square'(Properties);
+		Box['Square'] 		= NewDrawing'Square'(Properties);
+	elseif QUAD_SUPPORTED_EXPLOIT then
+		Box['Quad']			= NewDrawing'Quad'(Properties);
+	else
+		Box['TopLeft']		= NewDrawing'Line'(Properties);
+		Box['TopRight']		= NewDrawing'Line'(Properties);
+		Box['BottomLeft']	= NewDrawing'Line'(Properties);
+		Box['BottomRight']	= NewDrawing'Line'(Properties);
+	end
+
+	function Box:Update(CF, Size, Color, Properties, Parts)
+		if not CF or not Size then return end
+
+		if shared.am_ic3 and typeof(Parts) == 'table' then
+			local AllCorners = {};
+			
+			for i, v in pairs(Parts) do
+				-- if not v:IsA'BasePart' then continue end
+				
+				local CF, Size = v.CFrame, v.Size;
+				-- CF, Size = v.Parent:GetBoundingBox();
+
+				local Corners = {
+					Vector3.new(CF.X + Size.X / 2, CF.Y + Size.Y / 2, CF.Z + Size.Z / 2);
+					Vector3.new(CF.X - Size.X / 2, CF.Y + Size.Y / 2, CF.Z + Size.Z / 2);
+					Vector3.new(CF.X - Size.X / 2, CF.Y - Size.Y / 2, CF.Z - Size.Z / 2);
+					Vector3.new(CF.X + Size.X / 2, CF.Y - Size.Y / 2, CF.Z - Size.Z / 2);
+					Vector3.new(CF.X - Size.X / 2, CF.Y + Size.Y / 2, CF.Z - Size.Z / 2);
+					Vector3.new(CF.X + Size.X / 2, CF.Y + Size.Y / 2, CF.Z - Size.Z / 2);
+					Vector3.new(CF.X - Size.X / 2, CF.Y - Size.Y / 2, CF.Z + Size.Z / 2);
+					Vector3.new(CF.X + Size.X / 2, CF.Y - Size.Y / 2, CF.Z + Size.Z / 2);
+				};
+
+				for i, v in pairs(Corners) do
+					table.insert(AllCorners, v);
+				end
+
+				-- break
+			end
+
+			local xMin, yMin = Camera.ViewportSize.X, Camera.ViewportSize.Y;
+			local xMax, yMax = 0, 0;
+			local Vs = true;
+
+			for i, v in pairs(AllCorners) do				
+				local Position, V = WorldToViewport(v);
+
+				if VS and not V then Vs = false break end
+
+				if Position.X > xMax then
+					xMax = Position.X;
+				end
+				if Position.X < xMin then
+					xMin = Position.X;
+				end
+				if Position.Y > yMax then
+					yMax = Position.Y;
+				end
+				if Position.Y < yMin then
+					yMin = Position.Y;
+				end
+			end
+
+			local xSize, ySize = xMax - xMin, yMax - yMin;
+
+			local Outline = Box['OutlineSquare'];
+			local Square = Box['Square'];
+			Outline.Visible = Vs;
+			Square.Visible = Vs;
+			Square.Position = V2New(xMin, yMin);
+			Square.Color	= Color;
+			Square.Thickness = math.floor(Outline.Thickness * 0.3);
+			-- Square.Position = V2New(xMin, yMin);
+			Square.Size = V2New(xSize, ySize);
+			Outline.Position = Square.Position;
+			Outline.Size = Square.Size;
+			Outline.Color = Color3.new(0.12, 0.12, 0.12);
+			Outline.Transparency = 0.75;
+
+			return
+		end
+		
+		local TLPos, Visible1	= WorldToViewport((CF * CFrame.new( Size.X,  Size.Y, 0)).Position);
+		local TRPos, Visible2	= WorldToViewport((CF * CFrame.new(-Size.X,  Size.Y, 0)).Position);
+		local BLPos, Visible3	= WorldToViewport((CF * CFrame.new( Size.X, -Size.Y, 0)).Position);
+		local BRPos, Visible4	= WorldToViewport((CF * CFrame.new(-Size.X, -Size.Y, 0)).Position);
+
+		local Quad = Box['Quad'];
+
+		if QUAD_SUPPORTED_EXPLOIT then
+			if Visible1 and Visible2 and Visible3 and Visible4 then
+				Quad.Visible = true;
+				Quad.Color	= Color;
+				Quad.PointA = V2New(TLPos.X, TLPos.Y);
+				Quad.PointB = V2New(TRPos.X, TRPos.Y);
+				Quad.PointC = V2New(BRPos.X, BRPos.Y);
+				Quad.PointD = V2New(BLPos.X, BLPos.Y);
+			else
+				Box['Quad'].Visible = false;
+			end
+		else
+			Visible1 = TLPos.Z > 0 -- (commented | reason: random flashes);
+			Visible2 = TRPos.Z > 0 -- (commented | reason: random flashes);
+			Visible3 = BLPos.Z > 0 -- (commented | reason: random flashes);
+			Visible4 = BRPos.Z > 0 -- (commented | reason: random flashes);
+
+			-- ## BEGIN UGLY CODE
+			if Visible1 then
+				Box['TopLeft'].Visible		= true;
+				Box['TopLeft'].Color		= Color;
+				Box['TopLeft'].From			= V2New(TLPos.X, TLPos.Y);
+				Box['TopLeft'].To			= V2New(TRPos.X, TRPos.Y);
+			else
+				Box['TopLeft'].Visible		= false;
+			end
+			if Visible2 then
+				Box['TopRight'].Visible		= true;
+				Box['TopRight'].Color		= Color;
+				Box['TopRight'].From		= V2New(TRPos.X, TRPos.Y);
+				Box['TopRight'].To			= V2New(BRPos.X, BRPos.Y);
+			else
+				Box['TopRight'].Visible		= false;
+			end
+			if Visible3 then
+				Box['BottomLeft'].Visible	= true;
+				Box['BottomLeft'].Color		= Color;
+				Box['BottomLeft'].From		= V2New(BLPos.X, BLPos.Y);
+				Box['BottomLeft'].To		= V2New(TLPos.X, TLPos.Y);
+			else
+				Box['BottomLeft'].Visible	= false;
+			end
+			if Visible4 then
+				Box['BottomRight'].Visible	= true;
+				Box['BottomRight'].Color	= Color;
+				Box['BottomRight'].From		= V2New(BRPos.X, BRPos.Y);
+				Box['BottomRight'].To		= V2New(BLPos.X, BLPos.Y);
+			else
+				Box['BottomRight'].Visible	= false;
+			end
+			-- ## END UGLY CODE
+			if Properties and typeof(Properties) == 'table' then
+				GetTableData(Properties)(function(i, v)
+					pcall(Set, Box['TopLeft'],		i, v);
+					pcall(Set, Box['TopRight'],		i, v);
+					pcall(Set, Box['BottomLeft'],	i, v);
+					pcall(Set, Box['BottomRight'],	i, v);
+				end)
+			end
+		end
+	end
+	function Box:SetVisible(bool)
+		if shared.am_ic3 then
+			Box['Square'].Visible = bool;
+			Box['OutlineSquare'].Visible = bool;
+		else
+			pcall(Set, Box['Quad'],				'Visible', bool);
+		end
+		-- pcall(Set, Box['TopLeft'],		'Visible', bool);
+		-- pcall(Set, Box['TopRight'],		'Visible', bool);
+		-- pcall(Set, Box['BottomLeft'],	'Visible', bool);
+		-- pcall(Set, Box['BottomRight'],	'Visible', bool);
+	end
+	function Box:Remove()
+		self:SetVisible(false);
+		if shared.am_ic3 then
+			Box['Square']:Remove();
+			Box['OutlineSquare']:Remove();
+		else
+			Box['Quad']:Remove();
+		end
+		-- Box['TopLeft']:Remove();
+		-- Box['TopRight']:Remove();
+		-- Box['BottomLeft']:Remove();
+		-- Box['BottomRight']:Remove();
+	end
+
+	return Box;
+end
+
+local Colors = {
+	White = FromHex'ffffff';
+	Primary = {
+		Main	= FromHex'424242';
+		Light	= FromHex'6d6d6d';
+		Dark	= FromHex'1b1b1b';
+	};
+	Secondary = {
+		Main	= FromHex'e0e0e0';
+		Light	= FromHex'ffffff';
+		Dark	= FromHex'aeaeae';
+	};
+};
+
+function Connections:Listen(Connection, Function)
+    local NewConnection = Connection:Connect(Function);
+    table.insert(self.Active, NewConnection);
+    return NewConnection;
+end
+
+function Connections:DisconnectAll()
+    for Index, Connection in pairs(self.Active) do
+        if Connection.Connected then
+            Connection:Disconnect();
+        end
+    end
+    
+    self.Active = {};
+end
+
+function Signal.new()
+	local self = setmetatable({ _BindableEvent = Instance.new'BindableEvent' }, Signal);
+    
+	return self;
+end
+
+function Signal:Connect(Callback)
+    assert(typeof(Callback) == 'function', 'function expected; got ' .. typeof(Callback));
+
+	return self._BindableEvent.Event:Connect(function(...) Callback(...) end);
+end
+
+function Signal:Fire(...)
+    self._BindableEvent:Fire(...);
+end
+
+function Signal:Wait()
+    local Arguments = self._BindableEvent:Wait();
+
+    return Arguments;
+end
+
+function Signal:Disconnect()
+    if self._BindableEvent then
+        self._BindableEvent:Destroy();
+    end
+end
+
+local function GetMouseLocation()
+	return UserInputService:GetMouseLocation();
+end
+
+local function IsMouseOverDrawing(Drawing, MousePosition)
+	local TopLeft = Drawing.Position;
+	local BottomRight = Drawing.Position + Drawing.Size;
+    local MousePosition = MousePosition or GetMouseLocation();
+    
+    return MousePosition.X > TopLeft.X and MousePosition.Y > TopLeft.Y and MousePosition.X < BottomRight.X and MousePosition.Y < BottomRight.Y;
+end
+
+local ImageCache = {};
+
+local function SetImage(Drawing, Url)
+	local Data = IsSynapse and game:HttpGet(Url) or Url;
+
+	print(Drawing, IsSynapse)
+
+	Drawing[IsSynapse and 'Data' or 'Uri'] = ImageCache[Url] or Data;
+	ImageCache[Url] = Data;
+    
+    if not IsSynapse then repeat wait() until Drawing.Loaded; end
+end
+
+-- oh god unnamed esp needs an entire rewrite, someone make a better one pls im too lazy
+-- btw the color picker was made seperately so it doesnt fit with the code of unnamed esp
+
+local function CreateDrawingsTable()
+    local Drawings = { __Objects = {} };
+    local Metatable = {};
+
+    function Metatable.__index(self, Index)
+        local Object = rawget(self.__Objects, Index);
+        
+        if not Object or (IsSynapse and not Object.__SELF.__OBJECT_EXISTS) then
+            local Type = Index:sub(1, Index:find'-' - 1);
+
+            Success, Object = pcall(Drawing.new, Type);
+
+            if not Object or not Success then return function() end; end
+
+            self.__Objects[Index] = setmetatable({ __SELF = Object; Type = Type }, {
+                __call = function(self, Properties)
+                    local Object = rawget(self, '__SELF'); if IsSynapse and not Object.__OBJECT_EXISTS then return false, 'render object destroyed'; end
+
+                    if Properties == false then
+                        Object.Visible = false;
+                        Object.Transparency = 0;
+                        Object:Remove();
+                        
+                        return true;
+                    end
+                    
+                    if typeof(Properties) == 'table' then
+                        for Property, Value in pairs(Properties) do
+                            local CanSet = true;
+
+                            if self.Type == 'Image' and not IsSynapse and Property == 'Size' and typeof(Value) == 'Vector2' then
+                                CanSet = false;
+
+                                spawn(function()
+                                    repeat wait() until Object.Loaded;
+                                    if not self.DefaultSize then rawset(self, 'DefaultSize', Object.Size) end
+
+                                    Property = 'ScaleFactor';
+                                    Value = Value.X / self.DefaultSize.X;
+
+                                    Object[Property] = Value
+                                end)
+                            end
+                            
+                            if CanSet then Object[Property] = Value end
+                        end
+                    end
+
+                    return Object;
+                end
+            });
+
+            Object.Visible = true;
+            Object.Transparency = 1; -- Transparency is really Opacity with drawing api (1 being visible, 0 being invisible)
+            
+            if Type == 'Text' then
+                if Drawing.Fonts then Object.Font = Drawing.Fonts.Monospace end
+                Object.Size = 20;
+                Object.Color = Color3.new(1, 1, 1);
+                Object.Center = true;
+				Object.Outline = true;
+				OutlineOpacity = 0.5;
+            elseif Type == 'Square' or Type == 'Rectangle' then
+                Object.Thickness = 2;
+                Object.Filled = false;
+            end
+
+            return self.__Objects[Index];
+        end
+
+        return Object;
+    end
+
+    function Metatable.__call(self, Delete, ...)
+        local Arguments = {Delete, ...};
+        
+        if Delete == false then
+            for Index, Drawing in pairs(rawget(self, '__Objects')) do
+                Drawing(false);
+            end
+        end
+    end
+
+    return setmetatable(Drawings, Metatable);
+end
+
+local Images = {};
+
+spawn(function()
+	Images.Ring = 'https://i.imgur.com/q4qx26f.png';
+	Images.Overlay = 'https://i.imgur.com/gOCxbsR.png';
+end)
+
+function ColorPicker.new(Position, Size, Color)
+	ColorPicker.LastGenerated = tick();
+	ColorPicker.Loading = true;
+
+    local Picker = { Color = Color or Color3.new(1, 1, 1); HSV = { H = 0, S = 1, V = 1 } };
+    local Drawings = CreateDrawingsTable();
+    local Position = Position or V2New();
+    local Size = Size or 150;
+    local Padding = { 10, 10, 10, 10 };
+    
+    Picker.ColorChanged = Signal.new();
+
+    local Background = Drawings['Square-Background'] {
+        Color = Color3.fromRGB(33, 33, 33);
+		Filled = false;
+		Visible = false;
+        Position = Position - V2New(Padding[4], Padding[1]);
+        Size = V2New(Size, Size) + V2New(Padding[4] + Padding[2], Padding[1] + Padding[3]);
+    };
+    local ColorPreview = Drawings['Circle-Preview'] {
+        Position = Position + (V2New(Size, Size) / 2);
+        Radius = Size / 2 - 8;
+        Filled = true;
+        Thickness = 0;
+        NumSides = 20;
+        Color = Color3.new(1, 0, 0);
+    };
+    local Main = Drawings['Image-Main'] {
+        Position = Position;
+        Size = V2New(Size, Size);
+    }; SetImage(Main, Images.Ring);
+    local Preview = Drawings['Square-Preview'] {
+        Position = Main.Position + (Main.Size / 4.5);
+        Size = Main.Size / 1.75;
+        Color = Color3.new(1, 0, 0);
+        Filled = true;
+        Thickness = 0;
+    };
+    local Overlay = Drawings['Image-Overlay'] {
+        Position = Preview.Position;
+        Size = Preview.Size;
+        Transparency = 1;
+    }; SetImage(Overlay, Images.Overlay);
+    local CursorOutline = Drawings['Circle-CursorOutline'] {
+        Radius = 4;
+        Thickness = 2;
+        Filled = false;
+        Color = Color3.new(0.2, 0.2, 0.2);
+        Position = V2New(Main.Position.X + Main.Size.X - 10, Main.Position.Y + (Main.Size.Y / 2));
+    };
+    local Cursor = Drawings['Circle-Cursor'] {
+        Radius = 3;
+        Transparency = 1;
+        Filled = true;
+        Color = Color3.new(1, 1, 1);
+        Position = CursorOutline.Position;
+    };
+    local CursorOutline = Drawings['Circle-CursorOutlineSquare'] {
+        Radius = 4;
+        Thickness = 2;
+        Filled = false;
+        Color = Color3.new(0.2, 0.2, 0.2);
+        Position = V2New(Preview.Position.X + Preview.Size.X - 2, Preview.Position.Y + 2);
+    };
+    Drawings['Circle-CursorSquare'] {
+        Radius = 3;
+        Transparency = 1;
+        Filled = true;
+        Color = Color3.new(1, 1, 1);
+        Position = CursorOutline.Position;
+    };
+    
+    function Picker:UpdatePosition(Input)
+        local MousePosition = V2New(Input.Position.X, Input.Position.Y + 33);
+
+        if self.MouseHeld then
+            if self.Item == 'Ring' then
+                local Main = self.Drawings['Image-Main'] ();
+                local Preview = self.Drawings['Square-Preview'] ();
+                local Bounds = Main.Size / 2;
+                local Center = Main.Position + Bounds;
+                local Relative = MousePosition - Center;
+                local Direction = Relative.unit;
+                local Position = Center + Direction * Main.Size.X / 2.15;
+                local H = (math.atan2(Position.Y - Center.Y, Position.X - Center.X)) * 60;
+                if H < 0 then H = 360 + H; end
+                H = H / 360;
+                self.HSV.H = H;
+                local EndColor = Color3.fromHSV(H, self.HSV.S, self.HSV.V); if EndColor ~= self.Color then self.ColorChanged:Fire(self.Color); end
+                local Pointer = self.Drawings['Circle-Cursor'] { Position = Position };
+                self.Drawings['Circle-CursorOutline'] { Position = Pointer.Position };
+                Bounds = Bounds * 2;
+                Preview.Color = Color3.fromHSV(H, 1, 1);
+                self.Color = EndColor;
+                self.Drawings['Circle-Preview'] { Color = EndColor };
+            elseif self.Item == 'HL' then
+                local Preview = self.Drawings['Square-Preview'] ();
+                local HSV = self.HSV;
+                local Position = V2New(math.clamp(MousePosition.X, Preview.Position.X, Preview.Position.X + Preview.Size.X), math.clamp(MousePosition.Y, Preview.Position.Y, Preview.Position.Y + Preview.Size.Y));
+                HSV.S = (Position.X - Preview.Position.X) / Preview.Size.X;
+                HSV.V = 1 - (Position.Y - Preview.Position.Y) / Preview.Size.Y;
+                local EndColor = Color3.fromHSV(HSV.H, HSV.S, HSV.V); if EndColor ~= self.Color then self.ColorChanged:Fire(self.Color); end
+                self.Color = EndColor;
+                self.Drawings['Circle-Preview'] { Color = EndColor };
+                local Pointer = self.Drawings['Circle-CursorSquare'] { Position = Position };
+                self.Drawings['Circle-CursorOutlineSquare'] { Position = Pointer.Position };
+            end
+        end
+    end
+
+    function Picker:HandleInput(Input, P, Type)
+        if Type == 'Began' then
+            if Input.UserInputType.Name == 'MouseButton1' then
+                local Main = self.Drawings['Image-Main'] ();
+                local SquareSV = self.Drawings['Square-Preview'] ();
+                local MousePosition = V2New(Input.Position.X, Input.Position.Y + 33);
+                self.MouseHeld = true;
+                local Bounds = Main.Size / 2;
+                local Center = Main.Position + Bounds;
+                local R = (MousePosition - Center);
+        
+                if R.Magnitude < Bounds.X and R.Magnitude > Bounds.X - 20 then
+                    self.Item = 'Ring';
+                end
+                
+                if MousePosition.X > SquareSV.Position.X and MousePosition.Y > SquareSV.Position.Y and MousePosition.X < SquareSV.Position.X + SquareSV.Size.X and MousePosition.Y < SquareSV.Position.Y + SquareSV.Size.Y then
+                    self.Item = 'HL';
+                end
+
+                self:UpdatePosition(Input, P);
+            end
+        elseif Type == 'Changed' then
+            if Input.UserInputType.Name == 'MouseMovement' then
+                self:UpdatePosition(Input, P);
+            end
+        elseif Type == 'Ended' and Input.UserInputType.Name == 'MouseButton1' then
+            self.Item = nil;
+        end
+	end
+	
+	function Picker:Dispose()
+		self.Drawings(false);
+		self.UpdatePosition = nil;
+		self.HandleInput = nil;
+		Connections:DisconnectAll(); -- scuffed tbh
+	end
+
+	Connections:Listen(UserInputService.InputBegan, function(Input, Process)
+		Picker:HandleInput(Input, Process, 'Began');
+	end);
+	Connections:Listen(UserInputService.InputChanged, function(Input, Process)
+		if Input.UserInputType.Name == 'MouseMovement' then
+			local MousePosition = V2New(Input.Position.X, Input.Position.Y + 33);
+			local Cursor = Picker.Drawings['Triangle-Cursor'] {
+				Filled = true;
+				Color = Color3.new(0.9, 0.9, 0.9);
+				PointA = MousePosition + V2New(0, 0);
+				PointB = MousePosition + V2New(12, 14);
+				PointC = MousePosition + V2New(0, 18);
+				Thickness = 0;
+			};
+		end
+		Picker:HandleInput(Input, Process, 'Changed');
+	end);
+	Connections:Listen(UserInputService.InputEnded, function(Input, Process)
+		Picker:HandleInput(Input, Process, 'Ended');
+		
+		if Input.UserInputType.Name == 'MouseButton1' then
+			Picker.MouseHeld = false;
+		end
+	end);
+
+	ColorPicker.Loading = false;
+
+    Picker.Drawings = Drawings;
+    return Picker;
+end
+
+function SubMenu:Show(Position, Title, Options)
+	self.Open = true;
+
+	local Visible = true;
+	local BasePosition = Position;
+	local BaseSize = V2New(200, 140);
+	local End = BasePosition + BaseSize;
+
+	self.Bounds = { BasePosition.X, BasePosition.Y, End.X, End.Y };
+
+	delay(0.025, function()
+		if not self.Open then return; end
+
+		Menu:AddMenuInstance('Sub-Main', 'Square', {
+			Size		= BaseSize;
+			Position	= BasePosition;
+			Filled		= false;
+			Color		= Colors.Primary.Main;
+			Thickness	= 3;
+			Visible		= Visible;
+		});
+	end);
+	Menu:AddMenuInstance('Sub-TopBar', 'Square', {
+		Position	= BasePosition;
+		Size		= V2New(BaseSize.X, 10);
+		Color		= Colors.Primary.Dark;
+		Filled		= true;
+		Visible		= Visible;
+	});
+	Menu:AddMenuInstance('Sub-TopBarTwo', 'Square', {
+		Position 	= BasePosition + V2New(0, 10);
+		Size		= V2New(BaseSize.X, 20);
+		Color		= Colors.Primary.Main;
+		Filled		= true;
+		Visible		= Visible;
+	});
+	Menu:AddMenuInstance('Sub-TopBarText', 'Text', {
+		Size 		= 20;
+		Position	= shared.MenuDrawingData.Instances['Sub-TopBarTwo'].Position + V2New(15, -3);
+		Text		= Title or '';
+		Color		= Colors.Secondary.Light;
+		Visible		= Visible;
+	});
+	Menu:AddMenuInstance('Sub-Filling', 'Square', {
+		Size		= BaseSize - V2New(0, 30);
+		Position	= BasePosition + V2New(0, 30);
+		Filled		= true;
+		Color		= Colors.Secondary.Main;
+		Transparency= .75;
+		Visible		= Visible;
+	});
+
+	if Options then
+		for Index, Option in pairs(Options) do -- currently only supports color and button(but color is a button so), planning on fully rewriting or something
+			local function GetName(Name) return ('Sub-%s.%d'):format(Name, Index) end
+			local Position = shared.MenuDrawingData.Instances['Sub-Filling'].Position + V2New(20, Index * 25 - 10);
+			-- local BasePosition	= shared.MenuDrawingData.Instances.Filling.Position + V2New(30, v.Index * 25 - 10);
+
+			if Option.Type == 'Color' then
+				local ColorPreview = Menu:AddMenuInstance(GetName'ColorPreview', 'Circle', {
+					Position = Position;
+					Color = Option.Color;
+					Radius = IsSynapse and 10 or 10;
+					NumSides = 10;
+					Filled = true;
+					Visible = true;
+				});
+				local Text = Menu:AddMenuInstance(GetName'Text', 'Text', {
+					Text = Option.Text;
+					Position = ColorPreview.Position + V2New(15, -8);
+					Size = 16;
+					Color = Colors.Primary.Dark;
+					Visible = true;
+				});
+				UIButtons[#UIButtons + 1] = {
+					FromSubMenu = true;
+					Option = function() return Option.Function(ColorPreview, BasePosition + V2New(BaseSize.X, 0)) end;
+					Instance = Menu:AddMenuInstance(Format('%s_Hitbox', GetName'Button'), 'Square', {
+						Position	= Position - V2New(20, 12);
+						Size		= V2New(BaseSize.X, 25);
+						Visible		= false;
+					});
+				};
+			elseif Option.Type == 'Button' then
+				UIButtons[#UIButtons + 1] = {
+					FromSubMenu = true;
+					Option = Option.Function;
+					Instance = Menu:AddMenuInstance(Format('%s_Hitbox', GetName'Button'), 'Square', {
+						Size		= V2New(BaseSize.X, 20) - V2New(20, 0);
+						Visible		= true;
+						Transparency= .5;
+						Position	= Position - V2New(10, 10);
+						Color		= Colors.Secondary.Light;
+						Filled		= true;
+					});
+				};
+				local Text		= Menu:AddMenuInstance(Format('%s_Text', GetName'Text'), 'Text', {
+					Text		= Option.Text;
+					Size		= 18;
+					Position	= Position + V2New(5, -10);
+					Visible		= true;
+					Color		= Colors.Primary.Dark;
+				});
+			end
+		end
+	end
+end
+
+function SubMenu:Hide()
+	self.Open = false;
+
+	for i, v in pairs(shared.MenuDrawingData.Instances) do
+		if i:sub(1, 3) == 'Sub' then
+			v.Visible = false;
+
+			if i:sub(4, 4) == ':' then -- ';' = Temporary so remove
+				v:Remove();
+				shared.MenuDrawingData.Instance[i] = nil;
+			end
+		end
+	end
+
+	for i, Button in pairs(UIButtons) do
+		if Button.FromSubMenu then
+			UIButtons[i] = nil;
+		end
+	end
+
+	spawn(function() -- stupid bug happens if i dont use this
+		for i = 1, 10 do
+			if shared.CurrentColorPicker then -- dont know why 'CurrentColorPicker' isnt a variable in this
+				shared.CurrentColorPicker:Dispose();
+			end
+			wait(0.1);
+		end
+	end)
+
+	CurrentColorPicker = nil;
+end
+
+function CreateMenu(NewPosition) -- Create Menu
+	MenuLoaded = false;
+	UIButtons  = {};
+	Sliders	   = {};
+
+	local BaseSize = V2New(300, 625);
+	local BasePosition = NewPosition or V2New(Camera.ViewportSize.X / 8 - (BaseSize.X / 2), Camera.ViewportSize.Y / 2 - (BaseSize.Y / 2));
+
+	BasePosition = V2New(math.clamp(BasePosition.X, 0, Camera.ViewportSize.X), math.clamp(BasePosition.Y, 0, Camera.ViewportSize.Y));
+
+	Menu:AddMenuInstance('CrosshairX', 'Line', {
+		Visible			= false;
+		Color			= Color3.new(0, 1, 0);
+		Transparency	= 1;
+		Thickness		= 1;
+	});
+	Menu:AddMenuInstance('CrosshairY', 'Line', {
+		Visible			= false;
+		Color			= Color3.new(0, 1, 0);
+		Transparency	= 1;
+		Thickness		= 1;
+	});
+
+	delay(.025, function() -- since zindex doesnt exist
+		Menu:AddMenuInstance('Main', 'Square', {
+			Size		= BaseSize;
+			Position	= BasePosition;
+			Filled		= false;
+			Color		= Colors.Primary.Main;
+			Thickness	= 3;
+			Visible		= true;
+		});
+	end);
+	Menu:AddMenuInstance('TopBar', 'Square', {
+		Position	= BasePosition;
+		Size		= V2New(BaseSize.X, 15);
+		Color		= Colors.Primary.Dark;
+		Filled		= true;
+		Visible		= true;
+	});
+	Menu:AddMenuInstance('TopBarTwo', 'Square', {
+		Position 	= BasePosition + V2New(0, 15);
+		Size		= V2New(BaseSize.X, 45);
+		Color		= Colors.Primary.Main;
+		Filled		= true;
+		Visible		= true;
+	});
+	Menu:AddMenuInstance('TopBarText', 'Text', {
+		Size 		= 25;
+		Position	= shared.MenuDrawingData.Instances.TopBarTwo.Position + V2New(25, 10);
+		Text		= 'Unnamed ESP';
+		Color		= Colors.Secondary.Light;
+		Visible		= true;
+		Transparency= 1; -- proto outline fix
+		Outline 	= true;
+		OutlineOpacity = 0.5;
+	});
+	Menu:AddMenuInstance('TopBarTextBR', 'Text', {
+		Size 		= 18;
+		Position	= shared.MenuDrawingData.Instances.TopBarTwo.Position + V2New(BaseSize.X - 75, 25);
+		Text		= 'by ic3w0lf';
+		Color		= Colors.Secondary.Light;
+		Visible		= true;
+		Transparency= 1;
+		Outline 	= true;
+		OutlineOpacity = 0.5;
+	});
+	Menu:AddMenuInstance('Filling', 'Square', {
+		Size		= BaseSize - V2New(0, 60);
+		Position	= BasePosition + V2New(0, 60);
+		Filled		= true;
+		Color		= Colors.Secondary.Main;
+		Transparency= .5;
+		Visible		= true;
+	});
+
+	local CPos = 0;
+
+	GetTableData(Options)(function(i, v)
+		if typeof(v.Value) == 'boolean' and not IsStringEmpty(v.Text) and v.Text ~= nil then
+			CPos 				= CPos + 25;
+			local BaseSize		= V2New(BaseSize.X, 30);
+			local BasePosition	= shared.MenuDrawingData.Instances.Filling.Position + V2New(30, v.Index * 25 - 10);
+			UIButtons[#UIButtons + 1] = {
+				Option = v;
+				Instance = Menu:AddMenuInstance(Format('%s_Hitbox', v.Name), 'Square', {
+					Position	= BasePosition - V2New(30, 15);
+					Size		= BaseSize;
+					Visible		= false;
+				});
+			};
+			Menu:AddMenuInstance(Format('%s_OuterCircle', v.Name), 'Circle', {
+				Radius		= 10;
+				Position	= BasePosition;
+				Color		= Colors.Secondary.Light;
+				Filled		= true;
+				Visible		= true;
+			});
+			Menu:AddMenuInstance(Format('%s_InnerCircle', v.Name), 'Circle', {
+				Radius		= 7;
+				Position	= BasePosition;
+				Color		= Colors.Secondary.Dark;
+				Filled		= true;
+				Visible		= v.Value;
+			});
+			Menu:AddMenuInstance(Format('%s_Text', v.Name), 'Text', {
+				Text		= v.Text;
+				Size		= 20;
+				Position	= BasePosition + V2New(20, -10);
+				Visible		= true;
+				Color		= Colors.Secondary.Light;
+				Transparency= 1;
+				Outline		= true;
+				OutlineOpacity = 0.5;
+			});
+		end
+	end)
+	GetTableData(Options)(function(i, v) -- just to make sure certain things are drawn before or after others, too lazy to actually sort table
+		if typeof(v.Value) == 'number' then
+			CPos 				= CPos + 25;
+
+			local BaseSize		= V2New(BaseSize.X, 30);
+			local BasePosition	= shared.MenuDrawingData.Instances.Filling.Position + V2New(0, CPos - 10);
+
+			local Line			= Menu:AddMenuInstance(Format('%s_SliderLine', v.Name), 'Square', {
+				Transparency	= 1;
+				Color			= Colors.Secondary.Light;
+				-- Thickness		= 3;
+				Filled			= true;
+				Visible			= true;
+				Position 		= BasePosition + V2New(15, -5);
+				Size 			= BaseSize - V2New(30, 10);
+				Transparency	= 0.5;
+			});
+			local Slider		= Menu:AddMenuInstance(Format('%s_Slider', v.Name), 'Square', {
+				Visible			= true;
+				Filled			= true;
+				Color			= Colors.Primary.Dark;
+				Size			= V2New(5, Line.Size.Y);
+				Transparency	= 0.5;
+			});
+			local Text			= Menu:AddMenuInstance(Format('%s_Text', v.Name), 'Text', {
+				Text			= v.Text;
+				Size			= 20;
+				Center			= true;
+				Transparency	= 1;
+				Outline			= true;
+				OutlineOpacity  = 0.5;
+				Visible			= true;
+				Color			= Colors.White;
+			}); Text.Position	= Line.Position + (Line.Size / 2) - V2New(0, Text.TextBounds.Y / 1.75);
+			local AMT			= Menu:AddMenuInstance(Format('%s_AmountText', v.Name), 'Text', {
+				Text			= tostring(v.Value);
+				Size			= 22;
+				Center			= true;
+				Transparency	= 1;
+				Outline			= true;
+				OutlineOpacity  = 0.5;
+				Visible			= true;
+				Color			= Colors.White;
+				Position		= Text.Position;
+			});
+
+			local CSlider = {Slider = Slider; Line = Line; Min = v.AllArgs[4]; Max = v.AllArgs[5]; Option = v};
+			local Dummy = Instance.new'NumberValue';
+
+			Dummy:GetPropertyChangedSignal'Value':Connect(function()
+				Text.Transparency = Dummy.Value;
+				-- Text.OutlineTransparency = 1 - Dummy.Value;
+				AMT.Transparency = 1 - Dummy.Value;
+			end);
+
+			Dummy.Value = 1;
+
+			function CSlider:ShowValue(Bool)
+				self.ShowingValue = Bool;
+
+				TweenService:Create(Dummy, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), { Value = Bool and 0 or 1 }):Play();
+			end
+
+			Sliders[#Sliders + 1] = CSlider;
+
+			-- local Percent = (v.Value / CSlider.Max) * 100;
+			-- local Size = math.abs(Line.From.X - Line.To.X);
+			-- local Value = Size * (Percent / 100); -- this shit's inaccurate but fuck it i'm not even gonna bother fixing it
+
+			Slider.Position = Line.Position + V2New(35, 0);
+			
+			v.BaseSize = BaseSize;
+			v.BasePosition = BasePosition;
+			-- AMT.Position = BasePosition + V2New(BaseSize.X - AMT.TextBounds.X - 10, -10)
+		end
+	end)
+	local FirstItem = false;
+	GetTableData(Options)(function(i, v) -- just to make sure certain things are drawn before or after others, too lazy to actually sort table
+		if typeof(v.Value) == 'EnumItem' then
+			CPos 				= CPos + (not FirstItem and 30 or 25);
+			FirstItem			= true;
+
+			local BaseSize		= V2New(BaseSize.X, FirstItem and 30 or 25);
+			local BasePosition	= shared.MenuDrawingData.Instances.Filling.Position + V2New(0, CPos - 10);
+
+			UIButtons[#UIButtons + 1] = {
+				Option = v;
+				Instance = Menu:AddMenuInstance(Format('%s_Hitbox', v.Name), 'Square', {
+					Size		= V2New(BaseSize.X, 20) - V2New(30, 0);
+					Visible		= true;
+					Transparency= .5;
+					Position	= BasePosition + V2New(15, -10);
+					Color		= Colors.Secondary.Light;
+					Filled		= true;
+				});
+			};
+			local Text		= Menu:AddMenuInstance(Format('%s_Text', v.Name), 'Text', {
+				Text		= v.Text;
+				Size		= 20;
+				Position	= BasePosition + V2New(20, -10);
+				Visible		= true;
+				Color		= Colors.Secondary.Light;
+				Transparency= 1;
+				Outline		= true;
+				OutlineOpacity = 0.5;
+			});
+			local BindText	= Menu:AddMenuInstance(Format('%s_BindText', v.Name), 'Text', {
+				Text		= tostring(v.Value):match'%w+%.%w+%.(.+)';
+				Size		= 20;
+				Position	= BasePosition;
+				Visible		= true;
+				Color		= Colors.Secondary.Light;
+				Transparency= 1;
+				Outline		= true;
+				OutlineOpacity = 0.5;
+			});
+
+			Options[i].BaseSize = BaseSize;
+			Options[i].BasePosition = BasePosition;
+			BindText.Position = BasePosition + V2New(BaseSize.X - BindText.TextBounds.X - 20, -10);
+		end
+	end)
+	GetTableData(Options)(function(i, v) -- just to make sure certain things are drawn before or after others, too lazy to actually sort table
+		if typeof(v.Value) == 'function' then
+			local BaseSize		= V2New(BaseSize.X, 30);
+			local BasePosition	= shared.MenuDrawingData.Instances.Filling.Position + V2New(0, CPos + (25 * v.AllArgs[4]) - 35);
+
+			UIButtons[#UIButtons + 1] = {
+				Option = v;
+				Instance = Menu:AddMenuInstance(Format('%s_Hitbox', v.Name), 'Square', {
+					Size		= V2New(BaseSize.X, 20) - V2New(30, 0);
+					Visible		= true;
+					Transparency= .5;
+					Position	= BasePosition + V2New(15, -10);
+					Color		= Colors.Secondary.Light;
+					Filled		= true;
+				});
+			};
+			local Text		= Menu:AddMenuInstance(Format('%s_Text', v.Name), 'Text', {
+				Text		= v.Text;
+				Size		= 20;
+				Position	= BasePosition + V2New(20, -10);
+				Visible		= true;
+				Color		= Colors.Secondary.Light;
+				Transparency= 1;
+				Outline		= true;
+				OutlineOpacity = 0.5;
+			});
+
+			-- BindText.Position = BasePosition + V2New(BaseSize.X - BindText.TextBounds.X - 10, -10);
+		end
+	end)
+
+	delay(.1, function()
+		MenuLoaded = true;
+	end);
+
+	-- this has to be at the bottom cuz proto drawing api doesnt have zindex :triumph:	
+	Menu:AddMenuInstance('Cursor1', 'Line', {
+		Visible			= false;
+		Color			= Color3.new(1, 0, 0);
+		Transparency	= 1;
+		Thickness		= 2;
+	});
+	Menu:AddMenuInstance('Cursor2', 'Line', {
+		Visible			= false;
+		Color			= Color3.new(1, 0, 0);
+		Transparency	= 1;
+		Thickness		= 2;
+	});
+	Menu:AddMenuInstance('Cursor3', 'Line', {
+		Visible			= false;
+		Color			= Color3.new(1, 0, 0);
+		Transparency	= 1;
+		Thickness		= 2;
+	});
+end
+
+CreateMenu();
+delay(0.1, function()
+	SubMenu:Show(V2New()); -- Create the submenu
+	SubMenu:Hide();
+end);
+
+shared.UESP_InputChangedCon = UserInputService.InputChanged:Connect(function(input)
+	if input.UserInputType.Name == 'MouseMovement' and Options.MenuOpen.Value then
+		for i, v in pairs(Sliders) do
+			local Values = {
+				v.Line.Position.X;
+				v.Line.Position.Y;
+				v.Line.Position.X + v.Line.Size.X;
+				v.Line.Position.Y + v.Line.Size.Y;
+			};
+			if MouseHoveringOver(Values) then
+				v:ShowValue(true);
+			else
+				if not MouseHeld then v:ShowValue(false); end
+			end
+		end
+	end
+end)
+shared.UESP_InputBeganCon = UserInputService.InputBegan:Connect(function(input)
+	if input.UserInputType.Name == 'MouseButton1' and Options.MenuOpen.Value then
+		MouseHeld = true;
+		local Bar = Menu:GetInstance'TopBar';
+		local Values = {
+			Bar.Position.X;
+			Bar.Position.Y;
+			Bar.Position.X + Bar.Size.X;
+			Bar.Position.Y + Bar.Size.Y;
+		}
+		if MouseHoveringOver(Values) then
+			DraggingUI = true;
+			DragOffset = Menu:GetInstance'Main'.Position - GetMouseLocation();
+		else
+			for i, v in pairs(Sliders) do
+				local Values = {
+					v.Line.Position.X;
+					v.Line.Position.Y;
+					v.Line.Position.X + v.Line.Size.X;
+					v.Line.Position.Y + v.Line.Size.Y;
+					-- v.Line.From.X	- (v.Slider.Radius);
+					-- v.Line.From.Y	- (v.Slider.Radius);
+					-- v.Line.To.X		+ (v.Slider.Radius);
+					-- v.Line.To.Y		+ (v.Slider.Radius);
+				};
+				if MouseHoveringOver(Values) then
+					DraggingWhat = v;
+					Dragging = true;
+					break
+				end
+			end
+
+			if not Dragging then
+				local Values = {
+					TracerPosition.X - 10;
+					TracerPosition.Y - 10;
+					TracerPosition.X + 10;
+					TracerPosition.Y + 10;
+				};
+				if MouseHoveringOver(Values) then
+					DragTracerPosition = true;
+				end
+			end
+		end
+	end
+end)
+shared.UESP_InputEndedCon = UserInputService.InputEnded:Connect(function(input)
+	if input.UserInputType.Name == 'MouseButton1' and Options.MenuOpen.Value then
+		MouseHeld = false;
+		DragTracerPosition = false;
+		local IgnoreOtherInput = false;
+
+		if SubMenu.Open and not MouseHoveringOver(SubMenu.Bounds) then
+			if CurrentColorPicker and IsMouseOverDrawing(CurrentColorPicker.Drawings['Square-Background']()) then IgnoreOtherInput = true; end
+			if not IgnoreOtherInput then SubMenu:Hide() end
+		end
+
+		if not IgnoreOtherInput then
+			for i, v in pairs(UIButtons) do
+				if SubMenu.Open and MouseHoveringOver(SubMenu.Bounds) and not v.FromSubMenu then continue end
+
+				local Values = {
+					v.Instance.Position.X;
+					v.Instance.Position.Y;
+					v.Instance.Position.X + v.Instance.Size.X;
+					v.Instance.Position.Y + v.Instance.Size.Y;
+				};
+				if MouseHoveringOver(Values) then
+					v.Option();
+					IgnoreOtherInput = true;
+					break -- prevent clicking 2 options
+				end
+			end
+			for i, v in pairs(Sliders) do
+				if IgnoreOtherInput then break end
+
+				local Values = {
+					v.Line.Position.X;
+					v.Line.Position.Y;
+					v.Line.Position.X + v.Line.Size.X;
+					v.Line.Position.Y + v.Line.Size.Y;
+				};
+				if not MouseHoveringOver(Values) then
+					v:ShowValue(false);
+				end
+			end
+		end
+	elseif input.UserInputType.Name == 'MouseButton2' and Options.MenuOpen.Value and not DragTracerPosition then
+		local Values = {
+			TracerPosition.X - 10;
+			TracerPosition.Y - 10;
+			TracerPosition.X + 10;
+			TracerPosition.Y + 10;
+		}
+		if MouseHoveringOver(Values) then
+			DragTracerPosition = false;
+			TracerPosition = V2New(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y - 135);
+		end
+	elseif input.UserInputType.Name == 'Keyboard' then
+		if Binding then
+			BindedKey = input.KeyCode;
+			Binding = false;
+		elseif input.KeyCode == Options.MenuKey.Value or (input.KeyCode == Enum.KeyCode.Home and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl)) then
+			Options.MenuOpen();
+		elseif input.KeyCode == Options.ToggleKey.Value then
+			Options.Enabled();
+		elseif input.KeyCode.Name == 'F1' and UserInputService:IsMouseButtonPressed(1) and shared.am_ic3 then -- hehe hiden spectate feature cuz why not
+			local HD, LPlayer, LCharacter = 0.95;
+
+			for i, Player in pairs(Players:GetPlayers()) do
+				local Character = GetCharacter(Player);
+
+				if Player ~= LocalPlayer and Player ~= Spectating and Character and Character:FindFirstChild'HumanoidRootPart' then
+					local Head = Character:FindFirstChild'Head';
+					local Humanoid = Character:FindFirstChildOfClass'Humanoid';
+					
+					if Head then
+						local Distance  = (Camera.CFrame.Position - Head.Position).Magnitude;
+						
+						if Distance > Options.MaxDistance.Value then continue; end
+
+						local Direction = -(Camera.CFrame.Position - Mouse.Hit.Position).unit;
+						local Relative  = Character.Head.Position - Camera.CFrame.Position;
+						local Unit      = Relative.unit;
+
+						local DP = Direction:Dot(Unit);
+
+						if DP > HD then
+							HD = DP;
+							LPlayer = Player;
+							LCharacter = Character;
+						end
+					end
+				end
+			end
+			
+			if LPlayer and LPlayer ~= Spectating and LCharacter then
+				Camera.CameraSubject = LCharacter.Head;
+				Spectating = LPlayer;
+			else
+				if LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass'Humanoid' then
+					Camera.CameraSubject = LocalPlayer.Character:FindFirstChildOfClass'Humanoid';
+					Spectating = nil;
+				end
+			end
+		end
+	end
+end)
+
+local function CameraCon() -- unnamed esp v1 sucks
+	workspace.CurrentCamera:GetPropertyChangedSignal'ViewportSize':Connect(function()
+		TracerPosition = V2New(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y - 135);
+	end);
+end
+
+CameraCon();
+
+local function ToggleMenu()
+	if Options.MenuOpen.Value then
+		-- GUIService:SetMenuIsOpen(true);
+		GetTableData(shared.MenuDrawingData.Instances)(function(i, v)
+			if OldData[v] then
+				pcall(Set, v, 'Visible', true);
+			end
+		end)
+	else
+		-- GUIService:SetMenuIsOpen(false);
+		GetTableData(shared.MenuDrawingData.Instances)(function(i, v)
+			OldData[v] = v.Visible;
+			if v.Visible then
+				pcall(Set, v, 'Visible', false);
+			end
+		end)
+	end
+end
+
+local function CheckRay(Instance, Distance, Position, Unit)
+	local Pass = true;
+	local Model = Instance;
+
+	if Distance > 999 then return false; end
+
+	if Instance.ClassName == 'Player' then
+		Model = GetCharacter(Instance);
+	end
+
+	if not Model then
+		Model = Instance.Parent;
+
+		if Model.Parent == workspace then
+			Model = Instance;
+		end
+	end
+
+	if not Model then return false end
+
+	local _Ray = Ray.new(Position, Unit * Distance);
+	
+	local List = {LocalPlayer.Character, Camera, Mouse.TargetFilter};
+
+	for i,v in pairs(IgnoreList) do table.insert(List, v); end;
+
+	local Hit = workspace:FindPartOnRayWithIgnoreList(_Ray, List);
+
+	if Hit and not Hit:IsDescendantOf(Model) then
+		Pass = false;
+		if Hit.Transparency >= .3 or not Hit.CanCollide and Hit.ClassName ~= Terrain then -- Detect invisible walls
+			IgnoreList[#IgnoreList + 1] = Hit;
+		end
+	end
+
+	return Pass;
+end
+
+local function CheckTeam(Player)
+	if Player.Neutral and LocalPlayer.Neutral then return true; end
+	return Player.TeamColor == LocalPlayer.TeamColor;
+end
+
+local CustomTeam = CustomTeams[game.PlaceId];
+
+if CustomTeam ~= nil then
+	if CustomTeam.Initialize then ypcall(CustomTeam.Initialize) end
+
+	CheckTeam = CustomTeam.CheckTeam;
+end
+
+local function CheckPlayer(Player, Character)
+	if not Options.Enabled.Value then return false end
+
+	local Pass = true;
+	local Distance = 0;
+
+	if Player ~= LocalPlayer and Character then
+		if not Options.ShowTeam.Value and CheckTeam(Player) then
+			Pass = false;
+		end
+
+		local Head = Character:FindFirstChild'Head';
+
+		if Pass and Character and Head then
+			Distance = (Camera.CFrame.Position - Head.Position).Magnitude;
+			if Options.VisCheck.Value then
+				Pass = CheckRay(Player, Distance, Camera.CFrame.Position, (Head.Position - Camera.CFrame.Position).unit);
+			end
+			if Distance > Options.MaxDistance.Value then
+				Pass = false;
+			end
+		end
+	else
+		Pass = false;
+	end
+
+	return Pass, Distance;
+end
+
+local function CheckDistance(Instance)
+	if not Options.Enabled.Value then return false end
+
+	local Pass = true;
+	local Distance = 0;
+
+	if Instance ~= nil then
+		Distance = (Camera.CFrame.Position - Instance.Position).Magnitude;
+		if Options.VisCheck.Value then
+			Pass = CheckRay(Instance, Distance, Camera.CFrame.Position, (Instance.Position - Camera.CFrame.Position).unit);
+		end
+		if Distance > Options.MaxDistance.Value then
+			Pass = false;
+		end
+	else
+		Pass = false;
+	end
+
+	return Pass, Distance;
+end
+
+local function UpdatePlayerData()
+	if (tick() - LastRefresh) > (Options.RefreshRate.Value / 1000) then
+		LastRefresh = tick();
+		if CustomESP and Options.Enabled.Value then
+			local a, b = pcall(CustomESP);
+		end
+		for i, v in pairs(RenderList.Instances) do
+			if v.Instance ~= nil and v.Instance.Parent ~= nil and v.Instance:IsA'BasePart' then
+				local Data = shared.InstanceData[v.Instance:GetDebugId()] or { Instances = {}; DontDelete = true };
+
+				Data.Instance = v.Instance;
+
+				Data.Instances['OutlineTracer'] = Data.Instances['OutlineTracer'] or NewDrawing'Line'{
+					Transparency	= 0.75;
+					Thickness		= 5;
+					Color 			= Color3.new(0.1, 0.1, 0.1);
+				}
+				Data.Instances['Tracer'] = Data.Instances['Tracer'] or NewDrawing'Line'{
+					Transparency	= 1;
+					Thickness		= 2;
+				}
+				Data.Instances['NameTag'] = Data.Instances['NameTag'] or NewDrawing'Text'{
+					Size			= Options.TextSize.Value;
+					Center			= true;
+					Outline			= Options.TextOutline.Value;
+					Visible			= true;
+				};
+				Data.Instances['DistanceTag'] = Data.Instances['DistanceTag'] or NewDrawing'Text'{
+					Size			= Options.TextSize.Value - 1;
+					Center			= true;
+					Outline			= Options.TextOutline.Value;
+					Visible			= true;
+				};
+
+				local NameTag		= Data.Instances['NameTag'];
+				local DistanceTag	= Data.Instances['DistanceTag'];
+				local Tracer		= Data.Instances['Tracer'];
+				local OutlineTracer	= Data.Instances['OutlineTracer'];
+
+				local Pass, Distance = CheckDistance(v.Instance);
+
+				if Pass then
+					local ScreenPosition, Vis = WorldToViewport(v.Instance.Position);
+					local Color = v.Color;
+					local OPos = Camera.CFrame:pointToObjectSpace(v.Instance.Position);
+					
+					if ScreenPosition.Z < 0 then
+						local AT = math.atan2(OPos.Y, OPos.X) + math.pi;
+						OPos = CFrame.Angles(0, 0, AT):vectorToWorldSpace((CFrame.Angles(0, math.rad(89.9), 0):vectorToWorldSpace(V3New(0, 0, -1))));
+					end
+					
+					local Position = WorldToViewport(Camera.CFrame:pointToWorldSpace(OPos));
+
+					if Options.ShowTracers.Value then
+						Tracer.Transparency = math.clamp(Distance / 200, 0.45, 0.8);
+						Tracer.Visible	= true;
+						Tracer.From		= TracerPosition;
+						Tracer.To		= V2New(Position.X, Position.Y);
+						Tracer.Color	= Color;
+						OutlineTracer.Visible = true;
+						OutlineTracer.Transparency = Tracer.Transparency - 0.1;
+						OutlineTracer.From = Tracer.From;
+						OutlineTracer.To = Tracer.To;
+						OutlineTracer.Color	= Color3.new(0.1, 0.1, 0.1);
+					else
+						Tracer.Visible = false;
+						OutlineTracer.Visible = false;
+					end
+
+					if ScreenPosition.Z > 0 then
+						local ScreenPositionUpper = ScreenPosition;
+						
+						if Options.ShowName.Value then
+							LocalPlayer.NameDisplayDistance = 0;
+							NameTag.Visible		= true;
+							NameTag.Text		= v.Text;
+							NameTag.Size		= Options.TextSize.Value;
+							NameTag.Outline		= Options.TextOutline.Value;
+							NameTag.Position	= V2New(ScreenPositionUpper.X, ScreenPositionUpper.Y);
+							NameTag.Color		= Color;
+							if Drawing.Fonts and shared.am_ic3 then -- CURRENTLY SYNAPSE ONLY :MEGAHOLY:
+								NameTag.Font	= Drawing.Fonts.Monospace;
+							end
+						else
+							LocalPlayer.NameDisplayDistance = 100;
+							NameTag.Visible = false;
+						end
+						if Options.ShowDistance.Value or Options.ShowHealth.Value then
+							DistanceTag.Visible		= true;
+							DistanceTag.Size		= Options.TextSize.Value - 1;
+							DistanceTag.Outline		= Options.TextOutline.Value;
+							DistanceTag.Color		= Color3.new(1, 1, 1);
+							if Drawing.Fonts and shared.am_ic3 then -- CURRENTLY SYNAPSE ONLY :MEGAHOLY:
+								NameTag.Font	= Drawing.Fonts.Monospace;
+							end
+
+							local Str = '';
+
+							if Options.ShowDistance.Value then
+								Str = Str .. Format('[%d] ', Distance);
+							end
+
+							DistanceTag.Text = Str;
+							DistanceTag.Position = V2New(ScreenPositionUpper.X, ScreenPositionUpper.Y) + V2New(0, NameTag.TextBounds.Y);
+						else
+							DistanceTag.Visible = false;
+						end
+					else
+						NameTag.Visible			= false;
+						DistanceTag.Visible		= false;
+					end
+				else
+					NameTag.Visible			= false;
+					DistanceTag.Visible		= false;
+					Tracer.Visible			= false;
+					OutlineTracer.Visible	= false;
+				end
+
+				Data.Instances['NameTag'] 		= NameTag;
+				Data.Instances['DistanceTag']	= DistanceTag;
+				Data.Instances['Tracer']		= Tracer;
+				Data.Instances['OutlineTracer']	= OutlineTracer;
+
+				shared.InstanceData[v.Instance:GetDebugId()] = Data;
+			end
+		end
+		for i, v in pairs(Players:GetPlayers()) do
+			local Data = shared.InstanceData[v.Name] or { Instances = {}; };
+
+			Data.Instances['Box'] = Data.Instances['Box'] or LineBox:Create{Thickness = 4};
+			Data.Instances['OutlineTracer'] = Data.Instances['OutlineTracer'] or NewDrawing'Line'{
+				Transparency	= 1;
+				Thickness		= 3;
+				Color			= Color3.new(0.1, 0.1, 0.1);
+			}
+			Data.Instances['Tracer'] = Data.Instances['Tracer'] or NewDrawing'Line'{
+				Transparency	= 1;
+				Thickness		= 1;
+			}
+			Data.Instances['HeadDot'] = Data.Instances['HeadDot'] or NewDrawing'Circle'{
+				Filled			= true;
+				NumSides		= 30;
+			}
+			Data.Instances['NameTag'] = Data.Instances['NameTag'] or NewDrawing'Text'{
+				Size			= Options.TextSize.Value;
+				Center			= true;
+				Outline			= Options.TextOutline.Value;
+				OutlineOpacity	= 1;
+				Visible			= true;
+			};
+			Data.Instances['DistanceHealthTag'] = Data.Instances['DistanceHealthTag'] or NewDrawing'Text'{
+				Size			= Options.TextSize.Value - 1;
+				Center			= true;
+				Outline			= Options.TextOutline.Value;
+				OutlineOpacity	= 1;
+				Visible			= true;
+			};
+
+			local NameTag		= Data.Instances['NameTag'];
+			local DistanceTag	= Data.Instances['DistanceHealthTag'];
+			local Tracer		= Data.Instances['Tracer'];
+			local OutlineTracer	= Data.Instances['OutlineTracer'];
+			local HeadDot		= Data.Instances['HeadDot'];
+			local Box			= Data.Instances['Box'];
+
+			local Character = GetCharacter(v);
+			local Pass, Distance = CheckPlayer(v, Character);
+
+			if Pass and Character then
+				local Humanoid = Character:FindFirstChildOfClass'Humanoid';
+				local Head = Character:FindFirstChild'Head';
+				local HumanoidRootPart = Character:FindFirstChild(CustomRootPartName or 'HumanoidRootPart')
+
+				local Dead = (Humanoid and Humanoid:GetState().Name == 'Dead')
+				if type(GetAliveState) == 'function' then
+					Dead = (not GetAliveState(v, Character))
+				end
+
+				if Character ~= nil and Head and HumanoidRootPart and not Dead then
+					local ScreenPosition, Vis = WorldToViewport(Head.Position);
+					local Color = Rainbow and Color3.fromHSV(tick() * 128 % 255/255, 1, 1) or (CheckTeam(v) and TeamColor or EnemyColor); Color = Options.ShowTeamColor.Value and v.TeamColor.Color or Color;
+					local OPos = Camera.CFrame:pointToObjectSpace(Head.Position);
+					
+					if ScreenPosition.Z < 0 then
+						local AT = math.atan2(OPos.Y, OPos.X) + math.pi;
+						OPos = CFrame.Angles(0, 0, AT):vectorToWorldSpace((CFrame.Angles(0, math.rad(89.9), 0):vectorToWorldSpace(V3New(0, 0, -1))));
+					end
+					
+					local Position = WorldToViewport(Camera.CFrame:pointToWorldSpace(OPos));
+
+					if Options.ShowTracers.Value then
+						if TracerPosition.X >= Camera.ViewportSize.X or TracerPosition.Y >= Camera.ViewportSize.Y or TracerPosition.X < 0 or TracerPosition.Y < 0 then
+							TracerPosition = V2New(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y - 135);
+						end
+
+						Tracer.Visible	= true;
+						Tracer.Transparency = math.clamp(1 - (Distance / 200), 0.25, 0.75);
+						Tracer.From		= TracerPosition;
+						Tracer.To		= V2New(Position.X, Position.Y);
+						Tracer.Color	= Color;
+						OutlineTracer.From = Tracer.From;
+						OutlineTracer.To = Tracer.To;
+						OutlineTracer.Transparency = Tracer.Transparency - 0.15;
+						OutlineTracer.Visible = true;
+					else
+						Tracer.Visible = false;
+						OutlineTracer.Visible = false;
+					end
+					
+					if ScreenPosition.Z > 0 then
+						local ScreenPositionUpper	= WorldToViewport((HumanoidRootPart:GetRenderCFrame() * CFrame.new(0, Head.Size.Y + HumanoidRootPart.Size.Y + (Options.YOffset.Value / 25), 0)).Position);
+						local Scale					= Head.Size.Y / 2;
+
+						if Options.ShowName.Value then
+							NameTag.Visible		= true;
+							NameTag.Text		= v.Name .. (CustomPlayerTag and CustomPlayerTag(v) or '');
+							NameTag.Size		= Options.TextSize.Value;
+							NameTag.Outline		= Options.TextOutline.Value;
+							NameTag.Position	= V2New(ScreenPositionUpper.X, ScreenPositionUpper.Y) - V2New(0, NameTag.TextBounds.Y);
+							NameTag.Color		= Color;
+							NameTag.Color		= Color;
+							NameTag.OutlineColor= Color3.new(0.05, 0.05, 0.05);
+							NameTag.Transparency= 0.85;
+							if Drawing.Fonts and shared.am_ic3 then -- CURRENTLY SYNAPSE ONLY :MEGAHOLY:
+								NameTag.Font	= Drawing.Fonts.Monospace;
+							end
+						else
+							NameTag.Visible = false;
+						end
+						if Options.ShowDistance.Value or Options.ShowHealth.Value then
+							DistanceTag.Visible		= true;
+							DistanceTag.Size		= Options.TextSize.Value - 1;
+							DistanceTag.Outline		= Options.TextOutline.Value;
+							DistanceTag.Color		= Color3.new(1, 1, 1);
+							DistanceTag.Transparency= 0.85;
+							if Drawing.Fonts and shared.am_ic3 then -- CURRENTLY SYNAPSE ONLY :MEGAHOLY:
+								NameTag.Font	= Drawing.Fonts.Monospace;
+							end
+
+							local Str = '';
+
+							if Options.ShowDistance.Value then
+								Str = Str .. Format('[%d] ', Distance);
+							end
+							if Options.ShowHealth.Value then								
+								if typeof(Humanoid) == 'Instance' then
+									Str = Str .. Format('[%d/%d] [%s%%]', Humanoid.Health, Humanoid.MaxHealth, math.floor(Humanoid.Health / Humanoid.MaxHealth * 100));
+								elseif type(GetHealth) == 'function' then
+									local health, maxHealth = GetHealth(v)
+									
+									if type(health) == 'number' and type(maxHealth) == 'number' then
+										Str = Str .. Format('[%d/%d] [%s%%]', health, maxHealth, math.floor(health / maxHealth * 100))
+									end
+								end
+							end
+
+							DistanceTag.Text = Str;
+							DistanceTag.OutlineColor = Color3.new(0.05, 0.05, 0.05);
+							DistanceTag.Position = (NameTag.Visible and NameTag.Position + V2New(0, NameTag.TextBounds.Y) or V2New(ScreenPositionUpper.X, ScreenPositionUpper.Y));
+						else
+							DistanceTag.Visible = false;
+						end
+						if Options.ShowDot.Value and Vis then
+							local Top			= WorldToViewport((Head.CFrame * CFrame.new(0, Scale, 0)).Position);
+							local Bottom		= WorldToViewport((Head.CFrame * CFrame.new(0, -Scale, 0)).Position);
+							local Radius		= (Top - Bottom).y;
+
+							HeadDot.Visible		= true;
+							HeadDot.Color		= Color;
+							HeadDot.Position	= V2New(ScreenPosition.X, ScreenPosition.Y);
+							HeadDot.Radius		= Radius;
+						else
+							HeadDot.Visible = false;
+						end
+						if Options.ShowBoxes.Value and Vis and HumanoidRootPart then
+							local Body = {
+								Head;
+								Character:FindFirstChild'Left Leg' or Character:FindFirstChild'LeftLowerLeg';
+								Character:FindFirstChild'Right Leg' or Character:FindFirstChild'RightLowerLeg';
+								Character:FindFirstChild'Left Arm' or Character:FindFirstChild'LeftLowerArm';
+								Character:FindFirstChild'Right Arm' or Character:FindFirstChild'RightLowerArm';
+							}
+							Box:Update(HumanoidRootPart.CFrame, V3New(2, 3, 1) * (Scale * 2), Color, nil, shared.am_ic3 and Body);
+						else
+							Box:SetVisible(false);
+						end
+					else
+						NameTag.Visible			= false;
+						DistanceTag.Visible		= false;
+						HeadDot.Visible			= false;
+						
+						Box:SetVisible(false);
+					end
+				else
+					NameTag.Visible			= false;
+					DistanceTag.Visible		= false;
+					HeadDot.Visible			= false;
+					Tracer.Visible			= false;
+					OutlineTracer.Visible 	= false;
+					
+					Box:SetVisible(false);
+				end
+			else
+				NameTag.Visible			= false;
+				DistanceTag.Visible		= false;
+				HeadDot.Visible			= false;
+				Tracer.Visible			= false;
+				OutlineTracer.Visible 	= false;
+
+				Box:SetVisible(false);
+			end
+
+			shared.InstanceData[v.Name] = Data;
+		end
+	end
+end
+
+local LastInvalidCheck = 0;
+
+local function Update()
+	if tick() - LastInvalidCheck > 0.3 then
+		LastInvalidCheck = tick();
+
+		if Camera.Parent ~= workspace then
+			Camera = workspace.CurrentCamera;
+			CameraCon();
+			WTVP = Camera.WorldToViewportPoint;
+		end
+
+		for i, v in pairs(shared.InstanceData) do
+			if not Players:FindFirstChild(tostring(i)) then
+				if not shared.InstanceData[i].DontDelete then
+					GetTableData(v.Instances)(function(i, obj)
+						obj.Visible = false;
+						obj:Remove();
+						v.Instances[i] = nil;
+					end)
+					shared.InstanceData[i] = nil;
+				else
+					if shared.InstanceData[i].Instance == nil or shared.InstanceData[i].Instance.Parent == nil then
+						GetTableData(v.Instances)(function(i, obj)
+							obj.Visible = false;
+							obj:Remove();
+							v.Instances[i] = nil;
+						end)
+						shared.InstanceData[i] = nil;
+					end
+				end
+			end
+		end
+	end
+
+	local CX = Menu:GetInstance'CrosshairX';
+	local CY = Menu:GetInstance'CrosshairY';
+	
+	if Options.Crosshair.Value then
+		CX.Visible = true;
+		CY.Visible = true;
+
+		CX.To = V2New((Camera.ViewportSize.X / 2) - 8, (Camera.ViewportSize.Y / 2));
+		CX.From = V2New((Camera.ViewportSize.X / 2) + 8, (Camera.ViewportSize.Y / 2));
+		CY.To = V2New((Camera.ViewportSize.X / 2), (Camera.ViewportSize.Y / 2) - 8);
+		CY.From = V2New((Camera.ViewportSize.X / 2), (Camera.ViewportSize.Y / 2) + 8);
+	else
+		CX.Visible = false;
+		CY.Visible = false;
+	end
+
+	if Options.MenuOpen.Value and MenuLoaded then
+		local MLocation = GetMouseLocation();
+		shared.MenuDrawingData.Instances.Main.Color = Color3.fromHSV(tick() * 24 % 255/255, 1, 1);
+		local MainInstance = Menu:GetInstance'Main';
+		
+		local Values = {
+			MainInstance.Position.X;
+			MainInstance.Position.Y;
+			MainInstance.Position.X + MainInstance.Size.X;
+			MainInstance.Position.Y + MainInstance.Size.Y;
+		};
+		
+		if MainInstance and (MouseHoveringOver(Values) or (SubMenu.Open and MouseHoveringOver(SubMenu.Bounds))) then
+			Debounce.CursorVis = true;
+			
+			Menu:UpdateMenuInstance'Cursor1'{
+				Visible	= true;
+				From	= V2New(MLocation.x, MLocation.y);
+				To		= V2New(MLocation.x + 5, MLocation.y + 6);
+			}
+			Menu:UpdateMenuInstance'Cursor2'{
+				Visible	= true;
+				From	= V2New(MLocation.x, MLocation.y);
+				To		= V2New(MLocation.x, MLocation.y + 8);
+			}
+			Menu:UpdateMenuInstance'Cursor3'{
+				Visible	= true;
+				From	= V2New(MLocation.x, MLocation.y + 6);
+				To		= V2New(MLocation.x + 5, MLocation.y + 5);
+			}
+		else
+			if Debounce.CursorVis then
+				Debounce.CursorVis = false;
+				
+				Menu:UpdateMenuInstance'Cursor1'{Visible = false};
+				Menu:UpdateMenuInstance'Cursor2'{Visible = false};
+				Menu:UpdateMenuInstance'Cursor3'{Visible = false};
+			end
+		end
+		if MouseHeld then
+			local MousePos = GetMouseLocation();
+
+			if Dragging then
+				DraggingWhat.Slider.Position = V2New(math.clamp(MLocation.X - DraggingWhat.Slider.Size.X / 2, DraggingWhat.Line.Position.X, DraggingWhat.Line.Position.X + DraggingWhat.Line.Size.X - DraggingWhat.Slider.Size.X), DraggingWhat.Slider.Position.Y);
+				local Percent	= (DraggingWhat.Slider.Position.X - DraggingWhat.Line.Position.X) / ((DraggingWhat.Line.Position.X + DraggingWhat.Line.Size.X - DraggingWhat.Line.Position.X) - DraggingWhat.Slider.Size.X);
+				local Value		= CalculateValue(DraggingWhat.Min, DraggingWhat.Max, Percent);
+				DraggingWhat.Option(Value);
+			elseif DraggingUI then
+				Debounce.UIDrag = true;
+				local Main = Menu:GetInstance'Main';
+				Main.Position = MousePos + DragOffset;
+			elseif DragTracerPosition then
+				TracerPosition = MousePos;
+			end
+		else
+			Dragging = false;
+			DragTracerPosition = false;
+			if DraggingUI and Debounce.UIDrag then
+				Debounce.UIDrag = false;
+				DraggingUI = false;
+				CreateMenu(Menu:GetInstance'Main'.Position);
+			end
+		end
+		if not Debounce.Menu then
+			Debounce.Menu = true;
+			ToggleMenu();
+		end
+	elseif Debounce.Menu and not Options.MenuOpen.Value then
+		Debounce.Menu = false;
+		ToggleMenu();
+	end
+end
+
+RunService:UnbindFromRenderStep(GetDataName);
+RunService:UnbindFromRenderStep(UpdateName);
+
+RunService:BindToRenderStep(GetDataName, 300, UpdatePlayerData);
+RunService:BindToRenderStep(UpdateName, 199, Update);
+end)
+
+local Player = Window:NewTab("Hubs")
+local AnimationsSection = Player:NewSection("Animations")
+
+AnimationsSection:NewButton("Energize UI", "Loads the Energize Animations UI", function()
+    -- Energize by illremember, fe animations
+-- DO NOT COPY AND CLAIM AS OWN, if you are using some of the script for your own, credit is highly appreciated!
+-- Thank you, and enjoy.
+ 
+-- Objects
+ 
+local Energize = Instance.new("ScreenGui") -- The actual GUI
+local SideFrame = Instance.new("Frame") -- Visible when GUI is closed
+local OpenGUI = Instance.new("TextButton") -- Part of SideFrame
+local SideFrameTitle = Instance.new("TextLabel") -- Part of SideFrame
+local MainFrame = Instance.new("Frame") -- All of the stuff on the main frame
+local GuiBottomFrame = Instance.new("Frame") -- Part of Active Frame
+local Credits = Instance.new("TextLabel") -- Credits to illremember, hello there
+local ScrollingFrame = Instance.new("ScrollingFrame") -- The scrolling frame of animations
+local CheckR = Instance.new("TextLabel") -- Check if R15 or R6
+local ScrollingFrameR15 = Instance.new("ScrollingFrame") -- The scrolling frame of R15 animations
+ 
+local CrazySlash = Instance.new("TextButton")--COMPLETE
+local Open = Instance.new("TextButton")--COMPLETE
+local R15Spinner = Instance.new("TextButton")--COMPLETE
+local ArmsOut = Instance.new("TextButton")--COMPLETE
+local FloatSlash = Instance.new("TextButton")--COMPLETE
+local WeirdZombie = Instance.new("TextButton")--COMPLETE
+local DownSlash = Instance.new("TextButton")--COMPLETE
+local Pull = Instance.new("TextButton")--COMPLETE
+local CircleArm = Instance.new("TextButton")--COMPLETE
+local Bend = Instance.new("TextButton")--COMPLETE
+local RotateSlash = Instance.new("TextButton")--COMPLETE
+local FlingArms = Instance.new("TextButton")--COMPLETE
+ 
+local FullSwing = Instance.new("TextButton")--COMPLETE
+local GlitchLevitate = Instance.new("TextButton")--COMPLETE
+local MoonDance = Instance.new("TextButton")--COMPLETE
+local FullPunch = Instance.new("TextButton")--COMPLETE
+local Crouch = Instance.new("TextButton")--COMPLETE
+local SpinDance = Instance.new("TextButton")--COMPLETE
+local FloorFaint = Instance.new("TextButton")--COMPLETE
+local JumpingJacks = Instance.new("TextButton")--COMPLETE
+local Spinner = Instance.new("TextButton")--COMPLETE
+local MegaInsane = Instance.new("TextButton")--COMPLETE
+local ArmDetach = Instance.new("TextButton")--COMPLETE
+local WeirdMove = Instance.new("TextButton")--COMPLETE
+local Faint = Instance.new("TextButton")--COMPLETE
+local CloneIllusion = Instance.new("TextButton")--COMPLETE
+local Levitate = Instance.new("TextButton")--COMPLETE
+local DinoWalk = Instance.new("TextButton")--COMPLETE
+local FloorCrawl = Instance.new("TextButton")--COMPLETE
+local SwordSlam = Instance.new("TextButton")--COMPLETE
+local LoopHead = Instance.new("TextButton")--COMPLETE
+local HeroJump = Instance.new("TextButton")--COMPLETE
+local Insane = Instance.new("TextButton")--COMPLETE
+local FloatingHead = Instance.new("TextButton")--COMPLETE
+local HeadThrow = Instance.new("TextButton")--COMPLETE
+local MovingDance = Instance.new("TextButton")--COMPLETE
+local SuperPunch = Instance.new("TextButton")--COMPLETE
+local ArmTurbine = Instance.new("TextButton")--COMPLETE
+local Dab = Instance.new("TextButton")--COMPLETE
+local FloatSit = Instance.new("TextButton")--COMPLETE
+local SuperFaint = Instance.new("TextButton")--COMPLETE
+local BarrelRoll = Instance.new("TextButton")--COMPLETE
+local Scared = Instance.new("TextButton")--COMPLETE
+local InsaneArms = Instance.new("TextButton")--COMPLETE
+local SwordSlice = Instance.new("TextButton")--COMPLETE
+local SpinDance2 = Instance.new("TextButton")--COMPLETE
+local BowDown = Instance.new("TextButton")--COMPLETE
+local LoopSlam = Instance.new("TextButton")--COMPLETE
+ 
+local GuiTopFrame = Instance.new("Frame") -- Top of the main frame
+local CloseGUI = Instance.new("TextButton") -- To close the GUI
+local Title = Instance.new("TextLabel") -- Actual title of GUI, Energize
+ 
+-- Properties
+ 
+Energize.Name = "Energize"
+Energize.Parent = game.Players.LocalPlayer.PlayerGui
+ 
+SideFrame.Name = "SideFrame"
+SideFrame.Parent = Energize
+SideFrame.Active = true
+SideFrame.BackgroundColor3 = Color3.new(1, 0.329412, 0.329412)
+SideFrame.Draggable = true
+SideFrame.Position = UDim2.new(0, 376, 0, 125)
+SideFrame.Size = UDim2.new(0, 460, 0, 32)
+SideFrame.Visible = false
+ 
+OpenGUI.Name = "OpenGUI"
+OpenGUI.Parent = SideFrame
+OpenGUI.BackgroundColor3 = Color3.new(1, 1, 1)
+OpenGUI.BackgroundTransparency = 1
+OpenGUI.Position = UDim2.new(0, 426, 0, 0)
+OpenGUI.Size = UDim2.new(0, 34, 0, 32)
+OpenGUI.Font = Enum.Font.SourceSans
+OpenGUI.FontSize = Enum.FontSize.Size48
+OpenGUI.Text = "X"
+OpenGUI.TextColor3 = Color3.new(0.333333, 0, 0)
+OpenGUI.TextSize = 40
+OpenGUI.TextWrapped = true
+ 
+SideFrameTitle.Name = "SideFrameTitle"
+SideFrameTitle.Parent = SideFrame
+SideFrameTitle.BackgroundColor3 = Color3.new(1, 1, 1)
+SideFrameTitle.BackgroundTransparency = 1
+SideFrameTitle.Position = UDim2.new(0, 170, 0, 0)
+SideFrameTitle.Size = UDim2.new(0, 119, 0, 31)
+SideFrameTitle.Font = Enum.Font.Arial
+SideFrameTitle.FontSize = Enum.FontSize.Size24
+SideFrameTitle.Text = "Energize"
+SideFrameTitle.TextSize = 21
+SideFrameTitle.TextStrokeColor3 = Color3.new(0.27451, 0.92549, 0.905882)
+SideFrameTitle.TextStrokeTransparency = 0.69999998807907
+ 
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = Energize
+MainFrame.Active = true
+MainFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+MainFrame.BackgroundTransparency = 1
+MainFrame.Draggable = true
+MainFrame.Position = UDim2.new(0, 376, 0, 125)
+MainFrame.Size = UDim2.new(0, 444, 0, 280)
+ 
+GuiBottomFrame.Name = "Gui BottomFrame"
+GuiBottomFrame.Parent = MainFrame
+GuiBottomFrame.BackgroundColor3 = Color3.new(1, 0.329412, 0.329412)
+GuiBottomFrame.BorderColor3 = Color3.new(0.243137, 0.243137, 0.243137)
+GuiBottomFrame.Position = UDim2.new(0, 0, 0, 247)
+GuiBottomFrame.Size = UDim2.new(0, 460, 0, 32)
+ 
+Credits.Name = "Credits"
+Credits.Parent = GuiBottomFrame
+Credits.BackgroundColor3 = Color3.new(1, 1, 1)
+Credits.BackgroundTransparency = 1
+Credits.Size = UDim2.new(0, 460, 0, 32)
+Credits.FontSize = Enum.FontSize.Size14
+Credits.Text = "By illremember FE Animations Gui"
+Credits.TextColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+Credits.TextSize = 14
+Credits.TextStrokeColor3 = Color3.new(0.141176, 0.870588, 0.713726)
+Credits.TextStrokeTransparency = 0.69999998807907
+Credits.TextWrapped = true
+ 
+ScrollingFrame.Parent = MainFrame
+ScrollingFrame.BackgroundColor3 = Color3.new(1, 0.564706, 0.564706)
+ScrollingFrame.Position = UDim2.new(0, 0, 0, 32)
+ScrollingFrame.Size = UDim2.new(0, 460, 0, 215)
+ScrollingFrame.ScrollBarThickness = 13
+ 
+FullSwing.Name = "FullSwing"
+FullSwing.Parent = ScrollingFrame
+FullSwing.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+FullSwing.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+FullSwing.Position = UDim2.new(0, 17, 0, 322)
+FullSwing.Size = UDim2.new(0, 119, 0, 34)
+FullSwing.Font = Enum.Font.Highway
+FullSwing.FontSize = Enum.FontSize.Size24
+FullSwing.Text = "Full Swing"
+FullSwing.TextSize = 20
+FullSwing.TextWrapped = true
+ 
+GlitchLevitate.Name = "GlitchLevitate"
+GlitchLevitate.Parent = ScrollingFrame
+GlitchLevitate.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+GlitchLevitate.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+GlitchLevitate.Position = UDim2.new(0, 319, 0, 322)
+GlitchLevitate.Size = UDim2.new(0, 119, 0, 34)
+GlitchLevitate.Font = Enum.Font.Highway
+GlitchLevitate.FontSize = Enum.FontSize.Size24
+GlitchLevitate.Text = "Glitch Levitate"
+GlitchLevitate.TextSize = 20
+GlitchLevitate.TextWrapped = true
+ 
+MoonDance.Name = "MoonDance"
+MoonDance.Parent = ScrollingFrame
+MoonDance.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+MoonDance.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+MoonDance.Position = UDim2.new(0, 319, 0, 280)
+MoonDance.Size = UDim2.new(0, 119, 0, 34)
+MoonDance.Font = Enum.Font.Highway
+MoonDance.FontSize = Enum.FontSize.Size24
+MoonDance.Text = "Moon Dance"
+MoonDance.TextSize = 20
+MoonDance.TextWrapped = true
+ 
+FullPunch.Name = "FullPunch"
+FullPunch.Parent = ScrollingFrame
+FullPunch.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+FullPunch.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+FullPunch.Position = UDim2.new(0, 17, 0, 280)
+FullPunch.Size = UDim2.new(0, 119, 0, 34)
+FullPunch.Font = Enum.Font.Highway
+FullPunch.FontSize = Enum.FontSize.Size24
+FullPunch.Text = "Full Punch"
+FullPunch.TextSize = 20
+FullPunch.TextWrapped = true
+ 
+Crouch.Name = "Crouch"
+Crouch.Parent = ScrollingFrame
+Crouch.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+Crouch.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Crouch.Position = UDim2.new(0, 168, 0, 280)
+Crouch.Size = UDim2.new(0, 119, 0, 34)
+Crouch.Font = Enum.Font.Highway
+Crouch.FontSize = Enum.FontSize.Size24
+Crouch.Text = "Crouch"
+Crouch.TextSize = 20
+Crouch.TextWrapped = true
+ 
+SpinDance.Name = "SpinDance"
+SpinDance.Parent = ScrollingFrame
+SpinDance.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+SpinDance.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+SpinDance.Position = UDim2.new(0, 168, 0, 236)
+SpinDance.Size = UDim2.new(0, 119, 0, 34)
+SpinDance.Font = Enum.Font.Highway
+SpinDance.FontSize = Enum.FontSize.Size24
+SpinDance.Text = "Spin Dance"
+SpinDance.TextSize = 20
+SpinDance.TextWrapped = true
+ 
+FloorFaint.Name = "FloorFaint"
+FloorFaint.Parent = ScrollingFrame
+FloorFaint.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+FloorFaint.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+FloorFaint.Position = UDim2.new(0, 17, 0, 236)
+FloorFaint.Size = UDim2.new(0, 119, 0, 34)
+FloorFaint.Font = Enum.Font.Highway
+FloorFaint.FontSize = Enum.FontSize.Size24
+FloorFaint.Text = "Floor Faint"
+FloorFaint.TextSize = 20
+FloorFaint.TextWrapped = true
+ 
+JumpingJacks.Name = "JumpingJacks"
+JumpingJacks.Parent = ScrollingFrame
+JumpingJacks.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+JumpingJacks.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+JumpingJacks.Position = UDim2.new(0, 319, 0, 236)
+JumpingJacks.Size = UDim2.new(0, 119, 0, 34)
+JumpingJacks.Font = Enum.Font.Highway
+JumpingJacks.FontSize = Enum.FontSize.Size24
+JumpingJacks.Text = "Jumping Jacks"
+JumpingJacks.TextSize = 20
+JumpingJacks.TextWrapped = true
+ 
+Spinner.Name = "Spinner"
+Spinner.Parent = ScrollingFrame
+Spinner.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+Spinner.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Spinner.Position = UDim2.new(0, 17, 0, 192)
+Spinner.Size = UDim2.new(0, 119, 0, 34)
+Spinner.Font = Enum.Font.Highway
+Spinner.FontSize = Enum.FontSize.Size24
+Spinner.Text = "Spinner"
+Spinner.TextSize = 20
+Spinner.TextWrapped = true
+ 
+MegaInsane.Name = "MegaInsane"
+MegaInsane.Parent = ScrollingFrame
+MegaInsane.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+MegaInsane.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+MegaInsane.Position = UDim2.new(0, 168, 0, 192)
+MegaInsane.Size = UDim2.new(0, 119, 0, 34)
+MegaInsane.Font = Enum.Font.Highway
+MegaInsane.FontSize = Enum.FontSize.Size24
+MegaInsane.Text = "Mega Insane"
+MegaInsane.TextSize = 20
+MegaInsane.TextWrapped = true
+ 
+ArmDetach.Name = "ArmDetach"
+ArmDetach.Parent = ScrollingFrame
+ArmDetach.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+ArmDetach.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+ArmDetach.Position = UDim2.new(0, 319, 0, 192)
+ArmDetach.Size = UDim2.new(0, 119, 0, 34)
+ArmDetach.Font = Enum.Font.Highway
+ArmDetach.FontSize = Enum.FontSize.Size24
+ArmDetach.Text = "Arm Detach"
+ArmDetach.TextSize = 20
+ArmDetach.TextWrapped = true
+ 
+WeirdMove.Name = "WeirdMove"
+WeirdMove.Parent = ScrollingFrame
+WeirdMove.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+WeirdMove.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+WeirdMove.Position = UDim2.new(0, 168, 0, 148)
+WeirdMove.Size = UDim2.new(0, 119, 0, 34)
+WeirdMove.Font = Enum.Font.Highway
+WeirdMove.FontSize = Enum.FontSize.Size24
+WeirdMove.Text = "Weird Move"
+WeirdMove.TextSize = 20
+WeirdMove.TextWrapped = true
+ 
+Faint.Name = "Faint"
+Faint.Parent = ScrollingFrame
+Faint.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+Faint.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Faint.Position = UDim2.new(0, 17, 0, 148)
+Faint.Size = UDim2.new(0, 119, 0, 34)
+Faint.Font = Enum.Font.Highway
+Faint.FontSize = Enum.FontSize.Size24
+Faint.Text = "Faint"
+Faint.TextSize = 20
+Faint.TextWrapped = true
+ 
+CloneIllusion.Name = "CloneIllusion"
+CloneIllusion.Parent = ScrollingFrame
+CloneIllusion.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+CloneIllusion.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+CloneIllusion.Position = UDim2.new(0, 319, 0, 148)
+CloneIllusion.Size = UDim2.new(0, 119, 0, 34)
+CloneIllusion.Font = Enum.Font.Highway
+CloneIllusion.FontSize = Enum.FontSize.Size24
+CloneIllusion.Text = "Clone Illusion"
+CloneIllusion.TextSize = 20
+CloneIllusion.TextWrapped = true
+ 
+Levitate.Name = "Levitate"
+Levitate.Parent = ScrollingFrame
+Levitate.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+Levitate.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Levitate.Position = UDim2.new(0, 17, 0, 104)
+Levitate.Size = UDim2.new(0, 119, 0, 34)
+Levitate.Font = Enum.Font.Highway
+Levitate.FontSize = Enum.FontSize.Size24
+Levitate.Text = "Levitate"
+Levitate.TextSize = 20
+Levitate.TextWrapped = true
+ 
+DinoWalk.Name = "DinoWalk"
+DinoWalk.Parent = ScrollingFrame
+DinoWalk.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+DinoWalk.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+DinoWalk.Position = UDim2.new(0, 168, 0, 104)
+DinoWalk.Size = UDim2.new(0, 119, 0, 34)
+DinoWalk.Font = Enum.Font.Highway
+DinoWalk.FontSize = Enum.FontSize.Size24
+DinoWalk.Text = "Dino Walk"
+DinoWalk.TextSize = 20
+DinoWalk.TextWrapped = true
+ 
+FloorCrawl.Name = "FloorCrawl"
+FloorCrawl.Parent = ScrollingFrame
+FloorCrawl.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+FloorCrawl.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+FloorCrawl.Position = UDim2.new(0, 319, 0, 104)
+FloorCrawl.Size = UDim2.new(0, 119, 0, 34)
+FloorCrawl.Font = Enum.Font.Highway
+FloorCrawl.FontSize = Enum.FontSize.Size24
+FloorCrawl.Text = "Floor Crawl"
+FloorCrawl.TextSize = 20
+FloorCrawl.TextWrapped = true
+ 
+SwordSlam.Name = "SwordSlam"
+SwordSlam.Parent = ScrollingFrame
+SwordSlam.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+SwordSlam.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+SwordSlam.Position = UDim2.new(0, 319, 0, 60)
+SwordSlam.Size = UDim2.new(0, 119, 0, 34)
+SwordSlam.Font = Enum.Font.Highway
+SwordSlam.FontSize = Enum.FontSize.Size24
+SwordSlam.Text = "Sword Slam"
+SwordSlam.TextSize = 20
+SwordSlam.TextWrapped = true
+ 
+LoopHead.Name = "LoopHead"
+LoopHead.Parent = ScrollingFrame
+LoopHead.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+LoopHead.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+LoopHead.Position = UDim2.new(0, 168, 0, 60)
+LoopHead.Size = UDim2.new(0, 119, 0, 34)
+LoopHead.Font = Enum.Font.Highway
+LoopHead.FontSize = Enum.FontSize.Size24
+LoopHead.Text = "Loop Head"
+LoopHead.TextSize = 20
+LoopHead.TextWrapped = true
+ 
+HeroJump.Name = "HeroJump"
+HeroJump.Parent = ScrollingFrame
+HeroJump.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+HeroJump.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+HeroJump.Position = UDim2.new(0, 17, 0, 60)
+HeroJump.Size = UDim2.new(0, 119, 0, 34)
+HeroJump.Font = Enum.Font.Highway
+HeroJump.FontSize = Enum.FontSize.Size24
+HeroJump.Text = "Hero Jump"
+HeroJump.TextSize = 20
+HeroJump.TextWrapped = true
+ 
+Insane.Name = "Insane"
+Insane.Parent = ScrollingFrame
+Insane.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+Insane.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Insane.Position = UDim2.new(0, 319, 0, 16)
+Insane.Size = UDim2.new(0, 119, 0, 34)
+Insane.Font = Enum.Font.Highway
+Insane.FontSize = Enum.FontSize.Size24
+Insane.Text = "Insane"
+Insane.TextSize = 20
+Insane.TextWrapped = true
+ 
+FloatingHead.Name = "FloatingHead"
+FloatingHead.Parent = ScrollingFrame
+FloatingHead.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+FloatingHead.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+FloatingHead.Position = UDim2.new(0, 168, 0, 16)
+FloatingHead.Size = UDim2.new(0, 119, 0, 34)
+FloatingHead.Font = Enum.Font.Highway
+FloatingHead.FontSize = Enum.FontSize.Size24
+FloatingHead.Text = "Floating Head"
+FloatingHead.TextSize = 20
+FloatingHead.TextWrapped = true
+ 
+HeadThrow.Name = "HeadThrow"
+HeadThrow.Parent = ScrollingFrame
+HeadThrow.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+HeadThrow.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+HeadThrow.Position = UDim2.new(0, 17, 0, 16)
+HeadThrow.Size = UDim2.new(0, 119, 0, 34)
+HeadThrow.Font = Enum.Font.Highway
+HeadThrow.FontSize = Enum.FontSize.Size24
+HeadThrow.Text = "Head Throw"
+HeadThrow.TextSize = 20
+HeadThrow.TextWrapped = true
+ 
+MovingDance.Name = "MovingDance"
+MovingDance.Parent = ScrollingFrame
+MovingDance.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+MovingDance.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+MovingDance.Position = UDim2.new(0, 168, 0, 324)
+MovingDance.Size = UDim2.new(0, 119, 0, 34)
+MovingDance.Font = Enum.Font.Highway
+MovingDance.FontSize = Enum.FontSize.Size24
+MovingDance.Text = "Moving Dance"
+MovingDance.TextSize = 20
+MovingDance.TextWrapped = true
+ 
+SuperPunch.Name = "SuperPunch"
+SuperPunch.Parent = ScrollingFrame
+SuperPunch.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+SuperPunch.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+SuperPunch.Position = UDim2.new(0, 168, 0, 366)
+SuperPunch.Size = UDim2.new(0, 119, 0, 34)
+SuperPunch.Font = Enum.Font.Highway
+SuperPunch.FontSize = Enum.FontSize.Size24
+SuperPunch.Text = "Super Punch"
+SuperPunch.TextSize = 20
+SuperPunch.TextWrapped = true
+ 
+ArmTurbine.Name = "ArmTurbine"
+ArmTurbine.Parent = ScrollingFrame
+ArmTurbine.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+ArmTurbine.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+ArmTurbine.Position = UDim2.new(0, 319, 0, 366)
+ArmTurbine.Size = UDim2.new(0, 119, 0, 34)
+ArmTurbine.Font = Enum.Font.Highway
+ArmTurbine.FontSize = Enum.FontSize.Size24
+ArmTurbine.Text = "Arm Turbine"
+ArmTurbine.TextSize = 20
+ArmTurbine.TextWrapped = true
+ 
+Dab.Name = "Dab"
+Dab.Parent = ScrollingFrame
+Dab.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+Dab.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Dab.Position = UDim2.new(0, 17, 0, 366)
+Dab.Size = UDim2.new(0, 119, 0, 34)
+Dab.Font = Enum.Font.Highway
+Dab.FontSize = Enum.FontSize.Size24
+Dab.Text = "Dab"
+Dab.TextSize = 20
+Dab.TextWrapped = true
+ 
+FloatSit.Name = "FloatSit"
+FloatSit.Parent = ScrollingFrame
+FloatSit.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+FloatSit.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+FloatSit.Position = UDim2.new(0, 168, 0, 410)
+FloatSit.Size = UDim2.new(0, 119, 0, 34)
+FloatSit.Font = Enum.Font.Highway
+FloatSit.FontSize = Enum.FontSize.Size24
+FloatSit.Text = "Float Sit"
+FloatSit.TextSize = 20
+FloatSit.TextWrapped = true
+ 
+SuperFaint.Name = "SuperFaint"
+SuperFaint.Parent = ScrollingFrame
+SuperFaint.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+SuperFaint.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+SuperFaint.Position = UDim2.new(0, 17, 0, 498)
+SuperFaint.Size = UDim2.new(0, 119, 0, 34)
+SuperFaint.Font = Enum.Font.Highway
+SuperFaint.FontSize = Enum.FontSize.Size24
+SuperFaint.Text = "Super Faint"
+SuperFaint.TextSize = 20
+SuperFaint.TextWrapped = true
+ 
+BarrelRoll.Name = "BarrelRoll"
+BarrelRoll.Parent = ScrollingFrame
+BarrelRoll.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+BarrelRoll.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+BarrelRoll.Position = UDim2.new(0, 319, 0, 410)
+BarrelRoll.Size = UDim2.new(0, 119, 0, 34)
+BarrelRoll.Font = Enum.Font.Highway
+BarrelRoll.FontSize = Enum.FontSize.Size24
+BarrelRoll.Text = "Barrel Roll"
+BarrelRoll.TextSize = 20
+BarrelRoll.TextWrapped = true
+ 
+Scared.Name = "Scared"
+Scared.Parent = ScrollingFrame
+Scared.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+Scared.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Scared.Position = UDim2.new(0, 319, 0, 454)
+Scared.Size = UDim2.new(0, 119, 0, 34)
+Scared.Font = Enum.Font.Highway
+Scared.FontSize = Enum.FontSize.Size24
+Scared.Text = "Scared"
+Scared.TextSize = 20
+Scared.TextWrapped = true
+ 
+InsaneArms.Name = "InsaneArms"
+InsaneArms.Parent = ScrollingFrame
+InsaneArms.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+InsaneArms.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+InsaneArms.Position = UDim2.new(0, 17, 0, 454)
+InsaneArms.Size = UDim2.new(0, 119, 0, 34)
+InsaneArms.Font = Enum.Font.Highway
+InsaneArms.FontSize = Enum.FontSize.Size24
+InsaneArms.Text = "Insane Arms"
+InsaneArms.TextSize = 20
+InsaneArms.TextWrapped = true
+ 
+SwordSlice.Name = "SwordSlice"
+SwordSlice.Parent = ScrollingFrame
+SwordSlice.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+SwordSlice.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+SwordSlice.Position = UDim2.new(0, 168, 0, 454)
+SwordSlice.Size = UDim2.new(0, 119, 0, 34)
+SwordSlice.Font = Enum.Font.Highway
+SwordSlice.FontSize = Enum.FontSize.Size24
+SwordSlice.Text = "Sword Slice"
+SwordSlice.TextSize = 20
+SwordSlice.TextWrapped = true
+ 
+SpinDance2.Name = "SpinDance2"
+SpinDance2.Parent = ScrollingFrame
+SpinDance2.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+SpinDance2.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+SpinDance2.Position = UDim2.new(0, 168, 0, 498)
+SpinDance2.Size = UDim2.new(0, 119, 0, 34)
+SpinDance2.Font = Enum.Font.Highway
+SpinDance2.FontSize = Enum.FontSize.Size24
+SpinDance2.Text = "Spin Dance 2"
+SpinDance2.TextSize = 20
+SpinDance2.TextWrapped = true
+ 
+BowDown.Name = "BowDown"
+BowDown.Parent = ScrollingFrame
+BowDown.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+BowDown.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+BowDown.Position = UDim2.new(0, 319, 0, 498)
+BowDown.Size = UDim2.new(0, 119, 0, 34)
+BowDown.Font = Enum.Font.Highway
+BowDown.FontSize = Enum.FontSize.Size24
+BowDown.Text = "Bow Down"
+BowDown.TextSize = 20
+BowDown.TextWrapped = true
+ 
+LoopSlam.Name = "LoopSlam"
+LoopSlam.Parent = ScrollingFrame
+LoopSlam.BackgroundColor3 = Color3.new(0.886275, 0.776471, 0.368627)
+LoopSlam.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+LoopSlam.Position = UDim2.new(0, 17, 0, 410)
+LoopSlam.Size = UDim2.new(0, 119, 0, 34)
+LoopSlam.Font = Enum.Font.Highway
+LoopSlam.FontSize = Enum.FontSize.Size24
+LoopSlam.Text = "Loop Slam"
+LoopSlam.TextSize = 20
+LoopSlam.TextWrapped = true
+ 
+GuiTopFrame.Name = "Gui TopFrame"
+GuiTopFrame.Parent = MainFrame
+GuiTopFrame.BackgroundColor3 = Color3.new(1, 0.329412, 0.329412)
+GuiTopFrame.BorderColor3 = Color3.new(0.243137, 0.243137, 0.243137)
+GuiTopFrame.Size = UDim2.new(0, 460, 0, 32)
+ 
+CloseGUI.Name = "CloseGUI"
+CloseGUI.Parent = GuiTopFrame
+CloseGUI.BackgroundColor3 = Color3.new(1, 1, 1)
+CloseGUI.BackgroundTransparency = 1
+CloseGUI.Position = UDim2.new(0, 426, 0, 0)
+CloseGUI.Size = UDim2.new(0, 34, 0, 32)
+CloseGUI.Font = Enum.Font.SourceSans
+CloseGUI.FontSize = Enum.FontSize.Size48
+CloseGUI.Text = "X"
+CloseGUI.TextColor3 = Color3.new(0.333333, 0, 0)
+CloseGUI.TextSize = 40
+CloseGUI.TextWrapped = true
+ 
+Title.Name = "Title"
+Title.Parent = GuiTopFrame
+Title.BackgroundColor3 = Color3.new(1, 1, 1)
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(0, 460, 0, 32)
+Title.FontSize = Enum.FontSize.Size14
+Title.Text = "Energize"
+Title.TextColor3 = Color3.new(0.164706, 0.164706, 0.164706)
+Title.TextSize = 14
+Title.TextStrokeColor3 = Color3.new(0.384314, 0.917647, 1)
+Title.TextStrokeTransparency = 0.69999998807907
+Title.TextWrapped = true
+ 
+CheckR.Name = "CheckR"
+CheckR.Parent = GuiTopFrame
+CheckR.BackgroundColor3 = Color3.new(1, 1, 1)
+CheckR.BackgroundTransparency = 1
+CheckR.Size = UDim2.new(0, 171, 0, 32)
+CheckR.Font = Enum.Font.SourceSansBold
+CheckR.FontSize = Enum.FontSize.Size14
+CheckR.Text = "Text"
+CheckR.TextScaled = true
+CheckR.TextSize = 14
+CheckR.TextWrapped = true
+ 
+ScrollingFrameR15.Name = "ScrollingFrameR15"
+ScrollingFrameR15.Parent = MainFrame
+ScrollingFrameR15.BackgroundColor3 = Color3.new(1, 0.564706, 0.564706)
+ScrollingFrameR15.Position = UDim2.new(0, 0, 0, 32)
+ScrollingFrameR15.Size = UDim2.new(0, 460, 0, 215)
+ScrollingFrameR15.Visible = false
+ScrollingFrameR15.ScrollBarThickness = 13
+ 
+CrazySlash.Name = "CrazySlash"
+CrazySlash.Parent = ScrollingFrameR15
+CrazySlash.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+CrazySlash.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+CrazySlash.Position = UDim2.new(0, 17, 0, 16)
+CrazySlash.Size = UDim2.new(0, 119, 0, 34)
+CrazySlash.Font = Enum.Font.Highway
+CrazySlash.FontSize = Enum.FontSize.Size24
+CrazySlash.Text = "CrazySlash"
+CrazySlash.TextSize = 20
+CrazySlash.TextWrapped = true
+ 
+Open.Name = "Open"
+Open.Parent = ScrollingFrameR15
+Open.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+Open.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Open.Position = UDim2.new(0, 168, 0, 16)
+Open.Size = UDim2.new(0, 119, 0, 34)
+Open.Font = Enum.Font.Highway
+Open.FontSize = Enum.FontSize.Size24
+Open.Text = "Open"
+Open.TextSize = 20
+Open.TextWrapped = true
+ 
+R15Spinner.Name = "R15Spinner"
+R15Spinner.Parent = ScrollingFrameR15
+R15Spinner.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+R15Spinner.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+R15Spinner.Position = UDim2.new(0, 17, 0, 60)
+R15Spinner.Size = UDim2.new(0, 119, 0, 34)
+R15Spinner.Font = Enum.Font.Highway
+R15Spinner.FontSize = Enum.FontSize.Size24
+R15Spinner.Text = "Spinner"
+R15Spinner.TextSize = 20
+R15Spinner.TextWrapped = true
+ 
+ArmsOut.Name = "ArmsOut"
+ArmsOut.Parent = ScrollingFrameR15
+ArmsOut.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+ArmsOut.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+ArmsOut.Position = UDim2.new(0, 319, 0, 16)
+ArmsOut.Size = UDim2.new(0, 119, 0, 34)
+ArmsOut.Font = Enum.Font.Highway
+ArmsOut.FontSize = Enum.FontSize.Size24
+ArmsOut.Text = "ArmsOut"
+ArmsOut.TextSize = 20
+ArmsOut.TextWrapped = true
+ 
+FloatSlash.Name = "FloatSlash"
+FloatSlash.Parent = ScrollingFrameR15
+FloatSlash.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+FloatSlash.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+FloatSlash.Position = UDim2.new(0, 168, 0, 148)
+FloatSlash.Size = UDim2.new(0, 119, 0, 34)
+FloatSlash.Font = Enum.Font.Highway
+FloatSlash.FontSize = Enum.FontSize.Size24
+FloatSlash.Text = "FloatSlash"
+FloatSlash.TextSize = 20
+FloatSlash.TextWrapped = true
+ 
+WeirdZombie.Name = "WeirdZombie"
+WeirdZombie.Parent = ScrollingFrameR15
+WeirdZombie.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+WeirdZombie.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+WeirdZombie.Position = UDim2.new(0, 17, 0, 148)
+WeirdZombie.Size = UDim2.new(0, 119, 0, 34)
+WeirdZombie.Font = Enum.Font.Highway
+WeirdZombie.FontSize = Enum.FontSize.Size24
+WeirdZombie.Text = "WeirdZombie"
+WeirdZombie.TextSize = 20
+WeirdZombie.TextWrapped = true
+ 
+DownSlash.Name = "DownSlash"
+DownSlash.Parent = ScrollingFrameR15
+DownSlash.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+DownSlash.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+DownSlash.Position = UDim2.new(0, 319, 0, 148)
+DownSlash.Size = UDim2.new(0, 119, 0, 34)
+DownSlash.Font = Enum.Font.Highway
+DownSlash.FontSize = Enum.FontSize.Size24
+DownSlash.Text = "DownSlash"
+DownSlash.TextSize = 20
+DownSlash.TextWrapped = true
+ 
+Pull.Name = "Pull"
+Pull.Parent = ScrollingFrameR15
+Pull.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+Pull.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Pull.Position = UDim2.new(0, 17, 0, 104)
+Pull.Size = UDim2.new(0, 119, 0, 34)
+Pull.Font = Enum.Font.Highway
+Pull.FontSize = Enum.FontSize.Size24
+Pull.Text = "Pull"
+Pull.TextSize = 20
+Pull.TextWrapped = true
+ 
+CircleArm.Name = "CircleArm"
+CircleArm.Parent = ScrollingFrameR15
+CircleArm.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+CircleArm.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+CircleArm.Position = UDim2.new(0, 168, 0, 104)
+CircleArm.Size = UDim2.new(0, 119, 0, 34)
+CircleArm.Font = Enum.Font.Highway
+CircleArm.FontSize = Enum.FontSize.Size24
+CircleArm.Text = "CircleArm"
+CircleArm.TextSize = 20
+CircleArm.TextWrapped = true
+ 
+Bend.Name = "Bend"
+Bend.Parent = ScrollingFrameR15
+Bend.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+Bend.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+Bend.Position = UDim2.new(0, 319, 0, 104)
+Bend.Size = UDim2.new(0, 119, 0, 34)
+Bend.Font = Enum.Font.Highway
+Bend.FontSize = Enum.FontSize.Size24
+Bend.Text = "Bend"
+Bend.TextSize = 20
+Bend.TextWrapped = true
+ 
+RotateSlash.Name = "RotateSlash"
+RotateSlash.Parent = ScrollingFrameR15
+RotateSlash.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+RotateSlash.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+RotateSlash.Position = UDim2.new(0, 319, 0, 60)
+RotateSlash.Size = UDim2.new(0, 119, 0, 34)
+RotateSlash.Font = Enum.Font.Highway
+RotateSlash.FontSize = Enum.FontSize.Size24
+RotateSlash.Text = "RotateSlash"
+RotateSlash.TextSize = 20
+RotateSlash.TextWrapped = true
+ 
+FlingArms.Name = "FlingArms"
+FlingArms.Parent = ScrollingFrameR15
+FlingArms.BackgroundColor3 = Color3.new(0.682353, 0.701961, 0.792157)
+FlingArms.BorderColor3 = Color3.new(0.313726, 0.313726, 0.313726)
+FlingArms.Position = UDim2.new(0, 168, 0, 60)
+FlingArms.Size = UDim2.new(0, 119, 0, 34)
+FlingArms.Font = Enum.Font.Highway
+FlingArms.FontSize = Enum.FontSize.Size24
+FlingArms.Text = "FlingArms"
+FlingArms.TextSize = 20
+FlingArms.TextWrapped = true
+ 
+-- Buttons
+col = Color3.new(0.886275, 0.776471, 0.368627)
+loc = Color3.new(1, 0.906471, 0.568627)
+rcol = Color3.new(0.682353, 0.701961, 0.792157)
+rloc = Color3.new(0.882353, 0.901961, 0.992157)
+ 
+CloseGUI.MouseButton1Click:connect(function()
+MainFrame.Visible = false
+SideFrame.Visible = true
+SideFrame.Position = MainFrame.Position
+end)
+ 
+OpenGUI.MouseButton1Click:connect(function()
+MainFrame.Visible = true
+SideFrame.Visible = false
+MainFrame.Position = SideFrame.Position
+end)
+ 
+if (game:GetService"Players".LocalPlayer.Character:WaitForChild("Humanoid").RigType == Enum.HumanoidRigType.R15) then
+    ScrollingFrame.Visible = false
+    ScrollingFrameR15.Visible = true
+    CheckR.Text = "Showing R15 Animations"
+else
+    ScrollingFrame.Visible = true
+    ScrollingFrameR15.Visible = false
+    CheckR.Text = "Showing R6 Animations"
+end
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://35154961"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local HeadThrowACTIVE = false
+HeadThrow.MouseButton1Click:connect(function()
+    HeadThrowACTIVE = not HeadThrowACTIVE
+    if HeadThrowACTIVE then
+        HeadThrow.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if HeadThrowACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        HeadThrow.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://121572214"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local FloatingHeadACTIVE = false
+FloatingHead.MouseButton1Click:connect(function()
+    FloatingHeadACTIVE = not FloatingHeadACTIVE
+    if FloatingHeadACTIVE then
+        track:Play(.1, 1, 1)
+        FloatingHead.BackgroundColor3 = loc
+    else
+        track:Stop()
+        FloatingHead.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://182724289"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local CrouchACTIVE = false
+Crouch.MouseButton1Click:connect(function()
+    CrouchACTIVE = not CrouchACTIVE
+    if CrouchACTIVE then
+        track:Play(.1, 1, 1)
+        Crouch.BackgroundColor3 = loc
+    else
+        track:Stop()
+        Crouch.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://282574440"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local FloorCrawlACTIVE = false
+FloorCrawl.MouseButton1Click:connect(function()
+    FloorCrawlACTIVE = not FloorCrawlACTIVE
+    if FloorCrawlACTIVE then
+        track:Play(.1, 1, 1)
+        FloorCrawl.BackgroundColor3 = loc
+    else
+        track:Stop()
+        FloorCrawl.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://204328711"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local DinoWalkACTIVE = false
+DinoWalk.MouseButton1Click:connect(function()
+    DinoWalkACTIVE = not DinoWalkACTIVE
+    if DinoWalkACTIVE then
+        track:Play(.1, 1, 1)
+        DinoWalk.BackgroundColor3 = loc
+    else
+        track:Stop()
+        DinoWalk.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://429681631"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local JumpingJacksACTIVE = false
+JumpingJacks.MouseButton1Click:connect(function()
+    JumpingJacksACTIVE = not JumpingJacksACTIVE
+    if JumpingJacksACTIVE then
+        track:Play(.1, 1, 1)
+        JumpingJacks.BackgroundColor3 = loc
+    else
+        track:Stop()
+        JumpingJacks.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://35154961"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local LoopHeadACTIVE = false
+LoopHead.MouseButton1Click:connect(function()
+    LoopHeadACTIVE = not LoopHeadACTIVE
+    if LoopHeadACTIVE then
+        LoopHead.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if LoopHeadACTIVE then
+                track:Play(.5, 1, 1e6)
+            end
+         end
+        end
+    else
+        track:Stop()
+        LoopHead.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://184574340"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local HeroJumpACTIVE = false
+HeroJump.MouseButton1Click:connect(function()
+    HeroJumpACTIVE = not HeroJumpACTIVE
+    if HeroJumpACTIVE then
+        HeroJump.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if HeroJumpACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        HeroJump.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://181526230"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local FaintACTIVE = false
+Faint.MouseButton1Click:connect(function()
+    FaintACTIVE = not FaintACTIVE
+    if FaintACTIVE then
+        track:Play(.1, 1, 1)
+        Faint.BackgroundColor3 = loc
+    else
+        track:Stop()
+        Faint.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://181525546"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local FloorFaintACTIVE = false
+FloorFaint.MouseButton1Click:connect(function()
+    FloorFaintACTIVE = not FloorFaintACTIVE
+    if FloorFaintACTIVE then
+        FloorFaint.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if FloorFaintACTIVE then
+                track:Play(.1, 1, 2)
+            end
+         end
+        end
+    else
+        track:Stop()
+        FloorFaint.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://181525546"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local SuperFaintACTIVE = false
+SuperFaint.MouseButton1Click:connect(function()
+    SuperFaintACTIVE = not SuperFaintACTIVE
+    if SuperFaintACTIVE then
+        SuperFaint.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if SuperFaintACTIVE then
+                track:Play(.1, 0.5, 40)
+            end
+         end
+        end
+    else
+        track:Stop()
+        SuperFaint.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://313762630"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local LevitateACTIVE = false
+Levitate.MouseButton1Click:connect(function()
+    LevitateACTIVE = not LevitateACTIVE
+    if LevitateACTIVE then
+        track:Play(.1, 1, 1)
+        Levitate.BackgroundColor3 = loc
+    else
+        track:Stop()
+        Levitate.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://183412246"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local DabACTIVE = false
+Dab.MouseButton1Click:connect(function()
+    DabACTIVE = not DabACTIVE
+    if DabACTIVE then
+        Dab.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if DabACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        Dab.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://188632011"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local SpinACTIVE = false
+Spinner.MouseButton1Click:connect(function()
+    SpinACTIVE = not SpinACTIVE
+    if SpinACTIVE then
+        Spinner.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if SpinACTIVE then
+                track:Play(.1, 1, 2)
+            end
+         end
+        end
+    else
+        track:Stop()
+        Spinner.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://179224234"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local FloatSitACTIVE = false
+FloatSit.MouseButton1Click:connect(function()
+    FloatSitACTIVE = not FloatSitACTIVE
+    if FloatSitACTIVE then
+        track:Play(.1, 1, 1)
+        FloatSit.BackgroundColor3 = loc
+    else
+        track:Stop()
+        FloatSit.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://429703734"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local MovingDanceACTIVE = false
+MovingDance.MouseButton1Click:connect(function()
+    MovingDanceACTIVE = not MovingDanceACTIVE
+    if MovingDanceACTIVE then
+        MovingDance.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if MovingDanceACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        MovingDance.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://215384594"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local WeirdMoveACTIVE = false
+WeirdMove.MouseButton1Click:connect(function()
+    WeirdMoveACTIVE = not WeirdMoveACTIVE
+    if WeirdMoveACTIVE then
+        track:Play(.1, 1, 1)
+        WeirdMove.BackgroundColor3 = loc
+    else
+        track:Stop()
+        WeirdMove.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://215384594"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local CloneIllusionACTIVE = false
+CloneIllusion.MouseButton1Click:connect(function()
+    CloneIllusionACTIVE = not CloneIllusionACTIVE
+    if CloneIllusionACTIVE then
+        track:Play(.5, 1, 1e7)
+        CloneIllusion.BackgroundColor3 = loc
+    else
+        track:Stop()
+        CloneIllusion.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://313762630"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local GlitchLevitateACTIVE = false
+GlitchLevitate.MouseButton1Click:connect(function()
+    GlitchLevitateACTIVE = not GlitchLevitateACTIVE
+    if GlitchLevitateACTIVE then
+        track:Play(.5, 1, 1e7)
+        GlitchLevitate.BackgroundColor3 = loc
+    else
+        track:Stop()
+        GlitchLevitate.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://429730430"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local SpinDanceACTIVE = false
+SpinDance.MouseButton1Click:connect(function()
+    SpinDanceACTIVE = not SpinDanceACTIVE
+    if SpinDanceACTIVE then
+        SpinDance.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if SpinDanceACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        SpinDance.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://45834924"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local MoonDanceACTIVE = false
+MoonDance.MouseButton1Click:connect(function()
+    MoonDanceACTIVE = not MoonDanceACTIVE
+    if MoonDanceACTIVE then
+        MoonDance.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if MoonDanceACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        MoonDance.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://204062532"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local FullPunchACTIVE = false
+FullPunch.MouseButton1Click:connect(function()
+    FullPunchACTIVE = not FullPunchACTIVE
+    if FullPunchACTIVE then
+        FullPunch.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if FullPunchACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        FullPunch.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://186934910"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local SpinDance2ACTIVE = false
+SpinDance2.MouseButton1Click:connect(function()
+    SpinDance2ACTIVE = not SpinDance2ACTIVE
+    if SpinDance2ACTIVE then
+        SpinDance2.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if SpinDance2ACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        SpinDance2.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://204292303"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local BowDownACTIVE = false
+BowDown.MouseButton1Click:connect(function()
+    BowDownACTIVE = not BowDownACTIVE
+    if BowDownACTIVE then
+        BowDown.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if BowDownACTIVE then
+                track:Play(.1, 1, 3)
+            end
+         end
+        end
+    else
+        track:Stop()
+        BowDown.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://204295235"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local SwordSlamACTIVE = false
+SwordSlam.MouseButton1Click:connect(function()
+    SwordSlamACTIVE = not SwordSlamACTIVE
+    if SwordSlamACTIVE then
+        SwordSlam.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if SwordSlamACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        SwordSlam.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://204295235"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local LoopSlamACTIVE = false
+LoopSlam.MouseButton1Click:connect(function()
+    LoopSlamACTIVE = not LoopSlamACTIVE
+    if LoopSlamACTIVE then
+        LoopSlam.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if LoopSlamACTIVE then
+                track:Play(.1, 1, 1e4)
+            end
+         end
+        end
+    else
+        track:Stop()
+        LoopSlam.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://184574340"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local MegaInsaneACTIVE = false
+MegaInsane.MouseButton1Click:connect(function()
+    MegaInsaneACTIVE = not MegaInsaneACTIVE
+    if MegaInsaneACTIVE then
+        MegaInsane.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if MegaInsaneACTIVE then
+                track:Play(.1, 0.5, 40)
+            end
+         end
+        end
+    else
+        track:Stop()
+        MegaInsane.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://126753849"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local SuperPunchACTIVE = false
+SuperPunch.MouseButton1Click:connect(function()
+    SuperPunchACTIVE = not SuperPunchACTIVE
+    if SuperPunchACTIVE then
+        SuperPunch.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if SuperPunchACTIVE then
+                track:Play(.1, 1, 3)
+            end
+         end
+        end
+    else
+        track:Stop()
+        SuperPunch.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://218504594"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local FullSwingACTIVE = false
+FullSwing.MouseButton1Click:connect(function()
+    FullSwingACTIVE = not FullSwingACTIVE
+    if FullSwingACTIVE then
+        FullSwing.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if FullSwingACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        FullSwing.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://259438880"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local ArmTurbineACTIVE = false
+ArmTurbine.MouseButton1Click:connect(function()
+    ArmTurbineACTIVE = not ArmTurbineACTIVE
+    if ArmTurbineACTIVE then
+        track:Play(.1, 1, 1e3)
+        ArmTurbine.BackgroundColor3 = loc
+    else
+        track:Stop()
+        ArmTurbine.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://136801964"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local BarrelRollACTIVE = false
+BarrelRoll.MouseButton1Click:connect(function()
+    BarrelRollACTIVE = not BarrelRollACTIVE
+    if BarrelRollACTIVE then
+        BarrelRoll.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if BarrelRollACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        BarrelRoll.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://180612465"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local ScaredACTIVE = false
+Scared.MouseButton1Click:connect(function()
+    ScaredACTIVE = not ScaredACTIVE
+    if ScaredACTIVE then
+        Scared.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if ScaredACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        Scared.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://33796059"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local InsaneACTIVE = false
+Insane.MouseButton1Click:connect(function()
+    InsaneACTIVE = not InsaneACTIVE
+    if InsaneACTIVE then
+        track:Play(.1, 1, 1e8)
+        Insane.BackgroundColor3 = loc
+    else
+        track:Stop()
+        Insane.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://33169583"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local ArmDetachACTIVE = false
+ArmDetach.MouseButton1Click:connect(function()
+    ArmDetachACTIVE = not ArmDetachACTIVE
+    if ArmDetachACTIVE then
+        ArmDetach.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if ArmDetachACTIVE then
+                track:Play(.1, 1, 1e6)
+            end
+         end
+        end
+    else
+        track:Stop()
+        ArmDetach.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://35978879"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local SwordSliceACTIVE = false
+SwordSlice.MouseButton1Click:connect(function()
+    SwordSliceACTIVE = not SwordSliceACTIVE
+    if SwordSliceACTIVE then
+        track:Play(.1, 1, 1)
+        SwordSlice.BackgroundColor3 = loc
+    else
+        track:Stop()
+        SwordSlice.BackgroundColor3 = col
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://27432691"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local InsaneArmsACTIVE = false
+InsaneArms.MouseButton1Click:connect(function()
+    InsaneArmsACTIVE = not InsaneArmsACTIVE
+    if InsaneArmsACTIVE then
+        InsaneArms.BackgroundColor3 = loc
+        while wait() do
+         if track.IsPlaying == false then
+            if InsaneArmsACTIVE then
+                track:Play(.1, 1, 1e4)
+            end
+         end
+        end
+    else
+        track:Stop()
+        InsaneArms.BackgroundColor3 = col
+    end
+end)
+-- R15
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://674871189"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local CrazySlashACTIVE = false
+CrazySlash.MouseButton1Click:connect(function()
+    CrazySlashACTIVE = not CrazySlashACTIVE
+    if CrazySlashACTIVE then
+        CrazySlash.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if CrazySlashACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        CrazySlash.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://582855105"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local OpenACTIVE = false
+Open.MouseButton1Click:connect(function()
+    OpenACTIVE = not OpenACTIVE
+    if OpenACTIVE then
+        Open.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if OpenACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        Open.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://754658275"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local R15SpinnerACTIVE = false
+R15Spinner.MouseButton1Click:connect(function()
+    R15SpinnerACTIVE = not R15SpinnerACTIVE
+    if R15SpinnerACTIVE then
+        R15Spinner.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if R15SpinnerACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        R15Spinner.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://582384156"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local ArmsOutACTIVE = false
+ArmsOut.MouseButton1Click:connect(function()
+    ArmsOutACTIVE = not ArmsOutACTIVE
+    if ArmsOutACTIVE then
+        ArmsOut.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if ArmsOutACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        ArmsOut.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://717879555"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+local FloatSlashACTIVE = false
+FloatSlash.MouseButton1Click:connect(function()
+    FloatSlashACTIVE = not FloatSlashACTIVE
+    if FloatSlashACTIVE then
+        FloatSlash.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if FloatSlashACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        FloatSlash.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://708553116"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+WeirdZombieACTIVE = false
+WeirdZombie.MouseButton1Click:connect(function()
+    WeirdZombieACTIVE = not WeirdZombieACTIVE
+    if WeirdZombieACTIVE then
+        WeirdZombie.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if WeirdZombieACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        WeirdZombie.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://746398327"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+DownSlashACTIVE = false
+DownSlash.MouseButton1Click:connect(function()
+    DownSlashACTIVE = not DownSlashACTIVE
+    if DownSlashACTIVE then
+        DownSlash.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if DownSlashACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        DownSlash.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://675025795"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+PullACTIVE = false
+Pull.MouseButton1Click:connect(function()
+    PullACTIVE = not PullACTIVE
+    if PullACTIVE then
+        Pull.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if PullACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        Pull.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://698251653"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+CircleArmACTIVE = false
+CircleArm.MouseButton1Click:connect(function()
+    CircleArmACTIVE = not CircleArmACTIVE
+    if CircleArmACTIVE then
+        CircleArm.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if CircleArmACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        CircleArm.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://696096087"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+BendACTIVE = false
+Bend.MouseButton1Click:connect(function()
+    BendACTIVE = not BendACTIVE
+    if BendACTIVE then
+        Bend.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if BendACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        Bend.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://675025570"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+RotateSlashACTIVE = false
+RotateSlash.MouseButton1Click:connect(function()
+    RotateSlashACTIVE = not RotateSlashACTIVE
+    if RotateSlashACTIVE then
+        RotateSlash.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if RotateSlashACTIVE then
+                track:Play(.1, 1, 1)
+            end
+         end
+        end
+    else
+        track:Stop()
+        RotateSlash.BackgroundColor3 = rcol
+    end
+end)
+ 
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://754656200"
+local track = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+FlingArmsACTIVE = false
+FlingArms.MouseButton1Click:connect(function()
+    FlingArmsACTIVE = not FlingArmsACTIVE
+    if FlingArmsACTIVE then
+        FlingArms.BackgroundColor3 = rloc
+        while wait() do
+         if track.IsPlaying == false then
+            if FlingArmsACTIVE then
+                track:Play(.1, 1, 10)
+            end
+         end
+        end
+    else
+        track:Stop()
+        FlingArms.BackgroundColor3 = rcol
+    end
+end)
+ 
+-- Finished update!
+end)
+
+
+
+AnimationsSection:NewButton("Big Boi legs", "BIIIIIIG LEGS!!!!!!!", function()
+	loadstring(game:HttpGet('https://gist.githubusercontent.com/1BlueCat/7291747e9f093555573e027621f08d6e/raw/23b48f2463942befe19d81aa8a06e3222996242c/FE%2520Da%2520Feets'))()
+end)
+
+
+
+local AdminSection = Player:NewSection("Admin UI's")
+
+AdminSection:NewButton("Infinite yeild UI", "Load the Infinite Yeild UI", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+AdminSection:NewButton("CMD-X Admin", "Loads the CMDX admin!", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source", true))()
+end)
+
+AdminSection:NewButton("Revz Admin", "Loads the GUI i dont even know why u looking at this", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/WnWVpzzr", true))()
+end)
+
+local Player = Window:NewTab("Games")
+local GameSection = Player:NewSection("Games")
+
+GameSection:NewButton("Knife ability Test", "Loads a GUI for Kat", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/78kG7trR", true))()
+end)
+
+GameSection:NewButton("Flee The Facility", "Loads a GUI for FTF", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/khoaScript/scripts/master/flee-the-facility.lua"))()
+end)
+
+GameSection:NewButton("Murder Mystery", "Loads a GUI for MM2", function()
+    --Credits to Ethan for spending 6 months working on the hottest GUI in the community!!!!--
+
+--If you are experiencing issues with lag, Please place this line of code on top of the script before executing!--
+
+getgenv().OptimizeScript = true
+
+--Script--
+getgenv().mainKey = "nil"
+
+local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
+end)
+
+GameSection:NewButton("JailBreak AutoRob", "Loads a GUI for JB", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/wawsdasdacx/ohascriptnrrewading/main/jbsaxcriptidk1"))();
+end)
+
+--Credits
+
+local Credits = Window:NewTab("Credits")
+local CreditSection = Credits:NewSection("Creators")
+
+CreditSection:NewLabel("Made by !!!Swax#2600")
+
+CreditSection:NewKeybind("Minimize UI", "Click on the keybind to change it", Enum.KeyCode.RightShift, function()
+	Library:ToggleUI()
+end)
+
+local BetaSection = Credits:NewSection("Beta Testers")
+
+BetaSection:NewButton("@rpat0717", "This is the first person to test it out except me", function()
+	Print("tf")
+end)
+
+BetaSection:NewButton("@HelloIamTheAlpha", "Helped Out with the design process", function()
+	Print("tf")
+end)
+
 	local Players = game:GetService("Players")
 	local Player = Players.LocalPlayer
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
