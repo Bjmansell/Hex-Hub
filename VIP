@@ -1,13 +1,3 @@
-game.StarterGui:SetCore("SendNotification",  {
-	Title = "Loading";
-	Text = "Please wait for hexhub to load there are alot of scripts so it may take a while";
-	Icon = "";
-	Duration = 3;
-	Callback = NotificationBindable;
-   })
-
-Wait(7)
-
 local StarterGui = game:GetService("StarterGui")
 	local Players = game:GetService("Players")
 	local Player = Players.LocalPlayer
