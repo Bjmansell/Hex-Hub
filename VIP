@@ -1,12 +1,3 @@
-game.StarterGui:SetCore("SendNotification",  {
-				Title = "UPDATE!!!!!!!!!";
-				Text = "Hex Hub has Updated";
-				Icon = "";
-				Duration = 10;
-				Callback = NotificationBindable;
-			   })
-
-
 local StarterGui = game:GetService("StarterGui")
 	local Players = game:GetService("Players")
 	local Player = Players.LocalPlayer
