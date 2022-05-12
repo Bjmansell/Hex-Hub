@@ -40,6 +40,10 @@ HomeSection:NewLabel("Created by Swax_0/!!!Swax#2600")
 
 HomeSection:NewLabel("Version 1.4")
 
+local UpdateSection = Home:NewSection("Updates")
+
+UpdateSection:NewLabel("Added raise a floppa script in games")
+
 local Player = Window:NewTab("Main")
 local PlayerSection = Player:NewSection("Player")
 
@@ -5247,6 +5251,8 @@ AdminSection:NewButton("Revz Admin", "Loads the GUI i dont even know why u looki
     loadstring(game:HttpGet("https://pastebin.com/raw/WnWVpzzr", true))()
 end)
 
+--Games section
+
 local Player = Window:NewTab("Games")
 local GameSection = Player:NewSection("Games")
 
@@ -5273,6 +5279,16 @@ end)
 
 GameSection:NewButton("JailBreak AutoRob", "Loads a GUI for JB", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/wawsdasdacx/ohascriptnrrewading/main/jbsaxcriptidk1"))();
+end)
+
+GameSection:NewButton("Raise a floppa(NEW!)", "made by RIP#6666", function()
+	--Script :
+_G.RedGUI = true
+_G.Theme = "Dark" -- Must disable or remove _G.RedGUI to use
+--Themes: Light, Dark, Mocha, Aqua and Jester
+_G.V3rmillion = true
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/raiseafloppa.lua"))()
 end)
 
 --Credits
