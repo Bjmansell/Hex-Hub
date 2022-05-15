@@ -5237,6 +5237,10 @@ AnimationsSection:NewButton("Among OOS", "E", function()
 	 loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Among%20us", true))()
 end)
 
+AnimationsSection:NewButton("Pet script", "turns u into a pet", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Pet%20script", true))()
+end)
+
 local AdminSection = Player:NewSection("Admin UI's")
 
 AdminSection:NewButton("Infinite yeild UI", "Load the Infinite Yeild UI", function()
