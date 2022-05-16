@@ -19,7 +19,7 @@ local StarterGui = game:GetService("StarterGui")
 
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Hex Hub VIP", "DarkTheme")
+local Window = Library.CreateLib("Hex Hub Trolling Gui", "DarkTheme")
 
 local noclip = false
 
@@ -38,11 +38,11 @@ local HomeSection = Home:NewSection("Home")
 
 HomeSection:NewLabel("Created by Swax_0/!!!Swax#2600")
 
-HomeSection:NewLabel("Version 1.4")
+HomeSection:NewLabel("Version 1.5!")
 
 local UpdateSection = Home:NewSection("Updates")
 
-UpdateSection:NewLabel("Added raise a floppa script in games")
+UpdateSection:NewLabel("Added friend all and new Pet animations script")
 
 local Player = Window:NewTab("Main")
 local PlayerSection = Player:NewSection("Player")
@@ -182,6 +182,20 @@ OtherSection:NewButton("Build Tools", "Gives you building tools", function()
         HopperBin = Instance.new("HopperBin", game.Players.LocalPlayer.Backpack)
         HopperBin.BinType = item
     end
+end)
+
+OtherSection:NewButton("Friend all(New)", "Friends everyone in the game", function()
+	game.StarterGui:SetCore("SendNotification",  {
+		Title = "Friend all";
+		Text = "Friended all";
+		Duration = 2;
+		Callback = NotificationBindable;
+	   })
+
+local obese = game:GetService('Players')
+for _,kachow in pairs(obese:GetPlayers()) do
+obese.LocalPlayer:RequestFriendship(kachow, kachow)
+end
 end)
 
 OtherSection:NewButton("Teleport tool", "Click anywhere with the tool to teleport to your mouse", function()
@@ -5237,7 +5251,7 @@ AnimationsSection:NewButton("Among OOS", "E", function()
 	 loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Among%20us", true))()
 end)
 
-AnimationsSection:NewButton("Pet script", "turns u into a pet", function()
+AnimationsSection:NewButton("Pet script(NEW!)", "turns u into a pet", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Pet%20script", true))()
 end)
 
