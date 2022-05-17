@@ -19,7 +19,7 @@ local StarterGui = game:GetService("StarterGui")
 
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Hex Hub Trolling Gui", "DarkTheme")
+local Window = Library.CreateLib("Hex Hub Trolling Gui", "BloodTheme")
 
 local noclip = false
 
