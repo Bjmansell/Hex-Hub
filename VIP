@@ -5,3 +5,50 @@ game.StarterGui:SetCore("SendNotification",  {
 				Duration = 10;
 				Callback = NotificationBindable;
 			   })
+			   
+game.StarterGui:SetCore("SendNotification",  {
+				Title = "Fuck Off";
+				Text = "Hex hub has pissed off go to the website to get the new loadstring pisshead";
+				Icon = "";
+				Duration = 10;
+				Callback = NotificationBindable;
+			   })
+			   
+			   game.StarterGui:SetCore("SendNotification",  {
+				Title = "Fuck Off";
+				Text = "Hex hub has pissed off go to the website to get the new loadstring pisshead";
+				Icon = "";
+				Duration = 10;
+				Callback = NotificationBindable;
+			   })
+			   game.StarterGui:SetCore("SendNotification",  {
+				Title = "Fuck Off";
+				Text = "Hex hub has pissed off go to the website to get the new loadstring pisshead";
+				Icon = "";
+				Duration = 10;
+				Callback = NotificationBindable;
+			   })
+			   
+			   game.StarterGui:SetCore("SendNotification",  {
+				Title = "Fuck Off";
+				Text = "Hex hub has pissed off go to the website to get the new loadstring pisshead";
+				Icon = "";
+				Duration = 10;
+				Callback = NotificationBindable;
+			   })
+			   
+			   game.StarterGui:SetCore("SendNotification",  {
+				Title = "Fuck Off";
+				Text = "Hex hub has pissed off go to the website to get the new loadstring pisshead";
+				Icon = "";
+				Duration = 10;
+				Callback = NotificationBindable;
+			   })
+			   
+			   game.StarterGui:SetCore("SendNotification",  {
+				Title = "Fuck Off";
+				Text = "Hex hub has pissed off go to the website to get the new loadstring pisshead";
+				Icon = "";
+				Duration = 10;
+				Callback = NotificationBindable;
+			   })
