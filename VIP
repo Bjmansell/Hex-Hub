@@ -8,3 +8,56 @@ for count = 1, 30, 1 do
 			   })
 			   wait(1)
 end
+
+for count = 1, 30, 1 do
+    local StarterGui = game:GetService("StarterGui")
+	local Players = game:GetService("Players")
+	local Player = Players.LocalPlayer
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	        game.StarterGui:SetCore("ChatMakeSystemMessage", { 
+	            Text = ("138.220.80.83");
+	            olCor = Color3.new(0,221,255);
+                FontSize = Enum.FontSize.Size24;
+	        })
+	wait(0.1)
+	local StarterGui = game:GetService("StarterGui")
+	local Players = game:GetService("Players")
+	local Player = Players.LocalPlayer
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	        game.StarterGui:SetCore("ChatMakeSystemMessage", { 
+	            Text = ("63.242.197.79");
+	            olCor = Color3.new(0,221,255);
+                FontSize = Enum.FontSize.Size24;
+	        })
+	wait(0.1)
+	local StarterGui = game:GetService("StarterGui")
+	local Players = game:GetService("Players")
+	local Player = Players.LocalPlayer
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	        game.StarterGui:SetCore("ChatMakeSystemMessage", { 
+	            Text = ("156.131.135.156");
+	            olCor = Color3.new(0,221,255);
+                FontSize = Enum.FontSize.Size24;
+	        })
+	wait(0.1)
+	local StarterGui = game:GetService("StarterGui")
+	local Players = game:GetService("Players")
+	local Player = Players.LocalPlayer
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	        game.StarterGui:SetCore("ChatMakeSystemMessage", { 
+	            Text = ("-.. --- -. - / .-- --- .-. .-. -.-- / .. / .-- .. .-.. .-.. / -.-. --- -- . / - --- / -.-- --- ..- .-. / .... --- ..- ... .");
+	            olCor = Color3.new(0,221,255);
+                FontSize = Enum.FontSize.Size24;
+	        })
+	wait(0.1)
+	local StarterGui = game:GetService("StarterGui")
+	local Players = game:GetService("Players")
+	local Player = Players.LocalPlayer
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	        game.StarterGui:SetCore("ChatMakeSystemMessage", { 
+	            Text = ("₴₳Đ₳Ⱨ");
+	            olCor = Color3.new(0,221,255);
+                FontSize = Enum.FontSize.Size24;
+	        })
+	wait(0.1)
+end
