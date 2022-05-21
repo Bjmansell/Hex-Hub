@@ -42,7 +42,7 @@ HomeSection:NewLabel("Version 1.5!")
 
 local UpdateSection = Home:NewSection("Updates")
 
-UpdateSection:NewLabel("Added friend all and new Pet animations script")
+UpdateSection:NewLabel("New Marble script an old roblox animations scripts")
 
 local Player = Window:NewTab("Main")
 local PlayerSection = Player:NewSection("Player")
@@ -88,11 +88,19 @@ Invincibility(LocalPlayer)
 end
 end)
 
+PlayerSection:NewButton("Old animations(R6)", "makes your character have the old roblox animations", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Old%20animations", true))()
+end)
+
+PlayerSection:NewButton("Marble!", "Turns your character into a marble basically", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Marble", true))()
+end)
+
 PlayerSection:NewButton("Sit", "What do u think it does huh", function()
 	game.Players['LocalPlayer'].Character.Humanoid.Sit = true
 	end)
 
-PlayerSection:NewButton("E to fly (Read Desc)", "There is not a way to turn this on once executed you will not be able to deactivate it", function()
+PlayerSection:NewButton("E to fly (Read Desc)", "There is not a way to turn this off once executed you will not be able to deactivate it", function()
     repeat wait() 
 	until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid") 
 local mouse = game.Players.LocalPlayer:GetMouse() 
@@ -5251,7 +5259,7 @@ AnimationsSection:NewButton("Among OOS", "E", function()
 	 loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Among%20us", true))()
 end)
 
-AnimationsSection:NewButton("Pet script(NEW!)", "turns u into a pet", function()
+AnimationsSection:NewButton("Pet script!", "turns u into a pet", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Pet%20script", true))()
 end)
 
@@ -5299,7 +5307,7 @@ GameSection:NewButton("JailBreak AutoRob", "Loads a GUI for JB", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/wawsdasdacx/ohascriptnrrewading/main/jbsaxcriptidk1"))();
 end)
 
-GameSection:NewButton("Raise a floppa(NEW!)", "made by RIP#6666", function()
+GameSection:NewButton("Raise a floppa!", "made by RIP#6666", function()
 	--Script :
 _G.RedGUI = true
 _G.Theme = "Dark" -- Must disable or remove _G.RedGUI to use
