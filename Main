@@ -67,8 +67,14 @@ PlayerSection:NewButton("Walk on walls", "keybind for this is z(Not By Me)", fun
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Walk%20on%20walls", true))()
 end)
 
-PlayerSection:NewButton("Teleport to player", "Loads a teleport GUI", function()
-    loadstring(game:HttpGet("https://gist.githubusercontent.com/DagerFild/b4776075a0d26ef04394133ee6bd2081/raw/0ed51ac94057d2d9a9f00e1b037b9011c76ca54a/tpGUI", true))()
+PlayerSection:NewTextBox("Teleport to player", "Put the full name including caps", function(txt)
+    local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+local pl2 = txt
+local humanoid = game.Players.LocalPlayer.Character.Humanoid
+humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+wait(0.1)
+
+pl.CFrame = game.Players[pl2].Character.HumanoidRootPart.CFrame
 end)
 
 PlayerSection:NewButton("God Mode", "Makes your character invinsible/Hard in most games", function()
