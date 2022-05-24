@@ -38,11 +38,11 @@ local HomeSection = Home:NewSection("Home")
 
 HomeSection:NewLabel("Created by Swax_0/!!!Swax#2600")
 
-HomeSection:NewLabel("Version 1.5!")
+HomeSection:NewLabel("Version 1.8!")
 
 local UpdateSection = Home:NewSection("Updates")
 
-UpdateSection:NewLabel("New Marble script an old roblox animations scripts")
+UpdateSection:NewLabel("New Chat Bypass(Script by kaid Gui by me!)")
 
 local Player = Window:NewTab("Main")
 local PlayerSection = Player:NewSection("Player")
@@ -198,7 +198,7 @@ OtherSection:NewButton("Build Tools", "Gives you building tools", function()
     end
 end)
 
-OtherSection:NewButton("Friend all(New)", "Friends everyone in the game", function()
+OtherSection:NewButton("Friend all", "Friends everyone in the game", function()
 	game.StarterGui:SetCore("SendNotification",  {
 		Title = "Friend all";
 		Text = "Friended all";
@@ -5281,6 +5281,133 @@ end)
 
 AdminSection:NewButton("Revz Admin", "Loads the GUI i dont even know why u looking at this", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/WnWVpzzr", true))()
+end)
+
+local OtherSection = Player:NewSection("Other")
+
+OtherSection:NewButton("Chat Bypass Script(NEW!!!)", "Lets you sayw hat ever you want(words only)", function()
+	local CoolGUI = Instance.new("ScreenGui")
+local MainGUI = Instance.new("Frame")
+local TextBox = Instance.new("TextBox")
+local ActivateBTN = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local UICorner_2 = Instance.new("UICorner")
+local IntroductionGUI = Instance.new("Frame")
+local UICorner_3 = Instance.new("UICorner")
+local TextLabel = Instance.new("TextLabel")
+
+CoolGUI.Name = "CoolGUI"
+CoolGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+CoolGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+MainGUI.Name = "MainGUI"
+MainGUI.Parent = CoolGUI
+MainGUI.AnchorPoint = Vector2.new(0.5, 0.5)
+MainGUI.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+MainGUI.BorderSizePixel = 0
+MainGUI.Position = UDim2.new(0.5, 0, -1, 0)
+MainGUI.Size = UDim2.new(0, 556, 0, 36)
+
+TextBox.Parent = MainGUI
+TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.BackgroundTransparency = 1.000
+TextBox.BorderSizePixel = 0
+TextBox.Size = UDim2.new(0.881578922, 0, 1, 0)
+TextBox.Font = Enum.Font.Gotham
+TextBox.PlaceholderText = "Insert Word Here"
+TextBox.Text = ""
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.TextSize = 14.000
+
+ActivateBTN.Name = "ActivateBTN"
+ActivateBTN.Parent = MainGUI
+ActivateBTN.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+ActivateBTN.BorderSizePixel = 0
+ActivateBTN.Position = UDim2.new(0.881578922, 0, 0, 0)
+ActivateBTN.Size = UDim2.new(0.118421055, 0, 1, 0)
+ActivateBTN.Font = Enum.Font.GothamBold
+ActivateBTN.Text = "<"
+ActivateBTN.TextColor3 = Color3.fromRGB(255, 255, 255)
+ActivateBTN.TextSize = 20.000
+
+UICorner.Parent = ActivateBTN
+
+UICorner_2.Parent = MainGUI
+
+IntroductionGUI.Name = "IntroductionGUI"
+IntroductionGUI.Parent = CoolGUI
+IntroductionGUI.AnchorPoint = Vector2.new(0.5, 0.5)
+IntroductionGUI.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+IntroductionGUI.BorderSizePixel = 0
+IntroductionGUI.Position = UDim2.new(0.5, 0, -1, 0)
+IntroductionGUI.Size = UDim2.new(0, 556, 0, 36)
+
+UICorner_3.Parent = IntroductionGUI
+
+TextLabel.Parent = IntroductionGUI
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.BorderSizePixel = 0
+TextLabel.Size = UDim2.new(1, 0, 1, 0)
+TextLabel.Font = Enum.Font.GothamBold
+TextLabel.Text = "Welcome to Hex Hub Bypasser(all Credit goes to kaid for the script), Press L to Activate the GUI."
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 14.000
+
+local function GXNXTWW_fake_script()
+local script = Instance.new('LocalScript', MainGUI)
+
+local Mouse = game.Players.LocalPlayer:GetMouse()
+local isappeared = false
+
+Mouse.KeyDown:Connect(function(k)
+if k == "l" then
+if isappeared == false then
+script.Parent:TweenPosition(UDim2.new(0.5,0,0.2,0), "Out", "Quad", 0.5, true)
+isappeared = true
+else
+script.Parent:TweenPosition(UDim2.new(0.5,0,-1,0), "Out", "Quad", 0.5, true)
+isappeared = false
+end
+end
+end)
+
+script.Parent.ActivateBTN.MouseButton1Click:connect(function()
+-- Chat bypass script by Kaid#0001 :3
+script.Parent.ActivateBTN.BackgroundColor3 = Color3.new(0.180392, 0.870588, 0.239216)
+
+local message = script.Parent.TextBox.Text
+
+math.randomseed(tick())
+local ChatMain = require(game:GetService("Players").LocalPlayer.PlayerScripts.ChatScript.ChatMain)
+
+local function bypass()
+ChatMain.MessagePosted:fire("dffhdfshfd"..math.random(100000,1000000))
+ChatMain.MessagesChanged:fire(math.random(100000,1000000))
+end
+
+for v in message:gmatch"." do
+wait(.5)
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(v, "All")
+wait(.5)
+bypass()
+end
+
+wait(1)
+
+script.Parent.ActivateBTN.BackgroundColor3 = Color3.new(0.0980392, 0.0980392, 0.0980392)
+end)
+end
+coroutine.wrap(GXNXTWW_fake_script)()
+local function KDEKJQX_fake_script()
+local script = Instance.new('LocalScript', IntroductionGUI)
+
+wait(1)
+script.Parent:TweenPosition(UDim2.new(0.5,0,0.2,0), "Out", "Quad", 0.5, true)
+wait(3)
+script.Parent:TweenPosition(UDim2.new(0.5,0,-1,0), "Out", "Quad", 0.5, true)
+end
+coroutine.wrap(KDEKJQX_fake_script)()
 end)
 
 --Games section
