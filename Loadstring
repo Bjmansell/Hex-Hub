@@ -1,1 +1,1 @@
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Theme%20pIcker.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Main'))()
