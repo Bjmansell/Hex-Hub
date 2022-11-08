@@ -38,11 +38,11 @@ local HomeSection = Home:NewSection("Home:")
 
 HomeSection:NewLabel("Created by Swax_0/!!!Swax#2600")
 
-HomeSection:NewLabel("Version 2.11!")
+HomeSection:NewLabel("V3.1!")
 
 local UpdateSection = Home:NewSection("Updates:")
 
-UpdateSection:NewLabel("New Free anims tab, DBB script!")
+UpdateSection:NewLabel("WTRB script, Nameless animations, bighead V3")
 
 local Player = Window:NewTab("Main")
 local PlayerSection = Player:NewSection("Player:")
