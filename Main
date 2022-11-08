@@ -63,6 +63,20 @@ PlayerSection:NewSlider("FOV", "Changes your FOV", 120, 20, function(v)
     game:GetService'Workspace'.Camera.FieldOfView = v
 end)
 
+PlayerSection:NewButton("Big Head V3", "Where a rthro head at max head size", function()
+    --  ((Packed with care by sysGhost/BiKode))
+--  Remember to use R15 with Rthro avatar(head) and scale ur head at max
+
+for i,v in pairs(game.Players.LocalPlayer.Character.Humanoid:GetChildren()) do
+    if string.find(v.Name,"Scale") and v.Name ~= "HeadScale" then
+        repeat wait(HeadGrowSpeed) until game.Players.LocalPlayer.Character.Head:FindFirstChild("OriginalSize")
+        game.Players.LocalPlayer.Character.Head.OriginalSize:Destroy()
+        v:Destroy()
+        game.Players.LocalPlayer.Character.Head:WaitForChild("OriginalSize")
+    end
+ end
+end)
+
 PlayerSection:NewButton("Walk on walls", "keybind for this is z(Not By Me)", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Walk%20on%20walls", true))()
 end)
