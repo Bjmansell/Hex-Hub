@@ -241,6 +241,9 @@ OtherSection:NewButton("Universal Aimbot (Beta)", "It is what it says on the tin
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Bjmansell/Hex-Hub/main/Aimbot", true))()
 end)
 
+OtherSection:NewButton("Chat Art", "Turns your chat into art with >.<)", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/omegachadgaming/mongus/main/main.lua", true))()
+end)
 
 
 OtherSection:NewButton("LessLag", "Turns ur graphics down to potato level", function()
