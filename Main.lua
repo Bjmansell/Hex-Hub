@@ -1,5 +1,3 @@
---Made by ur mum
-
 local StarterGui = game:GetService("StarterGui")
 	local Players = game:GetService("Players")
 	local Player = Players.LocalPlayer
@@ -6531,9 +6529,9 @@ AdminSection:NewButton("Revz Admin", "Loads the GUI i dont even know why u looki
     loadstring(game:HttpGet("https://pastebin.com/raw/WnWVpzzr", true))()
 end)
 
-local UniversalSection = Player:NewSection("Universal")
+local OtherSection = Player:NewSection("Other")
 
-UniversalSection:NewButton("Chat Bypass Script", "Lets you say what ever you want(1 word only)", function()
+OtherSection:NewButton("Chat Bypass Script", "Lets you say what ever you want(1 word only)", function()
 	local CoolGUI = Instance.new("ScreenGui")
 local MainGUI = Instance.new("Frame")
 local TextBox = Instance.new("TextBox")
@@ -6658,7 +6656,7 @@ end
 coroutine.wrap(KDEKJQX_fake_script)()
 end)
 
-UniversalSection:NewButton("Stream Sniper", "Opens a ui that lets you in to anyones game", function()
+OtherSection:NewButton("Stream Sniper", "Opens a ui that lets you in to anyones game", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/Miscellaneous/main/StreamSniper.lua"))()
 end)
 
@@ -6693,8 +6691,15 @@ getgenv().mainKey = "nil"
 local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
 end)
 
-GameSection:NewButton("JailBreak AutoRob", "Loads a GUI for JB", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/wawsdasdacx/ohascriptnrrewading/main/jbsaxcriptidk1"))();
+GameSection:NewButton("JailBreak AutoRob(Patched)", "Probably aint coming back", function()
+    game.StarterGui:SetCore("SendNotification",  {
+        Title = "Patched";
+        Text = "This script is patched/ill try find another one!";
+        Icon = "";
+        Duration = 10;
+        Callback = NotificationBindable;
+       })
+
 end)
 
 GameSection:NewButton("Raise a floppa!", "made by RIP#6666", function()
