@@ -6693,15 +6693,8 @@ getgenv().mainKey = "nil"
 local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
 end)
 
-GameSection:NewButton("JailBreak AutoRob(Patched)", "Probably aint coming back", function()
-    game.StarterGui:SetCore("SendNotification",  {
-        Title = "Patched";
-        Text = "This script is patched/ill try find another one!";
-        Icon = "";
-        Duration = 10;
-        Callback = NotificationBindable;
-       })
-
+GameSection:NewButton("JailBreak AutoRob", "Loads a GUI for JB", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/wawsdasdacx/ohascriptnrrewading/main/jbsaxcriptidk1"))();
 end)
 
 GameSection:NewButton("Raise a floppa!", "made by RIP#6666", function()
