@@ -1,3 +1,5 @@
+--Made by ur mum
+
 local StarterGui = game:GetService("StarterGui")
 	local Players = game:GetService("Players")
 	local Player = Players.LocalPlayer
@@ -6529,7 +6531,7 @@ AdminSection:NewButton("Revz Admin", "Loads the GUI i dont even know why u looki
     loadstring(game:HttpGet("https://pastebin.com/raw/WnWVpzzr", true))()
 end)
 
-local OtherSection = Player:NewSection("Other")
+local OtherSection = Player:NewSection("Universal")
 
 OtherSection:NewButton("Chat Bypass Script", "Lets you say what ever you want(1 word only)", function()
 	local CoolGUI = Instance.new("ScreenGui")
