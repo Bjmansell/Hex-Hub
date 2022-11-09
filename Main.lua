@@ -6531,9 +6531,9 @@ AdminSection:NewButton("Revz Admin", "Loads the GUI i dont even know why u looki
     loadstring(game:HttpGet("https://pastebin.com/raw/WnWVpzzr", true))()
 end)
 
-local OtherSection = Player:NewSection("Universal")
+local UniversalSection = Player:NewSection("Universal")
 
-OtherSection:NewButton("Chat Bypass Script", "Lets you say what ever you want(1 word only)", function()
+UniversalSection:NewButton("Chat Bypass Script", "Lets you say what ever you want(1 word only)", function()
 	local CoolGUI = Instance.new("ScreenGui")
 local MainGUI = Instance.new("Frame")
 local TextBox = Instance.new("TextBox")
@@ -6658,7 +6658,7 @@ end
 coroutine.wrap(KDEKJQX_fake_script)()
 end)
 
-OtherSection:NewButton("Stream Sniper", "Opens a ui that lets you in to anyones game", function()
+UniversalSection:NewButton("Stream Sniper", "Opens a ui that lets you in to anyones game", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/Miscellaneous/main/StreamSniper.lua"))()
 end)
 
