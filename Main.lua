@@ -38,11 +38,11 @@ local HomeSection = Home:NewSection("Home:")
 
 HomeSection:NewLabel("Created by Swax_0/!!!Swax#2600")
 
-HomeSection:NewLabel("Version 2.11!")
+HomeSection:NewLabel("V3.1!")
 
 local UpdateSection = Home:NewSection("Updates:")
 
-UpdateSection:NewLabel("New Free anims tab, DBB script!")
+UpdateSection:NewLabel("WTRB script, Nameless animations, bighead V3")
 
 local Player = Window:NewTab("Main")
 local PlayerSection = Player:NewSection("Player:")
@@ -6691,15 +6691,8 @@ getgenv().mainKey = "nil"
 local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
 end)
 
-GameSection:NewButton("JailBreak AutoRob(Patched)", "Probably aint coming back", function()
-    game.StarterGui:SetCore("SendNotification",  {
-        Title = "Patched";
-        Text = "This script is patched/ill try find another one!";
-        Icon = "";
-        Duration = 10;
-        Callback = NotificationBindable;
-       })
-
+GameSection:NewButton("JailBreak", "vynixius", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Vynixius/main/Loader.lua"))()
 end)
 
 GameSection:NewButton("Raise a floppa!", "made by RIP#6666", function()
